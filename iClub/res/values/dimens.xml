@@ -42,5 +42,13 @@
     <dimen name="tabview_margin_top_title">2dp</dimen>
     <dimen name="tabview_divider_line_height">1dp</dimen>
     <dimen name="tabview_divider_line_margin_bottom">2dp</dimen>
+    
+    <dimen name="activity_title_height">46dp</dimen>
+    <dimen name="activity_title_left_btn_width">36dp</dimen>
+    <dimen name="activity_title_left_btn_height">36dp</dimen>
+    <dimen name="activity_title_right_btn_width">36dp</dimen>
+    <dimen name="activity_title_right_btn_height">36dp</dimen>
+    <dimen name="activity_title_left_btn_margin_left">6dp</dimen>
+    <dimen name="activity_title_right_btn_margin_right">6dp</dimen>
 
 </resources>
