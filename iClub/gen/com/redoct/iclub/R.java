@@ -25,6 +25,7 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int activity_title_bg=0x7f050016;
         public static final int agreetext=0x7f050002;
         public static final int background=0x7f050001;
         public static final int bg_classify_fond_gray=0x7f05000e;
@@ -41,6 +42,9 @@ public final class R {
         public static final int possible_result_points=0x7f05000b;
         public static final int red=0x7f050000;
         public static final int result_view=0x7f050009;
+        public static final int tabview_color_divider_line=0x7f050015;
+        public static final int tabview_color_normal=0x7f050013;
+        public static final int tabview_color_selected=0x7f050014;
         public static final int transprent=0x7f050012;
         public static final int viewfinder_mask=0x7f05000a;
         public static final int white=0x7f050010;
@@ -53,6 +57,13 @@ public final class R {
     
          */
         public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_title_height=0x7f060015;
+        public static final int activity_title_left_btn_height=0x7f060017;
+        public static final int activity_title_left_btn_margin_left=0x7f06001a;
+        public static final int activity_title_left_btn_width=0x7f060016;
+        public static final int activity_title_right_btn_height=0x7f060019;
+        public static final int activity_title_right_btn_margin_right=0x7f06001b;
+        public static final int activity_title_right_btn_width=0x7f060018;
         public static final int activity_vertical_margin=0x7f060001;
         /**  基本ITEM的高度 
          */
@@ -63,9 +74,9 @@ public final class R {
         /**  基本内容上缩进 
          */
         public static final int base_margin_top=0x7f060002;
-        public static final int font_size_baseline=0x7f06000f;
-        public static final int font_size_com=0x7f06000e;
-        public static final int font_size_com_second=0x7f060010;
+        public static final int font_size_baseline=0x7f06001d;
+        public static final int font_size_com=0x7f06001c;
+        public static final int font_size_com_second=0x7f06001e;
         public static final int home_item_dimen=0x7f06000b;
         /**  通用输入框的高度 
          */
@@ -87,30 +98,62 @@ public final class R {
         /**  tab的高度 
          */
         public static final int tab_height=0x7f06000d;
+        public static final int tabview_divider_line_height=0x7f060013;
+        public static final int tabview_divider_line_margin_bottom=0x7f060014;
+        public static final int tabview_height=0x7f06000f;
+        public static final int tabview_icon_height=0x7f060011;
+        public static final int tabview_icon_width=0x7f060010;
+        public static final int tabview_margin_top_title=0x7f060012;
+        public static final int textsize_small=0x7f06000e;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0006;
-        public static final int bt_dialog_left=0x7f0a0002;
-        public static final int bt_dialog_right=0x7f0a0003;
-        public static final int define_progress_msg=0x7f0a0005;
-        public static final int dialog_progress=0x7f0a0004;
-        public static final int tv_dialog_msg=0x7f0a0001;
-        public static final int tv_dialog_title=0x7f0a0000;
+        public static final int action_settings=0x7f0a0018;
+        public static final int bt_dialog_left=0x7f0a0014;
+        public static final int bt_dialog_right=0x7f0a0015;
+        public static final int contentLayout=0x7f0a0000;
+        public static final int define_progress_msg=0x7f0a0017;
+        public static final int dialog_progress=0x7f0a0016;
+        public static final int leftBtn=0x7f0a0003;
+        public static final int mContainer0Layout=0x7f0a0006;
+        public static final int mContainer1Layout=0x7f0a0009;
+        public static final int mContainer2Layout=0x7f0a000c;
+        public static final int mContainer3Layout=0x7f0a000f;
+        public static final int mIcon0ImageView=0x7f0a0007;
+        public static final int mIcon1ImageView=0x7f0a000a;
+        public static final int mIcon2ImageView=0x7f0a000d;
+        public static final int mIcon3ImageView=0x7f0a0010;
+        public static final int mOptionName0Tv=0x7f0a0008;
+        public static final int mOptionName1Tv=0x7f0a000b;
+        public static final int mOptionName2Tv=0x7f0a000e;
+        public static final int mOptionName3Tv=0x7f0a0011;
+        public static final int mTabView=0x7f0a0001;
+        public static final int mTitleContainer=0x7f0a0002;
+        public static final int mTitleView=0x7f0a0005;
+        public static final int rightBtn=0x7f0a0004;
+        public static final int tv_dialog_msg=0x7f0a0013;
+        public static final int tv_dialog_title=0x7f0a0012;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activity_splash=0x7f030001;
-        public static final int dialog_comm=0x7f030002;
-        public static final int progresslayout=0x7f030003;
+        public static final int activity_title=0x7f030002;
+        public static final int custom_my_tabview=0x7f030003;
+        public static final int dialog_comm=0x7f030004;
+        public static final int fragment_activities=0x7f030005;
+        public static final int fragment_invitation=0x7f030006;
+        public static final int fragment_my_plans=0x7f030007;
+        public static final int fragment_myself=0x7f030008;
+        public static final int progresslayout=0x7f030009;
     }
     public static final class menu {
         public static final int main=0x7f090000;
     }
     public static final class string {
         public static final int action_settings=0x7f070001;
+        public static final int activities=0x7f070098;
         public static final int app_name=0x7f070000;
         public static final int customer_cusinfo=0x7f070053;
         public static final int customer_detail=0x7f070051;
@@ -163,6 +206,7 @@ public final class R {
         public static final int integral_firstbuy=0x7f07005b;
         public static final int integral_spdatebuy=0x7f07005c;
         public static final int integral_title=0x7f070057;
+        public static final int invitation=0x7f070097;
         public static final int lastUpdateTime=0x7f070086;
         public static final int load_full=0x7f070087;
         public static final int login=0x7f07000c;
@@ -173,7 +217,9 @@ public final class R {
         public static final int login_pwd=0x7f07000a;
         public static final int login_register=0x7f07000e;
         public static final int login_rememberpwd=0x7f07000b;
+        public static final int me=0x7f070099;
         public static final int more=0x7f070089;
+        public static final int my_plans=0x7f070096;
         public static final int nav_back=0x7f070004;
         public static final int nav_done=0x7f070006;
         public static final int nav_nextstep=0x7f070005;
