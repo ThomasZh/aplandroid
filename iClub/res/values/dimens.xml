@@ -33,5 +33,14 @@
 
 	<!-- tab的高度 -->
 	<dimen name="tab_height">40dp</dimen>
+	
+	<dimen name="textsize_small">16sp</dimen>
+    
+    <dimen name="tabview_height">60dp</dimen>
+    <dimen name="tabview_icon_width">32dp</dimen>
+    <dimen name="tabview_icon_height">32dp</dimen>
+    <dimen name="tabview_margin_top_title">2dp</dimen>
+    <dimen name="tabview_divider_line_height">1dp</dimen>
+    <dimen name="tabview_divider_line_margin_bottom">2dp</dimen>
 
 </resources>

@@ -160,4 +160,9 @@
     <string name="text3">修改邮箱申请 如果你忘记或需要变更注册邮箱，可通过提交《修改邮箱申请表》进行操作</string>
     <string name="text4">手机绑定解除 可通过绑定的手机找回用户名</string>
     
+    <string name="my_plans">我的计划</string>
+    <string name="invitation">邀请</string>
+    <string name="activities">活动</string>
+    <string name="me">我</string>
+    
 </resources>
