@@ -7,6 +7,15 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
+<<<<<<< HEAD
+=======
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- to get device id -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- check network availability -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+>>>>>>> origin/master
 
     <application
         android:name="com.redoct.iclub.iClubApplication"
