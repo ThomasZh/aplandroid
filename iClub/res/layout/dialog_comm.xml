@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="280dp"
+	android:layout_height="wrap_content"
+	android:background="#e9e9e9"
+	android:minHeight="150dp"
+	android:orientation="vertical" >
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:gravity="center"
+		android:orientation="vertical" >
+
+		<TextView
+			android:id="@+id/tv_dialog_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:text="asdfasdf"
+			android:textColor="#676767"
+			android:textSize="@dimen/font_size_com"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/tv_dialog_msg"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="asdfasdf"
+			android:textColor="#7c7c7c"
+			android:textSize="@dimen/font_size_baseline" />
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="#c8c8c8" >
+	</TextView>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:orientation="horizontal" >
+
+		<Button
+			android:id="@+id/bt_dialog_left"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:background="@android:color/transparent"
+			android:text="取消"
+			android:textColor="@color/red"
+			android:width="0dp" />
+
+		<TextView
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="#c8c8c8" >
+		</TextView>
+
+		<Button
+			android:id="@+id/bt_dialog_right"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:background="@android:color/transparent"
+			android:text="确定"
+			android:textColor="@color/red"
+			android:width="0dp" />
+	</LinearLayout>
+
+</LinearLayout>
