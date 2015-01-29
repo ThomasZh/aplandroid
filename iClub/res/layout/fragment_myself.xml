@@ -1,11 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
- android:layout_width="match_parent"
- android:layout_height="match_parent"
- android:orientation="vertical" >
- <TextView 
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:gravity="center"
-     android:text="@string/me"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical" >
+ <include layout="@layout/activity_title"/>
+
+    <RelativeLayout
+        android:id="@+id/myself_information"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/myself_detail_height"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_radio_color_white" >
+
+        <ImageView
+            android:id="@+id/myhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/myname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="chengxiaocai"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/mymore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_launcher" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/myself_item_height"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_radio_color_white"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/connctor"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radio_color_red"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/connctor" />
+
+        <TextView
+              android:paddingTop="5dp"
+             android:paddingBottom="5dp"
+               android:layout_margin="5dp"
+                android:layout_height="30dp"
+            android:id="@+id/friends"
+            android:layout_width="0dp"
+            
+            android:layout_weight="1"
+            android:background="@drawable/bg_radio_color_red"
+            android:gravity="center"
+            android:text="@string/friends" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/myself_item_height"
+        android:layout_margin="15dp"
+        android:background="@drawable/bg_radio_color_white"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/alterpass"
+              android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radio_color_red"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/alterpass" />
+
+        <TextView
+            android:id="@+id/quit"
+              android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_radio_color_red"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text="@string/quit" />
+    </LinearLayout>
+
 </LinearLayout>
