@@ -32,7 +32,10 @@
         <activity
             android:name="com.redoct.iclub.MainActivity"
             android:label="@string/app_name" >
-            
+        </activity>
+        <activity
+            android:name="com.redoct.iclub.ui.activity.ActivityDetaisActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 

@@ -168,5 +168,7 @@
     <string name="title_activities">圈子活动</string>
     <string name="month">月</string>
     <string name="day">日</string>
+    <string name="activity_of_somebody">的活动</string>
+    <string name="articipants">---参加人员---</string>
     
 </resources>
