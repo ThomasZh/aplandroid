@@ -5,11 +5,13 @@ import java.io.UnsupportedEncodingException;
 import org.apache.mina.core.session.IoSession;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -25,6 +27,7 @@ import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.task.ServerConfigTask;
 import com.redoct.iclub.task.StpClient;
 import com.redoct.iclub.task.StpHandler;
+import com.redoct.iclub.task.UserLoginTask;
 import com.redoct.iclub.util.DeviceUtil;
 import com.redoct.iclub.util.NetworkChecker;
 import com.redoct.iclub.util.ToastUtil;
@@ -163,8 +166,47 @@ public class iClubApplication extends Application implements
 			}
 		};
 		server.safeExecute();
+		server.then(new AutoLogin());
 
 	}
+	
+	private class AutoLogin implements Runnable{
+        @Override
+        public void run() {
+            
+        	UserLoginTask login = new UserLoginTask("thomas.zh@qq.com", "t"){
+                public void callback(){
+                    //popupHomepage();
+                }
+                public void failure(){
+                   // showToast(R.string.login_failure);
+//                    popupLogin();//re login
+                }
+                public void complete(){
+                    /*login = null;
+                    BusProvider.getInstance().post(new ProgressEvent(false));*/
+                }
+                public void before(){
+                    //BusProvider.getInstance().post(new ProgressEvent(true));
+                }
+                
+				@Override
+				public void timeout() {
+					// TODO Auto-generated method stub
+					super.timeout();
+					
+					Log.e("zyf", "time out.......");
+					
+					this.cancel(true);
+				}
+         
+            };
+            
+            //login.setTimeOutEnabled(true, 100);
+            login.safeExecute();
+
+        }
+    }
 
 	private BroadcastReceiver mReceiver =
 

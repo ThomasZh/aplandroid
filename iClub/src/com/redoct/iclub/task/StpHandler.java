@@ -66,7 +66,7 @@ public class StpHandler extends IoHandlerAdapter {
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		logger.info(">>> server response received!");
 		
-		Log.e("zyf","handler message received......");
+		//Log.e("zyf","handler message received......");
 
 		if (message == null) return;
 		
@@ -104,7 +104,7 @@ public class StpHandler extends IoHandlerAdapter {
 	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
 		super.exceptionCaught(session, cause);
 		
-		Log.e("zyf","handler exception caught......");
+		//Log.e("zyf","handler exception caught......");
 		
         logger.error("stp client exception!");
 
@@ -122,7 +122,7 @@ public class StpHandler extends IoHandlerAdapter {
 	public void messageSent(IoSession session, Object obj) throws Exception {
 		logger.info(">>> messge sent!");
 		
-		Log.e("zyf","handler message sent......");
+		//Log.e("zyf","handler message sent......");
 
 		super.messageSent(session, obj);
 	}
@@ -132,7 +132,7 @@ public class StpHandler extends IoHandlerAdapter {
 		logger.info(">>> session closed!");
 		super.sessionClosed(session);
 		
-		Log.e("zyf","handler session closed.....");
+		//Log.e("zyf","handler session closed.....");
 
 		SocketAddress lsa = session.getLocalAddress();
 		logger.info("local address=" + lsa.toString());
@@ -146,14 +146,14 @@ public class StpHandler extends IoHandlerAdapter {
 		logger.info(">>> session created!");
 		super.sessionCreated(session);
 		
-		Log.e("zyf","handler session created......");
+		//Log.e("zyf","handler session created......");
 	}
 
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
 		super.sessionIdle(session, status);
 		
-		Log.e("zyf","handler session idle......");
+		//Log.e("zyf","handler session idle......");
 
 		if (status == IdleStatus.WRITER_IDLE)
 			logger.info(">>> session idle!");
@@ -164,7 +164,7 @@ public class StpHandler extends IoHandlerAdapter {
 		logger.info(">>> session opened!");
 		super.sessionOpened(session);
 		
-		Log.e("zyf","handler session opened......");
+		//Log.e("zyf","handler session opened......");
 
 		SocketAddress lsa = session.getLocalAddress();
 		logger.info("local address=" + lsa.toString());

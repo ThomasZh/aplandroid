@@ -126,6 +126,8 @@ public class TemplateTask extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected void onCancelled() {
         pullback();
+        
+        complete();
     }
 
 

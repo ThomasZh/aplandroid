@@ -25,6 +25,6 @@
     <color name="tabview_color_selected">#ff0000</color>
     <color name="tabview_color_divider_line">#dddbdb</color>
     
-    <color name="activity_title_bg">#ff0000</color>
+    <color name="activity_title_bg">#e74242</color>
 
 </resources>
