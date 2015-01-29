@@ -23,6 +23,7 @@ import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.task.MeetupListTask;
+import com.redoct.iclub.util.DateUtils;
 
 public class ActivitiesFragment extends Fragment{
 	
@@ -33,9 +34,8 @@ public class ActivitiesFragment extends Fragment{
 	private ActivitiesBaseAdapter mActivitiesBaseAdapter;
 	
 	
-	
 	short pageNum=1;
-	short pageSize=10;
+	short pageSize=1;
 	
 	private MeetupListTask task;
 	
@@ -47,6 +47,8 @@ public class ActivitiesFragment extends Fragment{
 		View contentView=inflater.inflate(R.layout.fragment_activities, container, false);
 		
 		initTitle(contentView);
+		
+		//Log.e("zyf", "format date: "+DateUtils.getFormatDate(1422406800));
 	
 		
 		mPullToRefreshListView=(PullToRefreshListView)contentView.findViewById(R.id.mPullToRefreshListView);
@@ -88,7 +90,7 @@ public class ActivitiesFragment extends Fragment{
 	
 	private void loadData(){
 		
-		task=new MeetupListTask(pageNum,pageSize){
+		task=new MeetupListTask(getActivity(),pageNum,pageSize){
 			
 			@Override
 			public void timeout() {
@@ -178,7 +180,7 @@ public class ActivitiesFragment extends Fragment{
 	private void initTitle(View contentView){
 		
 		TextView mTitleView=(TextView) contentView.findViewById(R.id.mTitleView);
-		mTitleView.setText(getResources().getString(R.string.activities));
+		mTitleView.setText(getResources().getString(R.string.title_activities));
 
 	}
 

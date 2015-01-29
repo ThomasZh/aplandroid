@@ -11,7 +11,8 @@
      android:textColor="#000000"
      android:textSize="18sp"
      android:text="title"/>
- <LinearLayout 
+ <LinearLayout
+     android:id="@+id/mContentContainer" 
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
      android:layout_marginLeft="2dip"

@@ -1,6 +1,7 @@
 package com.redoct.iclub.task;
 
 import android.R.integer;
+import android.content.Context;
 import android.util.Log;
 
 import com.oct.ga.comm.DatetimeUtil;
@@ -31,6 +32,10 @@ public class MeetupListTask extends TemplateTask {
 	private short pageNum;
 	private short pageSize;
 	
+	private Context mContext;
+	
+	private DateUtils mDateUtils;
+	
 	private String result;
     
     public String getResult(){
@@ -43,11 +48,14 @@ public class MeetupListTask extends TemplateTask {
         return activityItems;
     }
     
-    public MeetupListTask(short pageNum,short pageSize){
+    public MeetupListTask(Context mContext,short pageNum,short pageSize){
     	activityItems = new ArrayList<ActivityItem>();
         
+    	this.mContext=mContext;
         this.pageNum=pageNum;
         this.pageSize=pageSize;
+        
+        mDateUtils=new DateUtils(mContext);
     }
 
     @Override
@@ -96,9 +104,10 @@ public class MeetupListTask extends TemplateTask {
             	item.setRecommendNum(jsonObject.getString("recommendNum"));
             	item.setState(jsonObject.getString("state"));
             	
-            	totalTime=DateUtils.getFormatDate(jsonObject.getInt("startTime"));
-            	item.setStartDate(totalTime.split(" ")[0]);
-            	item.setStartTime(totalTime.split(" ")[1]);
+            	totalTime=mDateUtils.getFormatDate(jsonObject.getInt("startTime"));
+            	
+            	item.setStartDate(totalTime.split(" ")[0]+"  "+totalTime.split(" ")[1]);
+            	item.setStartTime(totalTime.split(" ")[2]);
             	
             	activityItems.add(item);
             }

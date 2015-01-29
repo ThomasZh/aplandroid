@@ -165,4 +165,8 @@
     <string name="activities">活动</string>
     <string name="me">我</string>
     
+    <string name="title_activities">圈子活动</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    
 </resources>

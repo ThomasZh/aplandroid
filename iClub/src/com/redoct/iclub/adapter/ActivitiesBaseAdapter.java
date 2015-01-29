@@ -2,21 +2,24 @@ package com.redoct.iclub.adapter;
 
 import java.util.ArrayList;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.redoct.iclub.R;
-import com.redoct.iclub.item.ActivityItem;
-
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.redoct.iclub.R;
+import com.redoct.iclub.item.ActivityItem;
+import com.redoct.iclub.ui.activity.SplashActivity;
 
 public class ActivitiesBaseAdapter extends BaseAdapter {
 	
@@ -83,13 +86,12 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
             holder.mLeaderAvatarView= (ImageView) convertView.findViewById(R.id.mLeaderAvatarView);
             
             holder.mLocDescContainer= (LinearLayout)convertView.findViewById(R.id.mLocDescContainer);
+            holder.mContentContainer= (LinearLayout)convertView.findViewById(R.id.mContentContainer);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        
-        
         
         holder.mLeaderNameTv.setText(item.getLeaderName());
         holder.mStartTimeTv.setText(item.getStartTime());
@@ -114,6 +116,16 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         
         mImageLoader.displayImage(item.getLeaderAvatarUrl(), holder.mLeaderAvatarView, options);
         
+        holder.mContentContainer.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				
+				Intent intent=new Intent(mContext,SplashActivity.class);
+				mContext.startActivity(intent);
+			}
+		});
+        
 		return convertView;
 	}
 	
@@ -127,6 +139,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         ImageView mLeaderAvatarView;
         
         LinearLayout mLocDescContainer;
+        LinearLayout mContentContainer;
     }
 
 }

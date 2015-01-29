@@ -34,7 +34,13 @@
 	<!-- tab的高度 -->
 	<dimen name="tab_height">40dp</dimen>
 	
-	<dimen name="textsize_small">16sp</dimen>
+	<dimen name="textsize_smallest">16sp</dimen>
+	<dimen name="textsize_smaller">17sp</dimen>
+	<dimen name="textsize_small">18sp</dimen>
+	<dimen name="textsize_normal">19sp</dimen>
+	<dimen name="textsize_big">20sp</dimen>
+	<dimen name="textsize_bigger">21sp</dimen>
+	<dimen name="textsize_biggest">22sp</dimen>
     
     <dimen name="tabview_height">60dp</dimen>
     <dimen name="tabview_icon_width">32dp</dimen>
@@ -43,7 +49,7 @@
     <dimen name="tabview_divider_line_height">1dp</dimen>
     <dimen name="tabview_divider_line_margin_bottom">2dp</dimen>
     
-    <dimen name="activity_title_height">46dp</dimen>
+    <dimen name="activity_title_height">42dp</dimen>
     <dimen name="activity_title_left_btn_width">36dp</dimen>
     <dimen name="activity_title_left_btn_height">36dp</dimen>
     <dimen name="activity_title_right_btn_width">36dp</dimen>
