@@ -56,5 +56,9 @@
     <dimen name="activity_title_right_btn_height">36dp</dimen>
     <dimen name="activity_title_left_btn_margin_left">6dp</dimen>
     <dimen name="activity_title_right_btn_margin_right">6dp</dimen>
+    <!-- 个人中心，个人资料简介高度 -->
+    <dimen name="myself_detail_height">50dp</dimen>
+    <!-- 个人中心，item高度 -->
+    <dimen name="myself_item_height">50dp</dimen>
 
 </resources>
