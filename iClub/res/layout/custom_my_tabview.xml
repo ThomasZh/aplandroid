@@ -33,7 +33,7 @@
 		        android:gravity="center_horizontal"
 		        android:textColor="@color/tabview_color_normal"
 		        android:text="@string/my_plans"
-		        android:textSize="@dimen/textsize_small"/>
+		        android:textSize="@dimen/textsize_smaller"/>
 		</LinearLayout>
 		<LinearLayout
 		    android:id="@+id/mContainer1Layout"
@@ -54,7 +54,7 @@
 		        android:gravity="center_horizontal"
 		        android:textColor="@color/tabview_color_normal"
 		        android:text="@string/activities"
-		        android:textSize="@dimen/textsize_small"/>
+		        android:textSize="@dimen/textsize_smaller"/>
 		</LinearLayout>
 		<LinearLayout
 		    android:id="@+id/mContainer2Layout"
@@ -75,7 +75,7 @@
 		        android:gravity="center_horizontal"
 		        android:textColor="@color/tabview_color_normal"
 		        android:text="@string/invitation"
-		        android:textSize="@dimen/textsize_small"/>
+		        android:textSize="@dimen/textsize_smaller"/>
 		</LinearLayout>
 		<LinearLayout
 		    android:id="@+id/mContainer3Layout"
@@ -96,7 +96,7 @@
 		        android:gravity="center_horizontal"
 		        android:textColor="@color/tabview_color_normal"
 		        android:text="@string/me"
-		        android:textSize="@dimen/textsize_small"/>
+		        android:textSize="@dimen/textsize_smaller"/>
 		</LinearLayout>
     </LinearLayout>
 	

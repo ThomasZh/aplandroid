@@ -42,12 +42,12 @@
 	<dimen name="textsize_bigger">21sp</dimen>
 	<dimen name="textsize_biggest">22sp</dimen>
     
-    <dimen name="tabview_height">60dp</dimen>
+    <dimen name="tabview_height">56dp</dimen>
     <dimen name="tabview_icon_width">32dp</dimen>
     <dimen name="tabview_icon_height">32dp</dimen>
-    <dimen name="tabview_margin_top_title">2dp</dimen>
+    <dimen name="tabview_margin_top_title">0dp</dimen>
     <dimen name="tabview_divider_line_height">1dp</dimen>
-    <dimen name="tabview_divider_line_margin_bottom">2dp</dimen>
+    <dimen name="tabview_divider_line_margin_bottom">1dp</dimen>
     
     <dimen name="activity_title_height">42dp</dimen>
     <dimen name="activity_title_left_btn_width">36dp</dimen>
