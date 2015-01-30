@@ -35,7 +35,7 @@ public class ActivitiesFragment extends Fragment{
 	
 	
 	short pageNum=1;
-	short pageSize=1;
+	short pageSize=10;
 	
 	private MeetupListTask task;
 	

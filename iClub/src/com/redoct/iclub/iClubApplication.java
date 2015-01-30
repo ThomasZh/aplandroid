@@ -41,7 +41,7 @@ public class iClubApplication extends Application implements
 	public void onCreate() {
 
 		super.onCreate();
-		Thread.setDefaultUncaughtExceptionHandler(this);
+		//Thread.setDefaultUncaughtExceptionHandler(this);
 
 		initImageLoader(getApplicationContext());
 

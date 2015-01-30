@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MyPlansFragment extends Fragment implements OnClickListener{
+public class MyPlansFragment extends Fragment{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,29 +28,6 @@ public class MyPlansFragment extends Fragment implements OnClickListener{
 		
 		TextView mTitleView=(TextView) contentView.findViewById(R.id.mTitleView);
 		mTitleView.setText(getResources().getString(R.string.my_plans));
-		
-		Button leftBtn=(Button) contentView.findViewById(R.id.leftBtn);
-		Button rightBtn=(Button) contentView.findViewById(R.id.rightBtn);
-		
-		leftBtn.setVisibility(View.VISIBLE);
-		rightBtn.setVisibility(View.VISIBLE);
-		
-		leftBtn.setOnClickListener(this);
-		rightBtn.setOnClickListener(this);
 	}
 
-	@Override
-	public void onClick(View view) {
-		
-		switch (view.getId()) {
-		case R.id.leftBtn:
-			
-			break;
-        case R.id.rightBtn:
-			
-			break;
-		default:
-			break;
-		}
-	}
 }

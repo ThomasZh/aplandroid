@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityItem;
+import com.redoct.iclub.ui.activity.ActivityDetaisActivity;
 import com.redoct.iclub.ui.activity.SplashActivity;
 
 public class ActivitiesBaseAdapter extends BaseAdapter {
@@ -72,7 +73,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
 		ViewHolder holder;
-		ActivityItem item=activityItems.get(position);
+		final ActivityItem item=activityItems.get(position);
 		
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_activities_listview, parent, false);
@@ -121,7 +122,9 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View view) {
 				
-				Intent intent=new Intent(mContext,SplashActivity.class);
+				Intent intent=new Intent(mContext,ActivityDetaisActivity.class);
+				intent.putExtra("id", item.getId());
+				intent.putExtra("leaderName", item.getLeaderName());
 				mContext.startActivity(intent);
 			}
 		});
