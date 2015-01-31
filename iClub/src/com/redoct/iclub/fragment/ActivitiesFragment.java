@@ -145,6 +145,9 @@ public class ActivitiesFragment extends Fragment{
 				super.failure();
 				
 				Log.e("zyf", "get data failure....");
+				
+				mPullToRefreshListView.onRefreshComplete();
+				
 			}
 
 			@Override
@@ -154,10 +157,10 @@ public class ActivitiesFragment extends Fragment{
 				
 				Log.e("zyf", "get data complete....");
 				
-				//mPullToRefreshListView.onRefreshComplete();
+				mPullToRefreshListView.onRefreshComplete();
 			}
 		};
-		//task.setTimeOutEnabled(true, 100);
+		task.setTimeOutEnabled(true, 10*1000);
 		task.safeExecute();
 	}
 	

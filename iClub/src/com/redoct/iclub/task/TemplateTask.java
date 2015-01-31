@@ -6,6 +6,7 @@ import com.redoct.iclub.util.NetworkChecker;
 import android.R.integer;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.v4.text.ICUCompat;
 import android.util.Log;
 
 /**
@@ -53,6 +54,12 @@ public class TemplateTask extends AsyncTask<Void, Void, Boolean> {
      */
     public boolean safeExecute(){
         if(isRunning()) return false;
+    	
+    	if(iClubApplication.apiOk()){
+    		Log.e("zyf", "api is ok.......");
+    	}else{
+    		Log.e("zyf", "api is not not not ok.......");
+    	}
 
         this.execute();
 

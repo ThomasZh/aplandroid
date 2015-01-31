@@ -5,13 +5,11 @@ import java.io.UnsupportedEncodingException;
 import org.apache.mina.core.session.IoSession;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -30,7 +28,6 @@ import com.redoct.iclub.task.StpHandler;
 import com.redoct.iclub.task.UserLoginTask;
 import com.redoct.iclub.util.DeviceUtil;
 import com.redoct.iclub.util.NetworkChecker;
-import com.redoct.iclub.util.ToastUtil;
 
 public class iClubApplication extends Application implements
 		Thread.UncaughtExceptionHandler {
@@ -55,19 +52,19 @@ public class iClubApplication extends Application implements
 
 		api = new StpClient(new StpHandler(api) {
 
-			/*
-			 * @Override public void sessionClosed(IoSession session) throws
-			 * Exception { // TODO Auto-generated method stub
-			 * super.sessionClosed(session);
-			 * 
-			 * Log.e("zyf", "stp handler session closed......"); }
-			 * 
-			 * @Override public void sessionOpened(IoSession session) throws
-			 * Exception { // TODO Auto-generated method stub
-			 * super.sessionOpened(session);
-			 * 
-			 * Log.e("zyf", "stp handler session opened......"); }
-			 */
+			@Override 
+			public void sessionClosed(IoSession session) throws
+			Exception { // TODO Auto-generated method stub
+			 super.sessionClosed(session);
+			 
+			 Log.e("zyf", "stp handler session closed......"); }
+			 
+			 @Override 
+			 public void sessionOpened(IoSession session) throws
+			 Exception { // TODO Auto-generated method stub
+			 super.sessionOpened(session);
+			 
+			 Log.e("zyf", "stp handler session opened......"); }
 		});
 		IntentFilter mFilter = new IntentFilter(); 
 		mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -131,12 +128,12 @@ public class iClubApplication extends Application implements
 		 * 
 		 * @2014/12/15
 		 */
-		if (api.isConnected()) {
-			Log.w("sima", ">>> app server connected!");
+		/*if (api.isConnected()) {
+			Log.e("zyf", "app server connected!");
 			return;
-		}
+		}*/
 
-		Log.d("sima", ">>> connecting server...");
+		Log.d("zyf", "connecting server...");
 
 		ServerConfigTask server = new ServerConfigTask() {
 			@Override
@@ -220,10 +217,11 @@ public class iClubApplication extends Application implements
 				ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo info = connectivityManager.getActiveNetworkInfo();
 				if (info != null && info.isAvailable()) {
+					Log.e("zyf","network is connecctted......");
 					reconnect();
 				} else {
-					ToastUtil.toastshort(getApplicationContext(), "net is notwork");
-
+					//ToastUtil.toastshort(getApplicationContext(), "net is notwork");
+					Log.e("zyf","network is disconnecctted......");
 				}
 			}
 		}

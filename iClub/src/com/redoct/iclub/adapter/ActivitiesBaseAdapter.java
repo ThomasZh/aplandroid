@@ -83,6 +83,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
             holder.mLeaderNameTv= (TextView) convertView.findViewById(R.id.mLeaderNameTv);
             holder.mNameTv= (TextView) convertView.findViewById(R.id.mNameTv);
             holder.mLocDescTv= (TextView) convertView.findViewById(R.id.mLocDescTv);
+            holder.mMemberNumTv=(TextView) convertView.findViewById(R.id.mMemberNumTv);
             
             holder.mLeaderAvatarView= (ImageView) convertView.findViewById(R.id.mLeaderAvatarView);
             
@@ -97,6 +98,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         holder.mLeaderNameTv.setText(item.getLeaderName());
         holder.mStartTimeTv.setText(item.getStartTime());
         holder.mNameTv.setText(item.getName());
+        holder.mMemberNumTv.setText(mContext.getString(R.string.invitation)+item.getMemberNum()+mContext.getString(R.string.people));
         
         
         if(activityItems.get(position).isTitle()){
@@ -125,6 +127,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
 				Intent intent=new Intent(mContext,ActivityDetaisActivity.class);
 				intent.putExtra("id", item.getId());
 				intent.putExtra("leaderName", item.getLeaderName());
+				intent.putExtra("leaderAvatarUrl", item.getLeaderAvatarUrl());
 				mContext.startActivity(intent);
 			}
 		});
@@ -138,6 +141,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         TextView mLeaderNameTv;
         TextView mNameTv;
         TextView mLocDescTv;
+        TextView mMemberNumTv;
         
         ImageView mLeaderAvatarView;
         

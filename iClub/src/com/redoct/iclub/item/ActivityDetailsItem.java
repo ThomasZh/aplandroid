@@ -47,6 +47,7 @@ public class ActivityDetailsItem {
         md.setState((short) json.getInt("state"));
 
         md.setMembers(json.getJSONArray("members"));
+        md.setRecommends(json.getJSONArray("recommends"));
 
         return md;
     }
