@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.mina.core.session.IoSession;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,16 +22,35 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.oct.ga.comm.cmd.RespCommand;
 import com.oct.ga.comm.cmd.StpCommand;
+import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.config.AppConfig;
+import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.task.ServerConfigTask;
 import com.redoct.iclub.task.StpClient;
 import com.redoct.iclub.task.StpHandler;
+import com.redoct.iclub.task.UpdateAccountTask;
 import com.redoct.iclub.task.UserLoginTask;
 import com.redoct.iclub.util.DeviceUtil;
 import com.redoct.iclub.util.NetworkChecker;
+import com.redoct.iclub.util.PersistentUtil;
+import com.redoct.iclub.util.ToastUtil;
+import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 
 public class iClubApplication extends Application implements
 		Thread.UncaughtExceptionHandler {
+	private GetAccountTask getTask;
+	private static Activity activity; // 用于设计接口回调
+
+	public static Activity getActivity() {
+		return activity;
+	}
+
+	public static void setActivity(Activity activity) {
+		iClubApplication.activity = activity;
+	}
+
+	// fetched user data
+	public static AccountDetailInfo act;
 
 	@TargetApi(Build.VERSION_CODES.GINGERBREAD)
 	@SuppressWarnings("unused")
@@ -38,7 +58,7 @@ public class iClubApplication extends Application implements
 	public void onCreate() {
 
 		super.onCreate();
-		//Thread.setDefaultUncaughtExceptionHandler(this);
+		// Thread.setDefaultUncaughtExceptionHandler(this);
 
 		initImageLoader(getApplicationContext());
 
@@ -52,24 +72,29 @@ public class iClubApplication extends Application implements
 
 		api = new StpClient(new StpHandler(api) {
 
-			@Override 
-			public void sessionClosed(IoSession session) throws
-			Exception { // TODO Auto-generated method stub
-			 super.sessionClosed(session);
-			 
-			 Log.e("zyf", "stp handler session closed......"); }
-			 
-			 @Override 
-			 public void sessionOpened(IoSession session) throws
-			 Exception { // TODO Auto-generated method stub
-			 super.sessionOpened(session);
-			 
-			 Log.e("zyf", "stp handler session opened......"); }
+			@Override
+			public void sessionClosed(IoSession session) throws Exception { // TODO
+																			// Auto-generated
+																			// method
+																			// stub
+				super.sessionClosed(session);
+
+				Log.e("zyf", "stp handler session closed......");
+			}
+
+			@Override
+			public void sessionOpened(IoSession session) throws Exception { // TODO
+																			// Auto-generated
+																			// method
+																			// stub
+				super.sessionOpened(session);
+
+				Log.e("zyf", "stp handler session opened......");
+			}
 		});
-		IntentFilter mFilter = new IntentFilter(); 
+		IntentFilter mFilter = new IntentFilter();
 		mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
 		registerReceiver(mReceiver, mFilter);
-		
 
 	}
 
@@ -128,10 +153,10 @@ public class iClubApplication extends Application implements
 		 * 
 		 * @2014/12/15
 		 */
-		/*if (api.isConnected()) {
-			Log.e("zyf", "app server connected!");
-			return;
-		}*/
+		/*
+		 * if (api.isConnected()) { Log.e("zyf", "app server connected!");
+		 * return; }
+		 */
 
 		Log.d("zyf", "connecting server...");
 
@@ -166,44 +191,50 @@ public class iClubApplication extends Application implements
 		server.then(new AutoLogin());
 
 	}
-	
-	private class AutoLogin implements Runnable{
-        @Override
-        public void run() {
-            
-        	UserLoginTask login = new UserLoginTask("thomas.zh@qq.com", "t"){
-                public void callback(){
-                    //popupHomepage();
-                }
-                public void failure(){
-                   // showToast(R.string.login_failure);
-//                    popupLogin();//re login
-                }
-                public void complete(){
-                    /*login = null;
-                    BusProvider.getInstance().post(new ProgressEvent(false));*/
-                }
-                public void before(){
-                    //BusProvider.getInstance().post(new ProgressEvent(true));
-                }
-                
+
+	private class AutoLogin implements Runnable {
+		@Override
+		public void run() {
+
+			UserLoginTask login = new UserLoginTask("912627598@qq.com",
+					"557cai") {
+				public void callback() {
+					fetchAccountInfo();
+				}
+
+				public void failure() {
+					// showToast(R.string.login_failure);
+					// popupLogin();//re login
+				}
+
+				public void complete() {
+					/*
+					 * login = null; BusProvider.getInstance().post(new
+					 * ProgressEvent(false));
+					 */
+				}
+
+				public void before() {
+					// BusProvider.getInstance().post(new ProgressEvent(true));
+				}
+
 				@Override
 				public void timeout() {
 					// TODO Auto-generated method stub
 					super.timeout();
-					
+
 					Log.e("zyf", "time out.......");
-					
+
 					this.cancel(true);
 				}
-         
-            };
-            
-            //login.setTimeOutEnabled(true, 100);
-            login.safeExecute();
 
-        }
-    }
+			};
+
+			// login.setTimeOutEnabled(true, 100);
+			login.safeExecute();
+
+		}
+	}
 
 	private BroadcastReceiver mReceiver =
 
@@ -217,14 +248,57 @@ public class iClubApplication extends Application implements
 				ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 				NetworkInfo info = connectivityManager.getActiveNetworkInfo();
 				if (info != null && info.isAvailable()) {
-					Log.e("zyf","network is connecctted......");
+					Log.e("zyf", "network is connecctted......");
 					reconnect();
 				} else {
-					//ToastUtil.toastshort(getApplicationContext(), "net is notwork");
-					Log.e("zyf","network is disconnecctted......");
+					// ToastUtil.toastshort(getApplicationContext(),
+					// "net is notwork");
+					Log.e("zyf", "network is disconnecctted......");
 				}
 			}
 		}
 	};
+
+	private void fetchAccountInfo() {
+		if (!AppConfig.isLoggedIn())
+			return;
+
+		getTask = new GetAccountTask() {
+			@Override
+			public void callback() {
+				act = getTask.getAccount();
+				if (act != null) {
+                    Log.i("getAccount","get accout  success！");
+					new UserInformationLocalManagerUtil(
+							getApplicationContext())
+							.WriteUserInformation(act);
+				}
+
+				// fillAccountView(act);
+			}
+
+			@Override
+			public void failure() {
+				Log.i("getAccount","get accout  failure！");
+
+			}
+
+			@Override
+			public void complete() {
+				getTask = null;
+			}
+
+			@Override
+			public void pullback() {
+				getTask = null;
+			}
+
+			@Override
+			public void before() {
+			}
+		};
+		getTask.safeExecute();
+		Log.d("sima", "get account...");
+	}
 
 }
