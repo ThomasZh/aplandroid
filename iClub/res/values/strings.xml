@@ -66,5 +66,8 @@
     <string name="recomand_look_details">查看详情</string>
     <string name="people">人</string>
     <string name="position_show">位置详情</string>
+    <string name="position_select">位置选择</string>
+    <string name="position_getting">地址获取中...</string>
+    <string name="position_desc_get_failed">地址描述获取失败.</string>
     
 </resources>
