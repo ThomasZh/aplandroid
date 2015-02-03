@@ -1,19 +1,11 @@
 package com.redoct.iclub.ui.activity;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.redoct.iclub.R;
-import com.redoct.iclub.adapter.ActivityDetailsGalleryAdapter;
-import com.redoct.iclub.item.ActivityDetailsItem;
-import com.redoct.iclub.task.MeetupDetailsTask;
-import com.redoct.iclub.util.DateUtils;
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +15,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.redoct.iclub.R;
+import com.redoct.iclub.adapter.ActivityDetailsGalleryAdapter;
+import com.redoct.iclub.item.ActivityDetailsItem;
+import com.redoct.iclub.item.MemberItem;
+import com.redoct.iclub.task.MeetupDetailsTask;
+import com.redoct.iclub.task.MembersListTask;
+import com.redoct.iclub.util.DateUtils;
 
 public class ActivityDetaisActivity extends Activity implements OnClickListener{
 	
@@ -117,6 +120,55 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 		};
 		mMeetupDetailsTask.setTimeOutEnabled(true, 10*1000);
 		mMeetupDetailsTask.safeExecute();
+		
+		mMeetupDetailsTask.then(new MemberList());
+	}
+	
+	ArrayList<MemberItem> mMemberItems=new ArrayList<MemberItem>();
+	
+	private class MemberList implements Runnable {
+		@Override
+		public void run() {
+
+			MembersListTask mMembersListTask = new MembersListTask(id) {
+				public void callback() {
+					
+					mMemberItems=getMembers();
+					
+					Log.e("zyf", "members list length: "+mMemberItems.size());
+					
+					mGalleryAdapter=new ActivityDetailsGalleryAdapter(ActivityDetaisActivity.this, mMemberItems, mImageLoader, options);
+					mGallery.setAdapter(mGalleryAdapter);
+				}
+
+				public void failure() {
+					
+				}
+
+				public void complete() {
+					
+				}
+
+				public void before() {
+					
+				}
+
+				@Override
+				public void timeout() {
+					
+					super.timeout();
+
+					Log.e("zyf", "time out.......");
+
+					this.cancel(true);
+				}
+
+			};
+
+			mMembersListTask.setTimeOutEnabled(true, 10*1000);
+			mMembersListTask.safeExecute();
+
+		}
 	}
 	
 	private void initTitle(){
@@ -152,9 +204,6 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 	}
 	
 	private void updateUI(){
-		
-		mGalleryAdapter=new ActivityDetailsGalleryAdapter(ActivityDetaisActivity.this, mActivityDetailsItem.getMembers(), mImageLoader, options);
-		mGallery.setAdapter(mGalleryAdapter);
 		
 		mLeaderNameTv.setText(leaderName);
 		
