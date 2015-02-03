@@ -69,5 +69,9 @@
     <string name="position_select">位置选择</string>
     <string name="position_getting">地址获取中...</string>
     <string name="position_desc_get_failed">地址描述获取失败.</string>
+    <string name="activity_competed">已完成</string>
+    <string name="activity_canceled">已取消</string>
+    <string name="activity_openning">进行中</string>
+    <string name="activity_coming_soon">马上回来</string>
     
 </resources>

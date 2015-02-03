@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.ui.activity.ActivityDetaisActivity;
@@ -84,6 +85,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
             holder.mNameTv= (TextView) convertView.findViewById(R.id.mNameTv);
             holder.mLocDescTv= (TextView) convertView.findViewById(R.id.mLocDescTv);
             holder.mMemberNumTv=(TextView) convertView.findViewById(R.id.mMemberNumTv);
+            holder.mStateTv=(TextView) convertView.findViewById(R.id.mStateTv);
             
             holder.mLeaderAvatarView= (ImageView) convertView.findViewById(R.id.mLeaderAvatarView);
             
@@ -119,6 +121,17 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         
         mImageLoader.displayImage(item.getLeaderAvatarUrl(), holder.mLeaderAvatarView, options);
         
+        short state=Short.parseShort(item.getState());
+        if(state==GlobalArgs.CLUB_ACTIVITY_STATE_CANCELED){
+        	holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_canceled));
+        }else if(state==GlobalArgs.CLUB_ACTIVITY_STATE_COMING_SOON){
+        	holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_coming_soon));
+        }else if(state==GlobalArgs.CLUB_ACTIVITY_STATE_COMPLETED){
+        	holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_competed));
+        }else if(state==GlobalArgs.CLUB_ACTIVITY_STATE_OPENING){
+        	holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_openning));
+        }
+        
         holder.mContentContainer.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -142,6 +155,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         TextView mNameTv;
         TextView mLocDescTv;
         TextView mMemberNumTv;
+        TextView mStateTv;
         
         ImageView mLeaderAvatarView;
         

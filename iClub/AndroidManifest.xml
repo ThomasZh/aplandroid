@@ -51,6 +51,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.redoct.iclub.ui.activity.LocationShowActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.redoct.iclub.ui.activity.LocationSelectActivity"
             android:label="@string/app_name" >
             <!-- <intent-filter>
