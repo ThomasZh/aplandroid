@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivityDetailsGalleryAdapter;
 import com.redoct.iclub.item.ActivityDetailsItem;
@@ -52,7 +53,7 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 	
 	private TextView mLeaderNameTv,mNameTv,mDescTv,mLocDescTv,mStartDateTv,mStartTimeTv,mEndDateTv,mEndTimeTv,mRecommandNumTv;
 	
-	private RelativeLayout mRecommandContainer,mLocationContainer;
+	private RelativeLayout mRecommandContainer,mLocationContainer,mOptionContainer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -201,6 +202,7 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 		
 		mRecommandContainer=(RelativeLayout)findViewById(R.id.mRecommandContainer);
 		mLocationContainer=(RelativeLayout)findViewById(R.id.mLocationContainer);
+		mOptionContainer=(RelativeLayout)findViewById(R.id.mOptionContainer);
 	}
 	
 	private void updateUI(){
@@ -243,6 +245,17 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 			mLocationContainer.setOnClickListener(this);
 		}else{
 			mLocationContainer.setVisibility(View.GONE);
+		}
+		
+		if(mActivityDetailsItem.getState()==GlobalArgs.CLUB_ACTIVITY_STATE_CANCELED
+				||mActivityDetailsItem.getState()==GlobalArgs.CLUB_ACTIVITY_STATE_COMPLETED){
+			mOptionContainer.setVisibility(View.GONE);
+		}else{
+			if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){
+				mOptionContainer.setVisibility(View.VISIBLE);
+			}else{
+				mOptionContainer.setVisibility(View.GONE);
+			}
 		}
 		
 		mTotalContainer.setVisibility(View.VISIBLE);

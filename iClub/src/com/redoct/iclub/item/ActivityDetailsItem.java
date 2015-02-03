@@ -20,6 +20,7 @@ public class ActivityDetailsItem {
     private int startTime;
     private int endTime;
     private short state;
+    private short memberRank;
     private String locDesc;
     private String locX;
     private String locY;
@@ -48,11 +49,26 @@ public class ActivityDetailsItem {
 
         md.setMembers(json.getJSONArray("members"));
         md.setRecommends(json.getJSONArray("recommends"));
+        
+        md.setState(Short.parseShort(json.getString("state")));
+        md.setMemberRank(Short.parseShort(json.getString("memberRank")));
 
         return md;
     }
 
-    public JSONArray getMembers() {
+    public short getMemberRank() {
+		return memberRank;
+	}
+
+
+
+	public void setMemberRank(short memberRank) {
+		this.memberRank = memberRank;
+	}
+
+
+
+	public JSONArray getMembers() {
         return members;
     }
 

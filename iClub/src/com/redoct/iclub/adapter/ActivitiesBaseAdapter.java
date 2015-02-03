@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -122,14 +124,29 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         mImageLoader.displayImage(item.getLeaderAvatarUrl(), holder.mLeaderAvatarView, options);
         
         short state=Short.parseShort(item.getState());
-        if(state==GlobalArgs.CLUB_ACTIVITY_STATE_CANCELED){
+        if(state==GlobalArgs.CLUB_ACTIVITY_STATE_CANCELED){  //活动已取消
+        	
+        	holder.mStateTv.setTextColor(Color.GRAY);
         	holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_canceled));
-        }else if(state==GlobalArgs.CLUB_ACTIVITY_STATE_COMING_SOON){
-        	holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_coming_soon));
-        }else if(state==GlobalArgs.CLUB_ACTIVITY_STATE_COMPLETED){
+        	
+        }else if(state==GlobalArgs.CLUB_ACTIVITY_STATE_COMPLETED){ //活动已完成
+        	
+        	holder.mStateTv.setTextColor(Color.GRAY);
         	holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_competed));
+        	
         }else if(state==GlobalArgs.CLUB_ACTIVITY_STATE_OPENING){
-        	holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_openning));
+        	
+        	holder.mStateTv.setTextColor(Color.BLACK);
+        	
+        	short memberRank=Short.parseShort(item.getMemberRank());
+        	
+        	if(memberRank==GlobalArgs.MEMBER_RANK_NONE){   //未参加
+        		
+        		holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_not_joined));
+        	}else{   //已参加
+        		
+        		holder.mStateTv.setText(mContext.getResources().getString(R.string.activity_joined));
+        	}
         }
         
         holder.mContentContainer.setOnClickListener(new OnClickListener() {

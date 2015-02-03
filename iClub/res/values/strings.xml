@@ -73,5 +73,7 @@
     <string name="activity_canceled">已取消</string>
     <string name="activity_openning">进行中</string>
     <string name="activity_coming_soon">马上回来</string>
+    <string name="activity_joined">已参加</string>
+    <string name="activity_not_joined">未参加</string>
     
 </resources>
