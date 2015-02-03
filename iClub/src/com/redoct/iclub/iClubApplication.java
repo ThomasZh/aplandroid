@@ -39,7 +39,7 @@ import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 public class iClubApplication extends Application implements
 		Thread.UncaughtExceptionHandler {
 	private GetAccountTask getTask;
-	private static Activity activity; // ÓÃÓÚÉè¼Æ½Ó¿Ú»Øµ÷
+	private static Activity activity; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½Ó¿Ú»Øµï¿½
 
 	public static Activity getActivity() {
 		return activity;
@@ -196,8 +196,8 @@ public class iClubApplication extends Application implements
 		@Override
 		public void run() {
 
-			UserLoginTask login = new UserLoginTask("912627598@qq.com",
-					"557cai") {
+			UserLoginTask login = new UserLoginTask("thomas.zh@qq.com",
+					"t") {
 				public void callback() {
 					fetchAccountInfo();
 				}
@@ -268,7 +268,7 @@ public class iClubApplication extends Application implements
 			public void callback() {
 				act = getTask.getAccount();
 				if (act != null) {
-                    Log.i("getAccount","get accout  success£¡");
+                    Log.i("getAccount","get accout  successï¿½ï¿½");
 					new UserInformationLocalManagerUtil(
 							getApplicationContext())
 							.WriteUserInformation(act);
@@ -279,7 +279,7 @@ public class iClubApplication extends Application implements
 
 			@Override
 			public void failure() {
-				Log.i("getAccount","get accout  failure£¡");
+				Log.i("getAccount","get accout  failureï¿½ï¿½");
 
 			}
 

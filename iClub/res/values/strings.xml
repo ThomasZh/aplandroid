@@ -65,5 +65,6 @@
     <string name="recomand_show">个好友推荐</string>
     <string name="recomand_look_details">查看详情</string>
     <string name="people">人</string>
+    <string name="position_show">位置详情</string>
     
 </resources>

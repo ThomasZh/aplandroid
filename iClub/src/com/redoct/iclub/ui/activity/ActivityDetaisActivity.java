@@ -10,6 +10,7 @@ import com.redoct.iclub.task.MeetupDetailsTask;
 import com.redoct.iclub.util.DateUtils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
@@ -189,6 +190,8 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 			mLocationContainer.setVisibility(View.VISIBLE);
 			
 			mLocDescTv.setText(mActivityDetailsItem.getLocDesc());
+			
+			mLocationContainer.setOnClickListener(this);
 		}else{
 			mLocationContainer.setVisibility(View.GONE);
 		}
@@ -203,6 +206,15 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 		case R.id.leftBtn:
 			
 			finish();
+			break;
+		case R.id.mLocationContainer:
+			
+			Intent locationIntent=new Intent(ActivityDetaisActivity.this,LocationShowActivity.class);
+			locationIntent.putExtra("locX", mActivityDetailsItem.getLocX());
+			locationIntent.putExtra("locY", mActivityDetailsItem.getLocY());
+			locationIntent.putExtra("locDesc", mActivityDetailsItem.getLocDesc());
+			startActivity(locationIntent);
+			
 			break;
 
 		default:

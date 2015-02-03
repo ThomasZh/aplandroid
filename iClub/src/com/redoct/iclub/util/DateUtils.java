@@ -27,8 +27,8 @@ public class DateUtils {
 		
 		String fromatString="yy"+mContext.getString(R.string.year)+"M"+mContext.getString(R.string.month)+"d"+mContext.getString(R.string.day)+"_EEEE HH:mm";
 		SimpleDateFormat sdf= new SimpleDateFormat(fromatString);
-		Date dt = new Date(time * 1000);  
-		String dateTime = sdf.format(dt);
+		long realTime=(long)time*1000;
+		String dateTime = sdf.format(realTime);
 		
 		date=dateTime.split("_")[0];
 		exactlyTime=dateTime.split("_")[1];
@@ -47,9 +47,10 @@ public class DateUtils {
 	public String getFormatDate(int time){
 		
 		String fromatString="M"+mContext.getString(R.string.month)+"d"+mContext.getString(R.string.day)+" EEEE H:mm";
+
 		SimpleDateFormat sdf= new SimpleDateFormat(fromatString);
-		Date dt = new Date(time * 1000);  
-		String dateTime = sdf.format(dt);
+		long realTime=(long)time*1000;
+		String dateTime = sdf.format(realTime);
 		
 		return dateTime;
 	}
