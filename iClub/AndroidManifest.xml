@@ -63,6 +63,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter> -->
         </activity>
+        <activity
+            android:name="com.redoct.iclub.ui.activity.ThemeSelectActivity"
+            android:label="@string/app_name" >
+            <!-- <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter> -->
+        </activity>
+        <activity
+            android:name="com.redoct.iclub.ui.activity.ThemeSelectSecondActivity"
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.Translucent" >
+        </activity>
     </application>
 
 </manifest>

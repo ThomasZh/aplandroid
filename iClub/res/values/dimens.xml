@@ -60,5 +60,10 @@
     <dimen name="myself_detail_height">50dp</dimen>
     <!-- 个人中心，item高度 -->
     <dimen name="myself_item_height">50dp</dimen>
+    
+    <dimen name="theme_select_icon_width">40dp</dimen>
+    <dimen name="theme_select_icon_height">40dp</dimen>
+    <dimen name="theme_select_icon_title_margin_left">6dp</dimen>
+    <dimen name="theme_select_item_space">20dp</dimen>
 
 </resources>

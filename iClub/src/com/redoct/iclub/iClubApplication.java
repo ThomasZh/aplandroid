@@ -197,7 +197,7 @@ public class iClubApplication extends Application implements
 		public void run() {
 
 			UserLoginTask login = new UserLoginTask("thomas.zh@qq.com",
-					"t") {
+					"m") {
 				public void callback() {
 					fetchAccountInfo();
 				}

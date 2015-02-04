@@ -76,6 +76,7 @@
     <string name="activity_joined">已参加</string>
     <string name="activity_not_joined">未参加</string>
     
+    <string name="theme">主题</string>
     <string name="theme_title1">吃&amp;喝</string>
     <string name="theme_title2">玩&amp;乐</string>
     <string name="theme_title3">旅行</string>

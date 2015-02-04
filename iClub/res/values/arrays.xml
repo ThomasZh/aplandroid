@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_theme0">
+        <item>上午茶</item>
+        <item>下午茶</item>
+        <item>咖啡</item>
+        <item>早餐</item>
+        <item>午餐</item>
+        <item>晚餐</item>
+        <item>酒吧</item>
+        <item>野餐</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme1">
+        <item>电影</item>
+        <item>唱歌(KTV)</item>
+        <item>蹦迪</item>
+        <item>公园</item>
+        <item>游乐园</item>
+        <item>游戏</item>
+        <item>演唱会</item>
+        <item>舞台剧</item>
+        <item>音乐会</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme2">
+        <item>背包行</item>
+        <item>自由行</item>
+        <item>跟团游</item>
+        <item>亲子游</item>
+        <item>众筹旅行</item>
+        <item>周边游</item>
+        <item>徒步</item>
+        <item>自驾游</item>
+        <item>邮轮游</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme3">
+        <item>家庭聚餐</item>
+        <item>假日旅游</item>
+        <item>家庭活动</item>
+        <item>课外活动</item>
+        <item>家庭会议</item>
+        <item>纪念日</item>
+        <item>家庭计划</item>
+        <item>购物</item>
+        <item>装修</item>
+        <item>家务</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme4">
+        <item>逛街</item>
+        <item>购物中心</item>
+        <item>超市</item>
+        <item>代购</item>
+        <item>网购</item>
+        <item>团购</item>
+        <item>庙会</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme5">
+        <item>美发</item>
+        <item>美容</item>
+        <item>足疗</item>
+        <item>美体</item>
+        <item>体检</item>
+        <item>口腔保健</item>
+        <item>康复训练</item>
+        <item>针灸</item>
+        <item>预约挂号</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme6">
+        <item>培训</item>
+        <item>讲座</item>
+        <item>报告会</item>
+        <item>咨询</item>
+        <item>实习</item>
+        <item>报名</item>
+        <item>职业资格年审</item>
+        <item>职业资格认证</item>
+        <item>阅读</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme7">
+        <item>临时会议</item>
+        <item>例行会议</item>
+        <item>项目晨会</item>
+        <item>团队活动</item>
+        <item>社团活动</item>
+        <item>公益项目</item>
+        <item>培训</item>
+        <item>排练节目</item>
+        <item>运动会</item>
+        <item>侃大山</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme8">
+        <item>游泳</item>
+        <item>钓鱼</item>
+        <item>船艇</item>
+        <item>冲浪</item>
+        <item>帆板</item>
+        <item>潜水</item>
+        <item>船模</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme9">
+        <item>遥控模型</item>
+        <item>航拍</item>
+        <item>滑翔翼</item>
+        <item>热气球</item>
+        <item>蹦极</item>
+        <item>射击</item>
+        <item>跳伞</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme10">
+        <item>健美操</item>
+        <item>搏击</item>
+        <item>武术</item>
+        <item>太极</item>
+        <item>散打</item>
+        <item>健美操</item>
+        <item>跆拳道</item>
+        <item>体操</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme11">
+        <item>室内健身</item>
+        <item>瑜伽</item>
+        <item>普拉提</item>
+        <item>现代舞</item>
+        <item>拉丁舞</item>
+        <item>广场舞</item>
+        <item>舞蹈</item>
+        <item>武术</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme12">
+        <item>足球</item>
+        <item>篮球</item>
+        <item>网球</item>
+        <item>羽毛球</item>
+        <item>乒乓球</item>
+        <item>保龄球</item>
+        <item>排球</item>
+        <item>高尔夫</item>
+        <item>其他</item>
+    </string-array>
+    
+    <string-array name="category_theme13">
+        <item>徒步</item>
+        <item>跑步</item>
+        <item>自行车</item>
+        <item>攀爬山</item>
+        <item>轮滑</item>
+        <item>滑冰</item>
+        <item>滑雪</item>
+        <item>其他</item>
+    </string-array>
+    
+        <string-array name="icon_url_theme0">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme1">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme2">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme3">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme4">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme5">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme6">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme7">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme8">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme9">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme10">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme11">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme12">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+    
+    <string-array name="icon_url_theme13">
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
+</resources>

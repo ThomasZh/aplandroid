@@ -26,5 +26,7 @@
     <color name="tabview_color_divider_line">#dddbdb</color>
     
     <color name="activity_title_bg">#e74242</color>
+    
+    <color name="bg_theme_divider_line">#fdf4f2</color>
 
 </resources>
