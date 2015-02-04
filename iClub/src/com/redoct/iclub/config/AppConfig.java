@@ -1,5 +1,6 @@
 package com.redoct.iclub.config;
 
+import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.param.AccountParams;
 
 

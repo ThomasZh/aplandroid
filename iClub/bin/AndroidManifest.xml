@@ -7,40 +7,42 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
-    
     <uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name="com.redoct.iclub.iClubApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.NoTitleBar"  >
+        android:theme="@android:style/Theme.NoTitleBar" >
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="b6f7c3305187b09e3a5735a819e1406f"/>
-       <activity
+            android:value="b6f7c3305187b09e3a5735a819e1406f" />
+
+        <activity
             android:name="com.redoct.iclub.ui.activity.SplashActivity"
             android:label="@string/app_name" >
-            <!-- <intent-filter>
+
+            
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+           
         </activity>
         <activity
             android:name="com.redoct.iclub.MainActivity"
@@ -57,6 +59,18 @@
         <activity
             android:name="com.redoct.iclub.ui.activity.LocationSelectActivity"
             android:label="@string/app_name" >
+
+          <!--   
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.redoct.iclub.ui.activity.ThemeSelectActivity"
+            android:label="@string/app_name" >
             <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,19 +78,24 @@
             </intent-filter> -->
         </activity>
         <activity
-            android:name="com.redoct.iclub.ui.activity.ThemeSelectActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.redoct.iclub.ui.activity.ThemeSelectSecondActivity"
-            android:label="@string/app_name" 
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent" >
         </activity>
+        <activity
+            android:name="com.redoct.iclub.ui.activity.AccountActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.redoct.iclub.ui.activity.SelectPictureDialogAcitvity"
+            android:theme="@style/dialog" />
+        <activity
+            android:name="com.redoct.iclub.ui.activity.LoginActivity"
+            android:launchMode="singleTask" />
+        <activity android:name="com.redoct.iclub.ui.activity.UpdatePasswordActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.ClubListActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.ClubDetailActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.ActivityDetailActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.UpdateClubActivity" />
     </application>
 
 </manifest>

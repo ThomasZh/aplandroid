@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -16,13 +16,24 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-    
+
     <style name="dialog" parent="@android:style/Theme.Dialog">
-		<item name="android:windowNoTitle">true</item>
-		<item name="android:windowBackground">@color/bg_half_tran</item>
-		<item name="android:windowFrame">@null</item>
-		<item name="android:windowIsTranslucent">true</item>
-		<item name="android:windowIsFloating">false</item>
-	</style>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/bg_half_tran</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <style name="base_item">
+        <item name="android:background">@drawable/border_line_gray</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_height">@dimen/base_item_height</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
 
 </resources>
