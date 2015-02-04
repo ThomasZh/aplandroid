@@ -17,15 +17,15 @@ public class ThemeSelectBaseAdapter extends BaseAdapter {
 	
 	private LayoutInflater mInflater;
 	
-	private int [] iconIds;
+	private String [] iconUrls;
 	
 	private String [] iconTitles;
 
-	public ThemeSelectBaseAdapter(Context mContext, int count,int[] iconIds,
+	public ThemeSelectBaseAdapter(Context mContext, String[] iconUrls,
 			String[] iconTitles) {
 		super();
 		this.mContext = mContext;
-		this.iconIds = iconIds;
+		this.iconUrls = iconUrls;
 		this.iconTitles = iconTitles;
 		
 		mInflater=LayoutInflater.from(mContext);
@@ -34,7 +34,7 @@ public class ThemeSelectBaseAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return 10;
+		return iconTitles.length;
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class ThemeSelectBaseAdapter extends BaseAdapter {
 		ImageView mImageView=(ImageView) convertView.findViewById(R.id.mImageView);
 		TextView mTitleTv=(TextView) convertView.findViewById(R.id.mTitleTv);
 		
-		mTitleTv.setText("title"+position);
+		mTitleTv.setText(iconTitles[position]);
 		
 		return convertView;
 	}
