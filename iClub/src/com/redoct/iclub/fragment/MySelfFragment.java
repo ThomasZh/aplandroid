@@ -4,25 +4,24 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.R;
-import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.ui.activity.AccountActivity;
-import com.redoct.iclub.util.PersistentUtil;
+import com.redoct.iclub.ui.activity.ClubListActivity;
+import com.redoct.iclub.ui.activity.LoginActivity;
+import com.redoct.iclub.ui.activity.UpdatePasswordActivity;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.CircleBitmapDisplayer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 public class MySelfFragment extends Fragment implements OnClickListener{
@@ -32,7 +31,8 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 	private GetAccountTask getTask;
 	private AccountDetailInfo act;
 	private ImageView ivMyhead;
-	private DisplayImageOptions options; // 配置图片加载及显示选项  
+	private DisplayImageOptions options; // ?????????????????  
+	private TextView tAlterPwd;
 	
 
 	@Override
@@ -59,10 +59,13 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 		options = new DisplayImageOptions.Builder()
 	        .cacheInMemory(true)
 	        .cacheOnDisk(true)
+	        
 	        .showImageOnLoading(R.drawable.ic_launcher)
 	        .showImageOnFail(R.drawable.ic_launcher)
 	        .displayer( new CircleBitmapDisplayer() )
 	        .build();
+		tv_alterpass = (TextView) contentView.findViewById(R.id.alterpass);
+		tv_alterpass.setOnClickListener(this);
 		tv_title = (TextView) contentView.findViewById(R.id.mTitleView);
 		tv_title.setText(R.string.me);
 		tv_alterpass = (TextView) contentView.findViewById(R.id.alterpass);
@@ -85,16 +88,23 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 		int id = v.getId();
 		switch (id) {
 		case R.id.alterpass:
-			
+        	BaseActivityUtil.startActivity(getActivity(),UpdatePasswordActivity.class, false);
+
 			break;
 		case R.id.quit:
-			
+			Intent intent = new Intent(getActivity(),
+					LoginActivity.class);
+			 
+			startActivity(intent);
+			BaseActivityUtil.setUpTransition(getActivity());
+			getActivity().finish();
 			break;
 		case R.id.connctor:
 			
 			break;
 		case R.id.friends:
-			
+        	BaseActivityUtil.startActivity(getActivity(),ClubListActivity.class, false);
+
 			break;
 		case R.id.myself_information:
 			BaseActivityUtil.startActivity(getActivity(),AccountActivity.class, false);

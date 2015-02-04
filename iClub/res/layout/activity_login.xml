@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <!-- logo -->
+
+    
+     <include layout="@layout/activity_title"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="@dimen/login_margin_lr"
+        android:layout_marginRight="@dimen/login_margin_lr"
+        android:layout_marginTop="50dp"
+        android:layout_weight="2"
+        android:orientation="vertical" >
+
+        <com.redoct.iclub.widget.DeleteEditText
+            android:id="@+id/et_login_name"
+            style="@style/base_item"
+            android:layout_width="match_parent"
+            android:layout_margin="0dp"
+            android:background="@drawable/border_line_topcorner_gray"
+            android:drawablePadding="5dp"
+            android:hint="@string/username"
+            android:singleLine="true" />
+
+        <com.redoct.iclub.widget.DeleteEditText
+            android:id="@+id/et_login_pwd"
+            style="@style/base_item"
+            android:layout_width="match_parent"
+            android:layout_margin="0dp"
+            android:background="@drawable/border_line_bottomcorner_gray"
+            android:drawablePadding="5dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="18"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/bg_red"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_com" />
+
+        <CheckBox
+             android:layout_marginTop="25dp"
+            android:id="@+id/cb_login_rememberpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rempass"
+            android:textColor="@color/black" />
+
+        <Button
+             android:layout_marginTop="25dp"
+            android:id="@+id/btn_register"
+            android:layout_width="@dimen/input_seconed_width"
+            android:layout_height="@dimen/input_seconed_height"
+            android:background="@drawable/bg_corner_white"
+            android:layout_gravity="center"
+            android:text="注册"
+            android:textColor="@color/red"
+            android:textSize="@dimen/font_size_com_second" />
+        <TextView
+            android:id="@+id/tv_longin_forgetpass"
+            android:textColor="@color/black" 
+             android:layout_marginTop="25dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/forgetpass"
+            />
+    </LinearLayout>
+
+</LinearLayout>

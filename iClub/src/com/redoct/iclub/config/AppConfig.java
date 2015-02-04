@@ -26,6 +26,7 @@ public class AppConfig {
      * logged on user, initialized in UserLoginTask;
      */
     public static AccountParams account;
+     public static AccountDetailInfo act; 
 
 
 
