@@ -76,4 +76,19 @@
     <string name="activity_joined">已参加</string>
     <string name="activity_not_joined">未参加</string>
     
+    <string name="theme_title1">吃&amp;喝</string>
+    <string name="theme_title2">玩&amp;乐</string>
+    <string name="theme_title3">旅行</string>
+    <string name="theme_title4">居家</string>
+    <string name="theme_title5">购物</string>
+    <string name="theme_title6">美容和健康</string>
+    <string name="theme_title7">个人</string>
+    <string name="theme_title8">社会</string>
+    <string name="theme_title9">水上</string>
+    <string name="theme_title10">空中</string>
+    <string name="theme_title11">竞技</string>
+    <string name="theme_title12">形体</string>
+    <string name="theme_title13">球类</string>
+    <string name="theme_title14">速度</string>
+    
 </resources>
