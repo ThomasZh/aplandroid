@@ -163,7 +163,6 @@ int id mDateIconView 0x7f050013
 int id mDescTv 0x7f050010
 int id mEndDateTv 0x7f050016
 int id mEndTimeTv 0x7f050017
-int id mGallery 0x7f050020
 int id mIcon0ImageView 0x7f050038
 int id mIcon1ImageView 0x7f05003b
 int id mIcon2ImageView 0x7f05003e
@@ -175,6 +174,7 @@ int id mLeftView 0x7f050019
 int id mLocDescContainer 0x7f050053
 int id mLocDescTv 0x7f05001b
 int id mLocationContainer 0x7f050018
+int id mMemberListContainer 0x7f050020
 int id mMemberNumTv 0x7f050052
 int id mNameTv 0x7f05000f
 int id mOptionContainer 0x7f05001c

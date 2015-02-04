@@ -136,7 +136,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         	
         }else if(state==GlobalArgs.CLUB_ACTIVITY_STATE_OPENING){
         	
-        	holder.mStateTv.setTextColor(Color.BLACK);
+        	holder.mStateTv.setTextColor(Color.parseColor("#a2a2a2"));
         	
         	short memberRank=Short.parseShort(item.getMemberRank());
         	

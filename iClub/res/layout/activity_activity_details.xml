@@ -9,7 +9,8 @@
 	    android:id="@+id/mTotalContainer" 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:visibility="gone">
+	    android:visibility="gone"
+	    android:scrollbars="@null">
 		<LinearLayout
 		    android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -38,7 +39,8 @@
 			<LinearLayout 
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
-			    android:padding="6dip"
+			    android:paddingLeft="10dip"
+			    android:paddingRight="10dip"
 			    android:orientation="vertical"
 			    android:background="@drawable/bg_corner_bottom_white"
 			    android:gravity="center_vertical">
@@ -46,12 +48,15 @@
 			         android:id="@+id/mNameTv"
 				     android:layout_width="wrap_content"
 				     android:layout_height="wrap_content"
+				     android:layout_marginTop="4dip"
 				     android:textColor="#000000"
-				     android:textSize="@dimen/textsize_normal"/>
+				     android:textSize="@dimen/textsize_normal"
+				     android:text="name"/>
 			    <TextView
 			         android:id="@+id/mDescTv"
 				     android:layout_width="wrap_content"
 				     android:layout_height="wrap_content"
+				     android:layout_marginTop="4dip"
 				     android:textSize="@dimen/textsize_smaller"
 				     android:ellipsize="end"
 				     android:maxLines="50"/>
@@ -225,14 +230,31 @@
 			     android:textSize="@dimen/textsize_normal"
 			     android:text="@string/articipants"
 			     android:gravity="center"/>
-			<Gallery
+			<!-- <Gallery
 			    android:id="@+id/mGallery" 
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
 			    android:layout_marginTop="10dip"
 			    android:layout_marginBottom="10dip"
 			    android:spacing="5dip"
-			    android:layout_gravity="center_horizontal"/>"
+			    android:layout_gravity="center_horizontal"/> -->
+			
+			<HorizontalScrollView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="2dip"
+		        android:layout_marginRight="2dip"
+		        android:layout_marginTop="10dip"
+		        android:layout_marginBottom="20dip"
+		        android:layout_gravity="center_horizontal"
+		        android:scrollbars="@null">
+		        <LinearLayout
+		            android:id="@+id/mMemberListContainer" 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content" 
+		            android:orientation="horizontal">
+				</LinearLayout>
+			</HorizontalScrollView>
 		</LinearLayout>
 	</ScrollView>
 </LinearLayout>

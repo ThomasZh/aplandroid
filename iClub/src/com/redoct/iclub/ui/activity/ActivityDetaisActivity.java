@@ -12,6 +12,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -40,7 +42,7 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 	
 	private String leaderAvatarUrl;
 	
-	private Gallery mGallery;
+	//private Gallery mGallery;
 	
 	private ActivityDetailsGalleryAdapter mGalleryAdapter;
 	
@@ -54,6 +56,8 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 	private TextView mLeaderNameTv,mNameTv,mDescTv,mLocDescTv,mStartDateTv,mStartTimeTv,mEndDateTv,mEndTimeTv,mRecommandNumTv;
 	
 	private RelativeLayout mRecommandContainer,mLocationContainer,mOptionContainer;
+	
+	private LinearLayout mMemberListContainer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -138,8 +142,18 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 					
 					Log.e("zyf", "members list length: "+mMemberItems.size());
 					
-					mGalleryAdapter=new ActivityDetailsGalleryAdapter(ActivityDetaisActivity.this, mMemberItems, mImageLoader, options);
-					mGallery.setAdapter(mGalleryAdapter);
+					/*mGalleryAdapter=new ActivityDetailsGalleryAdapter(ActivityDetaisActivity.this, mMemberItems, mImageLoader, options);
+					mGallery.setAdapter(mGalleryAdapter);*/
+					
+					LinearLayout.LayoutParams lpLayoutParams=new LayoutParams(120, 120);
+					lpLayoutParams.setMargins(0, 0, 10, 0);
+					
+					for(int i=0;i<mMemberItems.size();i++){
+						ImageView imageView=new ImageView(ActivityDetaisActivity.this);
+						mImageLoader.displayImage(mMemberItems.get(i).getImageUrl(), imageView, options);
+						
+						mMemberListContainer.addView(imageView, lpLayoutParams);
+					}
 				}
 
 				public void failure() {
@@ -188,7 +202,7 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 		
 		mLeaderAvatarView=(ImageView)findViewById(R.id.mLeaderAvatarView);
 		
-		mGallery=(Gallery)findViewById(R.id.mGallery);
+		//mGallery=(Gallery)findViewById(R.id.mGallery);
 		
 		mLeaderNameTv=(TextView) findViewById(R.id.mLeaderNameTv);
 		mNameTv=(TextView) findViewById(R.id.mNameTv);
@@ -203,6 +217,8 @@ public class ActivityDetaisActivity extends Activity implements OnClickListener{
 		mRecommandContainer=(RelativeLayout)findViewById(R.id.mRecommandContainer);
 		mLocationContainer=(RelativeLayout)findViewById(R.id.mLocationContainer);
 		mOptionContainer=(RelativeLayout)findViewById(R.id.mOptionContainer);
+		
+		mMemberListContainer=(LinearLayout)findViewById(R.id.mMemberListContainer);
 	}
 	
 	private void updateUI(){

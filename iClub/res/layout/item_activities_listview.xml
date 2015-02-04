@@ -8,15 +8,16 @@
      android:id="@+id/mTitleTv" 
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:textColor="#000000"
-     android:textSize="18sp"
+     android:layout_marginLeft="10dip"
+     android:textColor="#cc9291"
+     android:textSize="@dimen/textsize_normal"
      android:text="title"/>
  <LinearLayout
      android:id="@+id/mContentContainer" 
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:layout_marginLeft="2dip"
-     android:layout_marginRight="2dip"
+     android:layout_marginLeft="4dip"
+     android:layout_marginRight="4dip"
      android:layout_marginTop="2dip"
      android:orientation="vertical"
      android:background="@drawable/bg_corner_white">
@@ -28,7 +29,7 @@
 	         android:id="@+id/mLeaderAvatarView" 
 	         android:layout_width="50dip"
 	         android:layout_height="50dip"
-	         android:layout_marginRight="10dip"
+	         android:layout_margin="6dip"
 	         android:background="@drawable/ic_launcher"/>
 	     <LinearLayout 
 		     android:layout_width="match_parent"
@@ -37,22 +38,22 @@
 		     <LinearLayout 
 			     android:layout_width="match_parent"
 			     android:layout_height="wrap_content"
+			     android:layout_marginTop="6dip"
 			     android:orientation="horizontal">
 			     <TextView
 			         android:id="@+id/mLeaderNameTv"
 				     android:layout_width="wrap_content"
 				     android:layout_height="wrap_content"
-				     android:textColor="#000000"
-				     android:background="#ffffff"
-				     android:textSize="16sp"
+				     android:textColor="#cfcfcf"
+				     android:textSize="@dimen/textsize_smaller"
 				     android:text="HUAWEI_ZHANG"/>
 			     <TextView
 			         android:id="@+id/mStartTimeTv"
 				     android:layout_width="match_parent"
 				     android:layout_height="wrap_content"
-				     android:textColor="#000000"
-				     android:background="#ffffff"
-				     android:textSize="16sp"
+				     android:layout_marginRight="6dip"
+				     android:textColor="#b6babc"
+				     android:textSize="@dimen/textsize_smallest"
 				     android:gravity="right"
 				     android:text="11:20"/>
 		     </LinearLayout>
@@ -60,9 +61,9 @@
 		         android:id="@+id/mNameTv"
 			     android:layout_width="match_parent"
 			     android:layout_height="wrap_content"
-			     android:textColor="#000000"
-			     android:background="#ffffff"
-			     android:textSize="16sp"
+			     android:layout_marginTop="6dip"
+			     android:textColor="#62646b"
+			     android:textSize="@dimen/textsize_normal"
 			     android:text="中国经济网"/>
 		     <!-- <TextView
 			     android:layout_width="wrap_content"
@@ -74,19 +75,20 @@
 		     <LinearLayout 
 			     android:layout_width="match_parent"
 			     android:layout_height="wrap_content"
+			     android:layout_marginTop="4dip"
 			     android:orientation="horizontal"
 			     android:gravity="center_vertical">"
 			     <ImageView 
-			         android:layout_width="16dip"
-			         android:layout_height="16dip"
+			         android:layout_width="20dip"
+			         android:layout_height="20dip"
+			         android:layout_marginRight="4dip"
 			         android:background="@drawable/ic_launcher"/>
 			     <TextView
 			         android:id="@+id/mMemberNumTv"
 				     android:layout_width="match_parent"
 				     android:layout_height="wrap_content"
-				     android:textColor="#000000"
-				     android:background="#ffffff"
-				     android:textSize="16sp"
+				     android:textColor="#b6babc"
+				     android:textSize="@dimen/textsize_smallest"
 				     android:text="邀请10人"/>
 			 </LinearLayout>
 			 <!-- <LinearLayout 
@@ -110,19 +112,20 @@
 		         android:id="@+id/mLocDescContainer" 
 			     android:layout_width="match_parent"
 			     android:layout_height="wrap_content"
+			     android:layout_marginTop="4dip"
 			     android:orientation="horizontal"
 			     android:gravity="center_vertical">
 			     <ImageView 
-			         android:layout_width="16dip"
-			         android:layout_height="16dip"
+			         android:layout_width="20dip"
+			         android:layout_height="20dip"
+			         android:layout_marginRight="4dip"
 			         android:background="@drawable/ic_launcher"/>
 			     <TextView
 			         android:id="@+id/mLocDescTv"
 				     android:layout_width="match_parent"
 				     android:layout_height="wrap_content"
-				     android:textColor="#000000"
-				     android:background="#ffffff"
-				     android:textSize="16sp"
+				     android:textColor="#b6babc"
+				     android:textSize="@dimen/textsize_smallest"
 				     android:text="海淀区成府路88号"/>
 			 </LinearLayout>
 		 </LinearLayout>
@@ -131,9 +134,10 @@
          android:id="@+id/mStateTv"
 	     android:layout_width="match_parent"
 	     android:layout_height="wrap_content"
-	     android:textColor="#000000"
-	     android:background="#ffffff"
-	     android:textSize="16sp"
+	     android:layout_marginRight="6dip"
+	     android:layout_marginBottom="4dip"
+	     android:textColor="#a2a2a2"
+	     android:textSize="@dimen/textsize_smallest"
 	     android:text="已参加"
 	     android:gravity="right"/>
  </LinearLayout>
