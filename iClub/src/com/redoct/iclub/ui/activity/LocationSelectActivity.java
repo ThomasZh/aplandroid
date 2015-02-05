@@ -5,6 +5,7 @@ package com.redoct.iclub.ui.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.redoct.iclub.R;
+import com.redoct.iclub.util.Constant;
 
 
 public class LocationSelectActivity extends Activity implements LocationSource,
@@ -52,6 +54,8 @@ public class LocationSelectActivity extends Activity implements LocationSource,
 	private String locDesc;
 	
 	private GeocodeSearch geocoderSearch;
+	
+	private boolean locationSuccess;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +111,7 @@ public class LocationSelectActivity extends Activity implements LocationSource,
 				.position(mLatLng)
 				.title(getResources().getString(R.string.position_getting))
 				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-		         marker.showInfoWindow();
+		         marker2.showInfoWindow();
 		         
 		         LatLonPoint latLonPoint=new LatLonPoint(mLatLng.latitude, mLatLng.longitude);
 		         RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 200,GeocodeSearch.AMAP);
@@ -185,14 +189,27 @@ public class LocationSelectActivity extends Activity implements LocationSource,
 	 */
 	@Override
 	public void onLocationChanged(AMapLocation aLocation) {
+		
 		if (mListener != null && aLocation != null) {
 			
-			LatLng latLng=new LatLng(aLocation.getLatitude(), aLocation.getLongitude());
+			if(!locationSuccess){
+				locationSuccess=true;
+			}else{
+				return;
+			}
 			
-			aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
+			mLatLng=new LatLng(aLocation.getLatitude(), aLocation.getLongitude());
+			
+			aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 15.0f));
 			
 			marker.setPosition(new LatLng(aLocation.getLatitude(), aLocation
 					.getLongitude()));
+			
+			locDesc=aLocation.getAddress();
+			
+			marker.setTitle(locDesc);
+	        marker.showInfoWindow();
+	        
 			float bearing = aMap.getCameraPosition().bearing;
 			aMap.setMyLocationRotateAngle(bearing);
 		}
@@ -274,6 +291,12 @@ public class LocationSelectActivity extends Activity implements LocationSource,
 			
 			break;
 		case R.id.rightBtn:
+			
+			Intent intent=new Intent();
+			intent.putExtra("locDesc", locDesc);
+			intent.putExtra("locX", mLatLng.longitude);
+			intent.putExtra("locY", mLatLng.latitude);
+			setResult(Constant.RESULT_CODE_LOCATION_SELECT, intent);
 			
 			finish();
 			

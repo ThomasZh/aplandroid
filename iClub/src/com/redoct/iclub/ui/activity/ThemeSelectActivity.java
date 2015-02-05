@@ -1,6 +1,7 @@
 package com.redoct.iclub.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -88,6 +89,10 @@ public class ThemeSelectActivity extends Activity implements OnClickListener{
 				Log.e("zyf", "select: "+iconTitles[position]);
 				
 				mPopupWindow.dismiss();
+				
+				Intent intent=new Intent(ThemeSelectActivity.this,ActivityCreateActivity.class);
+				intent.putExtra("theme", iconTitles[position]);
+				startActivity(intent);
 			}
 		});
 		
