@@ -25,6 +25,8 @@ public class ActivityDetailsItem {
     private String locX;
     private String locY;
     private int memberNum;
+    private String leaderName;
+    private String leaderAvatarUrl;
 
     private JSONArray members;
     private JSONArray recommends;
@@ -52,11 +54,42 @@ public class ActivityDetailsItem {
         
         md.setState(Short.parseShort(json.getString("state")));
         md.setMemberRank(Short.parseShort(json.getString("memberRank")));
+        
+        JSONArray memberJsonArray=json.getJSONArray("members");
+        JSONObject memberJsonObject=memberJsonArray.getJSONObject(0);
+        md.setLeaderName(memberJsonObject.getString("name"));
+        md.setLeaderAvatarUrl(memberJsonObject.getString("imageUrl"));
 
         return md;
     }
+    
+    
 
-    public short getMemberRank() {
+    public String getLeaderName() {
+		return leaderName;
+	}
+
+
+
+	public void setLeaderName(String leaderName) {
+		this.leaderName = leaderName;
+	}
+
+
+
+	public String getLeaderAvatarUrl() {
+		return leaderAvatarUrl;
+	}
+
+
+
+	public void setLeaderAvatarUrl(String leaderAvatarUrl) {
+		this.leaderAvatarUrl = leaderAvatarUrl;
+	}
+
+
+
+	public short getMemberRank() {
 		return memberRank;
 	}
 

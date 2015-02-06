@@ -294,8 +294,8 @@ public class LocationSelectActivity extends Activity implements LocationSource,
 			
 			Intent intent=new Intent();
 			intent.putExtra("locDesc", locDesc);
-			intent.putExtra("locX", mLatLng.longitude);
-			intent.putExtra("locY", mLatLng.latitude);
+			intent.putExtra("locX", mLatLng.longitude+"");
+			intent.putExtra("locY", mLatLng.latitude+"");
 			setResult(Constant.RESULT_CODE_LOCATION_SELECT, intent);
 			
 			finish();

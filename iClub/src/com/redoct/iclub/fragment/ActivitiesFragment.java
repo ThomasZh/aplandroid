@@ -22,7 +22,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
 import com.redoct.iclub.item.ActivityItem;
-import com.redoct.iclub.task.MeetupListTask;
+import com.redoct.iclub.task.ActivityListTask;
 import com.redoct.iclub.util.DateUtils;
 
 public class ActivitiesFragment extends Fragment{
@@ -37,7 +37,7 @@ public class ActivitiesFragment extends Fragment{
 	short pageNum=1;
 	short pageSize=10;
 	
-	private MeetupListTask task;
+	private ActivityListTask task;
 	
 	private int mode=-1;
 	
@@ -90,7 +90,7 @@ public class ActivitiesFragment extends Fragment{
 	
 	private void loadData(){
 		
-		task=new MeetupListTask(getActivity(),pageNum,pageSize){
+		task=new ActivityListTask(getActivity(),pageNum,pageSize){
 			
 			@Override
 			public void timeout() {

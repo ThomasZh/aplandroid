@@ -90,5 +90,6 @@
     <string name="hint_position">地点</string>
     <string name="summit">确定</string>
     <string name="cancel">取消</string>
+    <string name="add">添加</string>
 
 </resources>

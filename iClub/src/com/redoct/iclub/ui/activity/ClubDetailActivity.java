@@ -147,7 +147,11 @@ public class ClubDetailActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-				BaseActivityUtil.startActivity(ClubDetailActivity.this, ActivityDetailActivity.class, false);
+				//BaseActivityUtil.startActivity(ClubDetailActivity.this, ClubActivityListActivity.class, false);
+				
+				Intent intent=new Intent(ClubDetailActivity.this,ClubActivityListActivity.class);
+				intent.putExtra("id", id);
+				startActivity(intent);
 			}
 		});
 		TextView mTitleView = (TextView) findViewById(R.id.mTitleView);

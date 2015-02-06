@@ -21,7 +21,9 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/activity_title_right_btn_margin_right"
 		    android:layout_gravity="center_vertical"
-		    android:background="#ffff00"/>
+		    android:background="@null"
+		    android:textColor="#ffffff"
+		    android:textSize="@dimen/textsize_normal"/>
         
         <TextView
             android:id="@+id/mTitleView"

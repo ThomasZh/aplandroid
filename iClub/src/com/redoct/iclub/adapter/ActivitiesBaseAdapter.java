@@ -22,7 +22,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityItem;
-import com.redoct.iclub.ui.activity.ActivityDetaisActivity;
+import com.redoct.iclub.ui.activity.ActivityDetailsActivity;
 import com.redoct.iclub.ui.activity.SplashActivity;
 
 public class ActivitiesBaseAdapter extends BaseAdapter {
@@ -154,7 +154,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View view) {
 				
-				Intent intent=new Intent(mContext,ActivityDetaisActivity.class);
+				Intent intent=new Intent(mContext,ActivityDetailsActivity.class);
 				intent.putExtra("id", item.getId());
 				intent.putExtra("leaderName", item.getLeaderName());
 				intent.putExtra("leaderAvatarUrl", item.getLeaderAvatarUrl());

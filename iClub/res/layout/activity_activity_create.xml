@@ -34,7 +34,7 @@
 		        android:layout_marginTop="4dip"
 		        android:background="@drawable/bg_corner_white"/>
 		    <EditText
-		        android:id="@+id/mDescTv"
+		        android:id="@+id/mDescEt"
 		        android:layout_width="match_parent"
 		        android:layout_height="100dip"
 		        android:paddingTop="6dip"
