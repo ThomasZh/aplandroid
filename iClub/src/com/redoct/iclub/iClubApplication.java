@@ -174,7 +174,7 @@ public class iClubApplication extends Application implements
 
 			@Override
 			public void failure() {
-
+				reconnect();
 			}
 
 			@Override

@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.oct.ga.comm.domain.Contact;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.SortAdapter;
 import com.redoct.iclub.item.ContactItem;
-import com.redoct.iclub.item.SortModel;
-import com.redoct.iclub.task.GetClubListTask;
 import com.redoct.iclub.task.GetContactTask;
 import com.redoct.iclub.util.CharacterParser;
 import com.redoct.iclub.util.PinyinComparator;
-import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.ClearEditText;
 import com.redoct.iclub.widget.SideBar;
@@ -50,7 +46,6 @@ public class ContactActivity extends Activity {
 	 * 汉字转换成拼音的类
 	 */
 	private CharacterParser characterParser;
-	private List<SortModel> SourceDateList;
 	
 	/**
 	 * 根据拼音来排列ListView里面的数据类
@@ -160,33 +155,6 @@ public class ContactActivity extends Activity {
 	}
 
 
-	/**
-	 * 为ListView填充数据
-	 * @param date
-	 * @return
-	 */
-	private List<SortModel> filledData(String [] date){
-		List<SortModel> mSortList = new ArrayList<SortModel>();
-		
-		for(int i=0; i<date.length; i++){
-			SortModel sortModel = new SortModel();
-			sortModel.setName(date[i]);
-			//汉字转换成拼音
-			String pinyin = characterParser.getSelling(date[i]);
-			String sortString = pinyin.substring(0, 1).toUpperCase();
-			
-			// 正则表达式，判断首字母是否是英文字母
-			if(sortString.matches("[A-Z]")){
-				sortModel.setSortLetters(sortString.toUpperCase());
-			}else{
-				sortModel.setSortLetters("#");
-			}
-			
-			mSortList.add(sortModel);
-		}
-		return mSortList;
-		
-	}
 	
 	/**
 	 * 根据输入框中的值来过滤数据并更新ListView

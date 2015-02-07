@@ -17,7 +17,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ContactItem;
-import com.redoct.iclub.item.SortModel;
 
 public class SortAdapter extends BaseAdapter implements SectionIndexer{
 	private List<ContactItem> list = null;

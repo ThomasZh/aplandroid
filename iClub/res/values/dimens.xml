@@ -66,5 +66,7 @@
     <dimen name="theme_select_icon_height">40dp</dimen>
     <dimen name="theme_select_icon_title_margin_left">6dp</dimen>
     <dimen name="theme_select_item_space">20dp</dimen>
+     <dimen name="activity_contact_title_height">55dp</dimen> 
+    
 
 </resources>

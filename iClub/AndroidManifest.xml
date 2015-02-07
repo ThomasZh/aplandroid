@@ -35,13 +35,11 @@
         <activity
             android:name="com.redoct.iclub.ui.activity.SplashActivity"
             android:label="@string/app_name" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-           
         </activity>
         <activity
             android:name="com.redoct.iclub.MainActivity"
@@ -59,7 +57,19 @@
             android:name="com.redoct.iclub.ui.activity.LocationSelectActivity"
             android:label="@string/app_name" >
 
-          <!--   
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name="com.redoct.iclub.ui.activity.ThemeSelectActivity"
+            android:label="@string/app_name" >
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,22 +78,16 @@
             -->
         </activity>
         <activity
-            android:name="com.redoct.iclub.ui.activity.ThemeSelectActivity"
-            android:label="@string/app_name" >
-            <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
-        </activity>
-        <activity
             android:name="com.redoct.iclub.ui.activity.ActivityCreateActivity"
             android:label="@string/app_name" >
-            <!-- <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name="com.redoct.iclub.ui.activity.ThemeSelectSecondActivity"
@@ -104,6 +108,9 @@
         <activity android:name="com.redoct.iclub.ui.activity.ClubDetailActivity" />
         <activity android:name="com.redoct.iclub.ui.activity.ClubActivityListActivity" />
         <activity android:name="com.redoct.iclub.ui.activity.UpdateClubActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.ContactActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.ContactDetailActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.AddContactActivity" />
     </application>
 
 </manifest>

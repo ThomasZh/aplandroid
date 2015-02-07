@@ -40,6 +40,8 @@
     <string name="articipants">---参加人员---</string>
     <string name="connctor">联系人</string>
     <string name="friends">朋友圈</string>
+     <string name="update_club">编辑圈子</string> 
+    
     <string name="alterpass">修改密码</string>
     <string name="quit">退出</string>
     <string name="complete">完成</string>

@@ -3,7 +3,6 @@ package com.redoct.iclub.util;
 import java.util.Comparator;
 
 import com.redoct.iclub.item.ContactItem;
-import com.redoct.iclub.item.SortModel;
 
 /**
  * 
