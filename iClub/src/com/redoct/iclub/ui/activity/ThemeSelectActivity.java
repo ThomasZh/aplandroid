@@ -1,6 +1,7 @@
 package com.redoct.iclub.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -31,6 +32,8 @@ public class ThemeSelectActivity extends Activity implements OnClickListener{
 	private LinearLayout mTheme0Container,mTheme1Container,mTheme2Container,mTheme3Container,mTheme4Container;
 	private LinearLayout mTheme5Container,mTheme6Container,mTheme7Container,mTheme8Container,mTheme9Container;
 	private LinearLayout mTheme10Container,mTheme11Container,mTheme12Container,mTheme13Container;
+	
+	private String id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class ThemeSelectActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_theme_select);
+		
+		id=getIntent().getStringExtra("id");
 		
 		initTitle();
 		
@@ -88,6 +93,13 @@ public class ThemeSelectActivity extends Activity implements OnClickListener{
 				Log.e("zyf", "select: "+iconTitles[position]);
 				
 				mPopupWindow.dismiss();
+				
+				Intent intent=new Intent(ThemeSelectActivity.this,ActivityCreateActivity.class);
+				intent.putExtra("id", id);
+				intent.putExtra("theme", iconTitles[position]);
+				startActivity(intent);
+				
+				finish();
 			}
 		});
 		
