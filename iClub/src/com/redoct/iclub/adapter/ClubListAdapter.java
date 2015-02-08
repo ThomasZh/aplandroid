@@ -33,7 +33,7 @@ public class ClubListAdapter extends BaseAdapter {
 		.cacheInMemory(true)
 		.cacheOnDisc(true)
 		.bitmapConfig(Bitmap.Config.RGB_565)
-		.displayer(new RoundedBitmapDisplayer(100)) 
+		.displayer(new RoundedBitmapDisplayer(10)) 
 		.build();
 	}
 
