@@ -147,11 +147,7 @@ public class ClubDetailActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-				//BaseActivityUtil.startActivity(ClubDetailActivity.this, ClubActivityListActivity.class, false);
-				
-				Intent intent=new Intent(ClubDetailActivity.this,ClubActivityListActivity.class);
-				intent.putExtra("id", id);
-				startActivity(intent);
+				BaseActivityUtil.startActivity(ClubDetailActivity.this, ActivityDetailActivity.class, false);
 			}
 		});
 		TextView mTitleView = (TextView) findViewById(R.id.mTitleView);
@@ -169,6 +165,7 @@ public class ClubDetailActivity extends Activity {
 				in.putExtra("name", clubName);
 				in.putExtra("img", clubImg);
 				in.putExtra("desc", clubDesc);
+				in.putExtra("id", id);
 				startActivityForResult(in, 1);
 				BaseActivityUtil.setStartTransition(ClubDetailActivity.this);
 				

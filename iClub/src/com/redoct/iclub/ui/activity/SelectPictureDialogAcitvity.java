@@ -158,8 +158,8 @@ public class SelectPictureDialogAcitvity extends Activity {
 				mBitmap.compress(Bitmap.CompressFormat.PNG, 90, out); 
 				out.flush(); 
 				out.close(); 
-				AccountActivity activity = (AccountActivity) iClubApplication.getActivity();
-				ReturnBitmap returnBitmap = activity;
+				Activity activity = iClubApplication.getActivity();
+				ReturnBitmap returnBitmap = (ReturnBitmap) activity;
 				returnBitmap.returnMapandUrl(mBitmap, filePath+"/img.png");
 				finish();
 				Log.e("zyf", "file save success......"); 

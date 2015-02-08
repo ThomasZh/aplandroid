@@ -7,6 +7,7 @@ import com.redoct.iclub.R;
 import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.ui.activity.AccountActivity;
 import com.redoct.iclub.ui.activity.ClubListActivity;
+import com.redoct.iclub.ui.activity.ContactActivity;
 import com.redoct.iclub.ui.activity.LoginActivity;
 import com.redoct.iclub.ui.activity.UpdatePasswordActivity;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
@@ -100,7 +101,8 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 			getActivity().finish();
 			break;
 		case R.id.connctor:
-			
+        	BaseActivityUtil.startActivity(getActivity(),ContactActivity.class, false);
+
 			break;
 		case R.id.friends:
         	BaseActivityUtil.startActivity(getActivity(),ClubListActivity.class, false);
