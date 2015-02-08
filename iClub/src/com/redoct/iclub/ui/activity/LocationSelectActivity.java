@@ -81,7 +81,7 @@ public class LocationSelectActivity extends Activity implements LocationSource,
 		leftBtn.setOnClickListener(this);
 		
 		Button rightBtn=(Button) findViewById(R.id.rightBtn);
-		rightBtn.setBackgroundResource(R.drawable.icon_start_time);
+		rightBtn.setText(getResources().getString(R.string.complete));;
 		rightBtn.setVisibility(View.VISIBLE);
 		rightBtn.setOnClickListener(this);
 	}

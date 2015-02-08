@@ -30,6 +30,7 @@ import com.redoct.iclub.task.ActivityCancelTask;
 import com.redoct.iclub.task.ActivityDetailsTask;
 import com.redoct.iclub.task.ActivityJoinTask;
 import com.redoct.iclub.task.MembersListTask;
+import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.DateUtils;
 
 public class ActivityDetailsActivity extends Activity implements OnClickListener{
@@ -60,7 +61,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	private TextView mLeaderNameTv,mNameTv,mDescTv,mLocDescTv,mStartDateTv,mStartTimeTv,mEndDateTv,mEndTimeTv,mRecommandNumTv;
 	
 	private RelativeLayout mRecommandContainer,mLocationContainer;
-	//private RelativeLayout mOptionContainer;
+	private RelativeLayout mOptionContainer;
 	
 	private Button mCancelBtn,mJoinBtn;
 	
@@ -79,8 +80,8 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		
 		mImageLoader=ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
-		.showStubImage(R.drawable.ic_launcher)
-		.showImageForEmptyUri(R.drawable.ic_launcher)
+		.showStubImage(R.drawable.me_normal)
+		.showImageForEmptyUri(R.drawable.me_normal)
 		.cacheInMemory(true)
 		.cacheOnDisc(true)
 		.bitmapConfig(Bitmap.Config.RGB_565)
@@ -102,7 +103,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				
 				mActivityDetailsItem=mMeetupDetailsTask.getDetails();
 				
-				Log.e("zyf", "call back members num: "+mActivityDetailsItem.getMembers().length());
+				//Log.e("zyf", "call back members num: "+mActivityDetailsItem.getMembers().length());
 				
 				updateUI();
 				
@@ -223,7 +224,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		
 		mRecommandContainer=(RelativeLayout)findViewById(R.id.mRecommandContainer);
 		mLocationContainer=(RelativeLayout)findViewById(R.id.mLocationContainer);
-		//mOptionContainer=(RelativeLayout)findViewById(R.id.mOptionContainer);
+		mOptionContainer=(RelativeLayout)findViewById(R.id.mOptionContainer);
 		
 		mMemberListContainer=(LinearLayout)findViewById(R.id.mMemberListContainer);
 		
@@ -239,7 +240,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		TextView mTitleView=(TextView) findViewById(R.id.mTitleView);
 		mTitleView.setText(mActivityDetailsItem.getLeaderName()+getResources().getString(R.string.activity_of_somebody));
 		
-		mLeaderNameTv.setText(leaderName);
+		mLeaderNameTv.setText(mActivityDetailsItem.getLeaderName());
 		
 		mImageLoader.displayImage(mActivityDetailsItem.getLeaderAvatarUrl(), mLeaderAvatarView, options);
 		
@@ -261,12 +262,12 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		mEndDateTv.setText(mDateUtils.getDate());
 		mEndTimeTv.setText(mDateUtils.getExactlyTime());
 		
-		if(mActivityDetailsItem.getRecommends().length()==0){
+		if(mActivityDetailsItem.getRecommendNum()==0){
 			mRecommandContainer.setVisibility(View.GONE);
 		}else{
 			mRecommandContainer.setVisibility(View.VISIBLE);
 			
-			mRecommandNumTv.setText(mActivityDetailsItem.getRecommends().length()+getString(R.string.recomand_show));
+			mRecommandNumTv.setText(mActivityDetailsItem.getRecommendNum()+getString(R.string.recomand_show));
 		}
 		
 		if(mActivityDetailsItem.getLocDesc()!=null&&mActivityDetailsItem.getLocDesc().length()>0){
@@ -280,20 +281,36 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		}
 		
 		if(mActivityDetailsItem.getState()==GlobalArgs.CLUB_ACTIVITY_STATE_CANCELED
-				||mActivityDetailsItem.getState()==GlobalArgs.CLUB_ACTIVITY_STATE_COMPLETED){
-			//mOptionContainer.setVisibility(View.GONE);
+				||mActivityDetailsItem.getState()==GlobalArgs.CLUB_ACTIVITY_STATE_COMPLETED){  //活动已经完成或者已经取消
 			
+			mOptionContainer.setVisibility(View.GONE);
+			mJoinBtn.setVisibility(View.GONE);
 			mCancelBtn.setVisibility(View.GONE);
-		}else{
-			if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_LEADER){
-				//mOptionContainer.setVisibility(View.VISIBLE);
-				
+		}else{   //活动正在进行中
+			if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_LEADER){   //本次活动的leader
+			
+				mOptionContainer.setVisibility(View.VISIBLE);
 				mJoinBtn.setVisibility(View.GONE);
 				mCancelBtn.setVisibility(View.VISIBLE);
-			}else if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){
-				//mOptionContainer.setVisibility(View.GONE);
 				
+				int curTime=(int)(System.currentTimeMillis()/1000);
+				if(mActivityDetailsItem.getStartTime()>curTime){   //活动还没开始，可以进行编辑
+					
+					//初始化"编辑"按钮
+					Button rightBtn=(Button)findViewById(R.id.rightBtn);
+					rightBtn.setVisibility(View.VISIBLE);
+					rightBtn.setText(getResources().getString(R.string.edit));
+					rightBtn.setOnClickListener(this);
+				}
+				
+			}else if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){  //尚未参加此次活动
+				
+				mOptionContainer.setVisibility(View.VISIBLE);
 				mJoinBtn.setVisibility(View.VISIBLE);
+				mCancelBtn.setVisibility(View.GONE);
+			}else{  //已经参加了该次活动
+				mOptionContainer.setVisibility(View.GONE);
+				mJoinBtn.setVisibility(View.GONE);
 				mCancelBtn.setVisibility(View.GONE);
 			}
 		}
@@ -397,8 +414,31 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			mActivityJoinTask.setTimeOutEnabled(true, 10*1000);
 			mActivityJoinTask.safeExecute();
 			break;
+		case R.id.rightBtn:
+			
+			Intent intent=new Intent(ActivityDetailsActivity.this,ActivityCreateActivity.class);
+			intent.putExtra("ActivityDetailsItem", mActivityDetailsItem);
+			startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_UPDATE);
+			
+			break;
 		default:
 			break;
+		}
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(requestCode==Constant.RESULT_CODE_ACTIVITY_UPDATE){
+			
+			if(data!=null){
+				
+				Log.e("zyf", "result activity update success......");
+				
+				mActivityDetailsItem=(ActivityDetailsItem)data.getSerializableExtra("ActivityDetailsItem");
+				
+				updateUI();
+			}
 		}
 	}
 }

@@ -88,10 +88,12 @@
     <string name="theme_title13">球类</string>
     <string name="theme_title14">速度</string>
     <string name="create_activity">创建活动</string>
+    <string name="edit_activity">编辑活动</string>
     <string name="hint_activity_desc">介绍一下活动的主要内容吧</string>
     <string name="hint_position">地点</string>
     <string name="summit">确定</string>
     <string name="cancel">取消</string>
     <string name="add">添加</string>
+    <string name="edit">编辑</string>
 
 </resources>

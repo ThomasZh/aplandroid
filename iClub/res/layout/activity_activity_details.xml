@@ -162,17 +162,17 @@
 			    android:background="@drawable/bg_corner_white">
 			    <ImageView
 			        android:id="@+id/mLeftView"
-			        android:layout_width="32dip"
-			        android:layout_height="32dip"
+			        android:layout_width="30dip"
+			        android:layout_height="30dip"
 			        android:layout_alignParentLeft="true"
-			        android:background="@drawable/ic_launcher"
+			        android:background="@drawable/location"
 			        android:layout_centerVertical="true"/>
 			    <ImageView
 			        android:id="@+id/mRightView"
-			        android:layout_width="32dip"
-			        android:layout_height="32dip"
+			        android:layout_width="10dip"
+			        android:layout_height="28dip"
 			        android:layout_alignParentRight="true"
-			        android:background="@drawable/ic_launcher"
+			        android:background="@drawable/arrow_right"
 			        android:layout_centerVertical="true"/>
 			    <TextView
 			        android:id="@+id/mLocDescTv"

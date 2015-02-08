@@ -12,6 +12,7 @@ import com.redoct.iclub.adapter.ClubActivitiesBaseAdapter;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.task.GetActivitiesInClubTask;
 import com.redoct.iclub.task.ActivityListTask;
+import com.redoct.iclub.util.Constant;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -164,7 +165,7 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 	private void initView() {
 
 		mPullToRefreshListView=(PullToRefreshListView)findViewById(R.id.mPullToRefreshListView);
-		mClubActivitiesBaseAdapter=new ClubActivitiesBaseAdapter(activityItems,this);
+		mClubActivitiesBaseAdapter=new ClubActivitiesBaseAdapter(activityItems,ClubActivityListActivity.this);
 		mPullToRefreshListView.setAdapter(mClubActivitiesBaseAdapter);
 		
 		mPullToRefreshListView.setOnRefreshListener(new OnRefreshListener2() {
@@ -214,6 +215,23 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 			break;
 		default:
 			break;
+		}
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(requestCode==Constant.RESULT_CODE_ACTIVITY_CREATE){
+			
+			Log.e("zyf", "result activity create success1111111111...... ");
+			
+			if(data!=null){
+				
+				Log.e("zyf", "result activity create success...... ");
+				
+				loadData();
+
+			}
 		}
 	}
 

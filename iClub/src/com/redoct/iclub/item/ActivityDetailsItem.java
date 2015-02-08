@@ -4,12 +4,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by liwenzhi on 14-10-14.
  */
-public class ActivityDetailsItem {
+public class ActivityDetailsItem implements Serializable{
 
     private String id;
     private String name;
@@ -28,8 +29,10 @@ public class ActivityDetailsItem {
     private String leaderName;
     private String leaderAvatarUrl;
 
-    private JSONArray members;
-    private JSONArray recommends;
+   /* private JSONArray members;
+    private JSONArray recommends;*/
+    
+    private int recommendNum;
 
     public static ActivityDetailsItem parseJsonToObj(JSONObject json) throws JSONException {
     	
@@ -49,8 +52,10 @@ public class ActivityDetailsItem {
         md.setMemberNum(json.getInt("memberNum"));
         md.setState((short) json.getInt("state"));
 
-        md.setMembers(json.getJSONArray("members"));
-        md.setRecommends(json.getJSONArray("recommends"));
+        /*md.setMembers(json.getJSONArray("members"));
+        md.setRecommends(json.getJSONArray("recommends"));*/
+        
+        md.setRecommendNum(json.getJSONArray("recommends").length());
         
         md.setState(Short.parseShort(json.getString("state")));
         md.setMemberRank(Short.parseShort(json.getString("memberRank")));
@@ -62,10 +67,20 @@ public class ActivityDetailsItem {
 
         return md;
     }
-    
-    
 
-    public String getLeaderName() {
+    public int getRecommendNum() {
+		return recommendNum;
+	}
+
+	public void setRecommendNum(int recommendNum) {
+		this.recommendNum = recommendNum;
+	}
+
+
+
+
+
+	public String getLeaderName() {
 		return leaderName;
 	}
 
@@ -101,7 +116,7 @@ public class ActivityDetailsItem {
 
 
 
-	public JSONArray getMembers() {
+	/*public JSONArray getMembers() {
         return members;
     }
 
@@ -115,7 +130,7 @@ public class ActivityDetailsItem {
 
     public void setRecommends(JSONArray recommends) {
         this.recommends = recommends;
-    }
+    }*/
 
     public String getId() {
         return id;

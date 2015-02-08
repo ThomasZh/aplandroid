@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import javax.crypto.Mac;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,8 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.oct.ga.comm.domain.club.ActivityDetailInfo;
 import com.redoct.iclub.R;
+import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.task.ActivityCreateTask;
+import com.redoct.iclub.task.ActivityUpdateTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.widget.DateTimeSelectorDialog;
 
@@ -52,6 +58,9 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	private int endMinute=30;
 	
 	private ActivityCreateTask mCreateActivityTask;
+	private ActivityUpdateTask mUpdateActivityTask;
+	
+	private ActivityDetailsItem mActivityDetailsItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,36 +68,94 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		
 		setContentView(R.layout.activity_activity_create);
 		
-		theme=getIntent().getStringExtra("theme");
-		id=getIntent().getStringExtra("id");
-		
-		initTitle();
-		
 		initViews();
 		
-		try {
+		mActivityDetailsItem=(ActivityDetailsItem) getIntent().getSerializableExtra("ActivityDetailsItem");
+		if(mActivityDetailsItem!=null){
+			Log.e("zyf", "activity edit mode......");
 			
-			initDateTime();
-		} catch (Exception e) {
-			Log.e("zyf", e.toString());
+			initDatas();
+			
+			initTitle();
+			
+			return;
+		}else{
+			
+			theme=getIntent().getStringExtra("theme");
+			id=getIntent().getStringExtra("id");
+			
+			mThemeTv.setText(theme);
+			
+			try {
+				
+				initDateTime();
+			} catch (Exception e) {
+				Log.e("zyf", e.toString());
+			}
+			
+			initTitle();
 		}
+	}
+	
+	private void initDatas(){
+		
+		theme=mActivityDetailsItem.getName();
+		id=mActivityDetailsItem.getId();
+		
+		mThemeTv.setText(theme);
+		
+		mDescEt.setText(mActivityDetailsItem.getDesc());
+		
+		mLocationEt.setText(mActivityDetailsItem.getLocDesc());
+		locX=mActivityDetailsItem.getLocX();
+		locY=mActivityDetailsItem.getLocY();
+		
+		//开始时间
+		Date date=new Date(((long)mActivityDetailsItem.getStartTime())*1000);
+		
+		Calendar calendar=new GregorianCalendar();
+		calendar.setTime(date);
+		
+		startYear=calendar.get(calendar.YEAR);
+		startMonth=calendar.get(calendar.MONTH)+1;
+		startDay=calendar.get(calendar.DAY_OF_MONTH);
+		startHour=calendar.get(calendar.HOUR_OF_DAY);
+		startMinute=calendar.get(calendar.MINUTE);
+		
+		Log.e("zyf start date: ", startYear+"-"+startMonth+"-"+startDay+"  "+startHour+":"+startMinute);
+		
+		date.setTime(((long)mActivityDetailsItem.getEndTime())*1000);
+		calendar.setTime(date);
+		
+		endYear=calendar.get(calendar.YEAR);
+		endMonth=calendar.get(calendar.MONTH)+1;
+		endDay=calendar.get(calendar.DAY_OF_MONTH);
+		endHour=calendar.get(calendar.HOUR_OF_DAY);
+		endMinute=calendar.get(calendar.MINUTE);
+		
+		Log.e("zyf end date: ", endYear+"-"+endMonth+"-"+endDay+" "+endHour+":"+endMinute);
+		
+		updateDateTime();
 	}
 	
 	private void initTitle(){
 		
 		TextView mTitleView=(TextView) findViewById(R.id.mTitleView);
-		mTitleView.setText(getResources().getString(R.string.create_activity));
+		
+		if(mActivityDetailsItem==null){
+			mTitleView.setText(getResources().getString(R.string.create_activity));
+		}else{
+			mTitleView.setText(getResources().getString(R.string.edit_activity));
+		}
 		
 		Button leftBtn=(Button) findViewById(R.id.leftBtn);
 		leftBtn.setBackgroundResource(R.drawable.title_back);
 		leftBtn.setVisibility(View.VISIBLE);
-
 		leftBtn.setOnClickListener(this);
 		
 		Button rightBtn=(Button) findViewById(R.id.rightBtn);
-		rightBtn.setText("完成");;
+		rightBtn.setText("完成");
 		rightBtn.setVisibility(View.VISIBLE);
-
 		rightBtn.setOnClickListener(this);
 	}
 	
@@ -146,7 +213,6 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		mEndDateTimeConatiner.setOnClickListener(this);
 		
 		mThemeTv=(TextView)findViewById(R.id.mThemeTv);
-		mThemeTv.setText(theme);
 		
 		mStartDateTv=(TextView)findViewById(R.id.mStartDateTv);
 		mEndDateTv=(TextView)findViewById(R.id.mEndDateTv);
@@ -176,7 +242,6 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 				}
 
 			}
-			
 		}
 	}
 
@@ -243,6 +308,71 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 			
 		case R.id.rightBtn:
 			
+			if(mActivityDetailsItem!=null){   //活动的编辑
+				
+				ActivityDetailInfo info=new ActivityDetailInfo();
+		    	info.setId(id);
+		    	info.setName(theme);
+		    	info.setStartTime((int)getFormatTime(startYear, startMonth, startDay, startHour, startMinute));
+		    	info.setEndTime((int)getFormatTime(endYear, endMonth, endDay, endHour, endMinute));
+		    	info.setDesc(mDescEt.getText().toString());
+		    	info.setLocX(locX);
+		    	info.setLocY(locY);
+		    	info.setLocDesc(mLocationEt.getText().toString());
+		    	
+				mUpdateActivityTask=new ActivityUpdateTask(info){
+					
+					@Override
+		            public void callback(){
+		               
+		            	Log.e("zyf", "update activity success......");
+		            	
+		            	mActivityDetailsItem.setName(theme);
+		            	mActivityDetailsItem.setStartTime((int)getFormatTime(startYear, startMonth, startDay, startHour, startMinute));
+		            	mActivityDetailsItem.setEndTime((int)getFormatTime(endYear, endMonth, endDay, endHour, endMinute));
+		            	mActivityDetailsItem.setDesc(mDescEt.getText().toString());
+		            	mActivityDetailsItem.setLocX(locX);
+		            	mActivityDetailsItem.setLocY(locY);
+		            	mActivityDetailsItem.setLocDesc(mLocationEt.getText().toString());
+		            	
+		            	Intent intent=new Intent();
+		            	intent.putExtra("ActivityDetailsItem", mActivityDetailsItem);
+		            	ActivityCreateActivity.this.setResult(Constant.RESULT_CODE_ACTIVITY_UPDATE, intent);
+		            	
+		            	finish();
+		            }
+		            
+		            @Override
+		            public void complete(){
+		            	
+		            }
+		            
+		            @Override
+		            public void failure(){
+		                
+		                Log.e("zyf", "update activity failure......");
+		            }
+		            
+		            @Override
+		            public void before(){
+		            	
+		            }
+
+					@Override
+					public void timeout() {
+						// TODO Auto-generated method stub
+						super.timeout();
+						
+						mUpdateActivityTask.cancel(true);
+						
+						Log.e("zyf", "update activity time out......");
+					} 
+				};
+				mUpdateActivityTask.setTimeOutEnabled(true, 10*1000);
+				mUpdateActivityTask.safeExecute();
+				return;
+			}
+			
 			JSONObject contentJsonObject = new JSONObject();
 
 	        try {
@@ -267,6 +397,10 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	            public void callback(){
 	               
 	            	Log.e("zyf", "create activity success......");
+	            	
+	            	Intent intent=new Intent();
+	            	ActivityCreateActivity.this.setResult(Constant.RESULT_CODE_ACTIVITY_CREATE, intent);
+	            	ActivityCreateActivity.this.finish();
 	            }
 	            
 	            @Override

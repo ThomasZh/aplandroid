@@ -45,8 +45,8 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
 		
 		mImageLoader=ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
-		.showStubImage(R.drawable.ic_launcher)
-		.showImageForEmptyUri(R.drawable.ic_launcher)
+		.showStubImage(R.drawable.me_normal)
+		.showImageForEmptyUri(R.drawable.me_normal)
 		.cacheInMemory(true)
 		.cacheOnDisc(true)
 		.bitmapConfig(Bitmap.Config.RGB_565)

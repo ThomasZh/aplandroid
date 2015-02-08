@@ -29,8 +29,7 @@
 	         android:id="@+id/mLeaderAvatarView" 
 	         android:layout_width="50dip"
 	         android:layout_height="50dip"
-	         android:layout_margin="6dip"
-	         android:background="@drawable/ic_launcher"/>
+	         android:layout_margin="6dip"/>
 	     <LinearLayout 
 		     android:layout_width="match_parent"
 		     android:layout_height="wrap_content"
@@ -82,7 +81,7 @@
 			         android:layout_width="20dip"
 			         android:layout_height="20dip"
 			         android:layout_marginRight="4dip"
-			         android:background="@drawable/ic_launcher"/>
+			         android:background="@drawable/me_normal"/>
 			     <TextView
 			         android:id="@+id/mMemberNumTv"
 				     android:layout_width="match_parent"
@@ -119,7 +118,7 @@
 			         android:layout_width="20dip"
 			         android:layout_height="20dip"
 			         android:layout_marginRight="4dip"
-			         android:background="@drawable/ic_launcher"/>
+			         android:background="@drawable/location"/>
 			     <TextView
 			         android:id="@+id/mLocDescTv"
 				     android:layout_width="match_parent"

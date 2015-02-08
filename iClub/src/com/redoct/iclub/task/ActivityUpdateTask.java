@@ -11,17 +11,17 @@ import com.redoct.iclub.iClubApplication;
 
 public class ActivityUpdateTask extends TemplateTask {
 	
-	private String id;
+	private ActivityDetailInfo info;
 
-    public ActivityUpdateTask(String id){
-        this.id = id;
+    public ActivityUpdateTask(ActivityDetailInfo info){
+        this.info = info;
     }
 
     @Override
     protected boolean justTodo() {
 
     	
-    	ActivityDetailInfo info=new ActivityDetailInfo();
+    	/*ActivityDetailInfo info=new ActivityDetailInfo();
     	info.setId("");
     	info.setName("");
     	info.setStartTime(0);
@@ -29,7 +29,7 @@ public class ActivityUpdateTask extends TemplateTask {
     	info.setDesc("");
     	info.setLocX("");
     	info.setLocY("");
-    	info.setDesc("");
+    	info.setLocDesc("");*/
     	
     	ActivityUpdateReq req=new ActivityUpdateReq(DatetimeUtil.currentTimestamp(),info);
         

@@ -7,7 +7,9 @@ import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivitiesBaseAdapter.ViewHolder;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.ui.activity.ActivityDetailsActivity;
+import com.redoct.iclub.util.Constant;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,12 +27,12 @@ public class ClubActivitiesBaseAdapter extends BaseAdapter {
 	
     private ArrayList<ActivityItem> activityItems;
 	
-	private Context mContext;
+	private Activity mContext;
 	
 	private LayoutInflater inflater;
 
 	public ClubActivitiesBaseAdapter(ArrayList<ActivityItem> activityItems,
-			Context mContext) {
+			Activity mContext) {
 		super();
 		this.activityItems = activityItems;
 		this.mContext = mContext;
@@ -97,7 +99,7 @@ public class ClubActivitiesBaseAdapter extends BaseAdapter {
 				intent.putExtra("id", item.getId());
 				intent.putExtra("leaderName", item.getLeaderName());
 				intent.putExtra("leaderAvatarUrl", item.getLeaderAvatarUrl());
-				mContext.startActivity(intent);
+				((Activity)mContext).startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_CREATE);
 			}
 		});
         

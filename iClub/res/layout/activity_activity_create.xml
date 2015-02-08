@@ -130,7 +130,7 @@
 			        android:layout_width="24dip"
 			        android:layout_height="24dip"
 			        android:layout_alignParentRight="true"
-			        android:background="@drawable/icon_start_time"
+			        android:background="@drawable/location"
 			        android:layout_centerVertical="true"/>
 			    <EditText
 			        android:id="@+id/mLocationEt"
