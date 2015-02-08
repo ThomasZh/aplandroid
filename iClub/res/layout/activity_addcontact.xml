@@ -61,12 +61,12 @@
 
         <EditText
             android:id="@+id/et_addcontact_mail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:background="@null"
             android:hint="@string/mail"
-            android:inputType="number"
+         
             android:textColor="@color/black"
             android:textColorHint="@color/bg_gray"
             android:textSize="15sp" />

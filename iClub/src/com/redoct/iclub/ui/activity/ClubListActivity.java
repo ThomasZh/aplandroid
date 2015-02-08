@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -54,12 +55,13 @@ public class ClubListActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int i,
 					long arg3) {
 				// TODO Auto-generated method stub
-				
-			   Intent in = new Intent();
-			   in.setClass(ClubListActivity.this,ClubDetailActivity.class);
-			   in.putExtra("id",clubList.get(i).getId());
-               BaseActivityUtil.startActivity(ClubListActivity.this, in,false,false);
-               
+
+				Intent in = new Intent();
+				in.setClass(ClubListActivity.this, ClubDetailActivity.class);
+				in.putExtra("id", clubList.get(i).getId());
+				BaseActivityUtil.startActivity(ClubListActivity.this, in,
+						false, false);
+
 			}
 		});
 
@@ -129,7 +131,25 @@ public class ClubListActivity extends Activity {
 
 		TextView mTitleView = (TextView) findViewById(R.id.mTitleView);
 		mTitleView.setText(getResources().getString(R.string.friends));
+		findViewById(R.id.leftBtn).setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+				overridePendingTransition(R.anim.push_right_in,
+						R.anim.push_right_out);
+			}
+		});
+
+	}
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
+		overridePendingTransition(R.anim.push_right_in,
+				R.anim.push_right_out);
 	}
 
 }

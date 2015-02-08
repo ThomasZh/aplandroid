@@ -93,5 +93,6 @@
     <string name="summit">确定</string>
     <string name="cancel">取消</string>
     <string name="add">添加</string>
+    <string name="no_result_showu">这个邮箱的用户还没有注册或者完成绑定，发一个邀请给这位朋友吗？</string>
 
 </resources>
