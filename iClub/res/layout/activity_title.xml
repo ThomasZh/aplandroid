@@ -23,7 +23,7 @@
 		    android:layout_gravity="center_vertical"
 		    android:background="@null"
 		    android:textColor="#ffffff"
-		    android:textSize="@dimen/textsize_normal"/>
+		    android:textSize="@dimen/textsize_smaller"/>
         
         <TextView
             android:id="@+id/mTitleView"
