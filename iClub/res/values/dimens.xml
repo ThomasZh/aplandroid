@@ -67,6 +67,8 @@
     <dimen name="theme_select_icon_title_margin_left">6dp</dimen>
     <dimen name="theme_select_item_space">20dp</dimen>
      <dimen name="activity_contact_title_height">55dp</dimen> 
+     <dimen name="iclub_item_height">70dp</dimen> 
+     <dimen name="club_item_image_width">120dp</dimen> 
     
 
 </resources>
