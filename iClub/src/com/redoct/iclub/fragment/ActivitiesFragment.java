@@ -24,6 +24,7 @@ import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.task.ActivityListTask;
 import com.redoct.iclub.util.DateUtils;
+import com.redoct.iclub.util.MyProgressDialogUtils;
 
 public class ActivitiesFragment extends Fragment{
 	
@@ -41,15 +42,15 @@ public class ActivitiesFragment extends Fragment{
 	
 	private int mode=-1;
 	
+	private MyProgressDialogUtils myProgressDialogUtils;
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View contentView=inflater.inflate(R.layout.fragment_activities, container, false);
 		
 		initTitle(contentView);
-		
-		//Log.e("zyf", "format date: "+DateUtils.getFormatDate(1422406800));
-	
 		
 		mPullToRefreshListView=(PullToRefreshListView)contentView.findViewById(R.id.mPullToRefreshListView);
 		mActivitiesBaseAdapter=new ActivitiesBaseAdapter(getActivity(),activityItems);
@@ -107,6 +108,9 @@ public class ActivitiesFragment extends Fragment{
 				super.before();
 				
 				Log.e("zyf", "start get data....");
+				
+				myProgressDialogUtils=new MyProgressDialogUtils(R.string.activity_of_somebody, getActivity());
+				myProgressDialogUtils.showDialog();
 			}
 
 			@Override
@@ -158,6 +162,8 @@ public class ActivitiesFragment extends Fragment{
 				Log.e("zyf", "get data complete....");
 				
 				mPullToRefreshListView.onRefreshComplete();
+				
+				myProgressDialogUtils.dismissDialog();
 			}
 		};
 		task.setTimeOutEnabled(true, 10*1000);
