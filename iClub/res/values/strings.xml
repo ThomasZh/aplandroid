@@ -96,5 +96,10 @@
     <string name="add">添加</string>
     <string name="edit">编辑</string>
     <string name="no_result_showu">这个邮箱的用户还没有注册或者完成绑定，发一个邀请给这位朋友吗？</string>
+    <string name="recommend">推荐</string>
+    <string name="message">消息</string>
+    <string name="accept">接受</string>
+    <string name="accepted">已接受</string>
+    <string name="hint_invite_reason">请输入推荐的理由:</string>
 
 </resources>

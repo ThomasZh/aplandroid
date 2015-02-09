@@ -18,11 +18,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.oct.ga.comm.LogErrorMessage;
 import com.oct.ga.comm.domain.club.ActivityDetailInfo;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityDetailsItem;
@@ -116,11 +118,17 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		Calendar calendar=new GregorianCalendar();
 		calendar.setTime(date);
 		
+		//获取星期几
+		/*SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+	    Log.e("zyf", "init date: "+dateFm.format(date))*/;
+		
 		startYear=calendar.get(calendar.YEAR);
 		startMonth=calendar.get(calendar.MONTH)+1;
 		startDay=calendar.get(calendar.DAY_OF_MONTH);
 		startHour=calendar.get(calendar.HOUR_OF_DAY);
 		startMinute=calendar.get(calendar.MINUTE);
+		
+		startDayOfWeek=getDayOfWeek(startYear, startMonth, startDay);
 		
 		Log.e("zyf start date: ", startYear+"-"+startMonth+"-"+startDay+"  "+startHour+":"+startMinute);
 		
@@ -132,6 +140,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		endDay=calendar.get(calendar.DAY_OF_MONTH);
 		endHour=calendar.get(calendar.HOUR_OF_DAY);
 		endMinute=calendar.get(calendar.MINUTE);
+		
+		endDayOfWeek=getDayOfWeek(endYear, endMonth, endDay);
 		
 		Log.e("zyf end date: ", endYear+"-"+endMonth+"-"+endDay+" "+endHour+":"+endMinute);
 		
@@ -171,6 +181,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		startMonth=calendar.get(calendar.MONTH)+1;
 		startDay=calendar.get(calendar.DAY_OF_MONTH);
 		
+		startDayOfWeek=getDayOfWeek(startYear, startMonth, startDay);
+		
 		Log.e("zyf start date: ", startYear+"-"+startMonth+"-"+startDay);
 		
 		calendar.add(calendar.DATE, 1);
@@ -178,6 +190,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		endYear=calendar.get(calendar.YEAR);
 		endMonth=calendar.get(calendar.MONTH)+1;
 		endDay=calendar.get(calendar.DAY_OF_MONTH);
+		
+		endDayOfWeek=getDayOfWeek(endYear, endMonth, endDay);
 		
 		Log.e("zyf end date: ", endYear+"-"+endMonth+"-"+endDay);
 		
@@ -189,8 +203,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		mStartDateTv.setText(startMonth+getResources().getString(R.string.month)+startDay+getResources().getString(R.string.day));
 		mEndDateTv.setText(endMonth+getResources().getString(R.string.month)+endDay+getResources().getString(R.string.day));
 		
-		mStartTimeTv.setText(startHour+":"+getFormatTime(startMinute));
-		mEndTimeTv.setText(endHour+":"+getFormatTime(endMinute));
+		mStartTimeTv.setText(startDayOfWeek+"  "+startHour+":"+getFormatTime(startMinute));
+		mEndTimeTv.setText(endDayOfWeek+"  "+endHour+":"+getFormatTime(endMinute));
 	}
 	
 	private String getFormatTime(int minute){
@@ -271,6 +285,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 					startHour=hour;
 					startMinute=minute;
 					
+					startDayOfWeek=getDayOfWeek(startYear, startMonth, startDay);
+					
 					updateDateTime();
 				}
 			});
@@ -293,6 +309,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 					
 					endHour=hour;
 					endMinute=minute;
+					
+					endDayOfWeek=getDayOfWeek(endYear, endMonth, endDay);
 					
 					updateDateTime();
 				}
@@ -438,6 +456,22 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		default:
 			break;
 		}
+	}
+	
+	private String getDayOfWeek(int year,int month,int day){
+		
+		String sDt=year+"/"+month+"/"+day;
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy/MM/dd");
+		Date date;
+		try {
+			date = sdf.parse(sDt);
+			SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+		    return dateFm.format(date);
+		} catch (ParseException e) {
+			Log.e("zyf","get day of week exception: "+e.toString());
+		}
+		
+		return "";
 	}
 	
 	private long getFormatTime(int year,int month,int day,int hour,int minute){

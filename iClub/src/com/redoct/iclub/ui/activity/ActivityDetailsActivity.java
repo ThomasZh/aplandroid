@@ -66,6 +66,8 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	private Button mCancelBtn,mJoinBtn;
 	
 	private LinearLayout mMemberListContainer;
+	
+	private boolean isJoined;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -288,10 +290,12 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			mCancelBtn.setVisibility(View.GONE);
 		}else{   //活动正在进行中
 			if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_LEADER){   //本次活动的leader
-			
-				mOptionContainer.setVisibility(View.VISIBLE);
-				mJoinBtn.setVisibility(View.GONE);
+				
+				isJoined=true;
+				mJoinBtn.setText(getResources().getString(R.string.recommend));
+				
 				mCancelBtn.setVisibility(View.VISIBLE);
+				mOptionContainer.setVisibility(View.VISIBLE);
 				
 				int curTime=(int)(System.currentTimeMillis()/1000);
 				if(mActivityDetailsItem.getStartTime()>curTime){   //活动还没开始，可以进行编辑
@@ -306,11 +310,16 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			}else if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){  //尚未参加此次活动
 				
 				mOptionContainer.setVisibility(View.VISIBLE);
+				
+				isJoined=false;
 				mJoinBtn.setVisibility(View.VISIBLE);
+				
 				mCancelBtn.setVisibility(View.GONE);
 			}else{  //已经参加了该次活动
-				mOptionContainer.setVisibility(View.GONE);
-				mJoinBtn.setVisibility(View.GONE);
+				
+				isJoined=true;
+				mJoinBtn.setText(getResources().getString(R.string.recommend));
+				
 				mCancelBtn.setVisibility(View.GONE);
 			}
 		}
@@ -376,6 +385,16 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			
 			break;
 		case R.id.mJoinBtn:
+			
+			if(isJoined){
+				
+				Log.e("zyf", "invite invite invite...");
+				
+				Intent inviteIntent=new Intent(ActivityDetailsActivity.this,ActivityInviteActivity.class);
+				startActivity(inviteIntent);
+				
+				return;
+			}
 			
 			mActivityJoinTask=new ActivityJoinTask(id){
 				

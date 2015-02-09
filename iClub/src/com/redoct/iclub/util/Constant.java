@@ -21,5 +21,5 @@ public final class Constant
     public static int RESULT_CODE_LOCATION_SELECT=0;
     public static int RESULT_CODE_ACTIVITY_UPDATE=1;
     public static int RESULT_CODE_ACTIVITY_CREATE=2;
-    
+    public static int RESULT_CODE_ACTIVITY_INVITE=3;
 }

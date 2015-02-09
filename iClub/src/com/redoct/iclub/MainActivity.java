@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import com.redoct.iclub.fragment.ActivitiesFragment;
-import com.redoct.iclub.fragment.InvitationFragment;
+import com.redoct.iclub.fragment.MessageFragment;
 import com.redoct.iclub.fragment.MyPlansFragment;
 import com.redoct.iclub.fragment.MySelfFragment;
 import com.redoct.iclub.widget.MyTabView;
@@ -18,7 +18,7 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
 	
 	private MyPlansFragment mPlansFragment;
 	private ActivitiesFragment mActivitiesFragment;
-	private InvitationFragment mInvitationFragment;
+	private MessageFragment mInvitationFragment;
 	private MySelfFragment mMySelfFragment;
 	
 	private int mTabviewNormalIcons[]={R.drawable.myplan_normal,R.drawable.activity_normal,R.drawable.message_normal,R.drawable.me_normal};
@@ -73,7 +73,7 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
 			break;
 		case 2:
 			if(mInvitationFragment==null){
-				mInvitationFragment=new InvitationFragment();
+				mInvitationFragment=new MessageFragment();
 				
 				transaction.add(R.id.contentLayout, mInvitationFragment);  
 			}else{
