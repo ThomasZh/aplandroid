@@ -101,5 +101,6 @@
     <string name="accept">接受</string>
     <string name="accepted">已接受</string>
     <string name="hint_invite_reason">请输入推荐的理由:</string>
+    <string name="progress_dialog_loading">正在加载...</string>
 
 </resources>

@@ -109,7 +109,7 @@ public class ActivitiesFragment extends Fragment{
 				
 				Log.e("zyf", "start get data....");
 				
-				myProgressDialogUtils=new MyProgressDialogUtils(R.string.activity_of_somebody, getActivity());
+				myProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_loading, getActivity());
 				myProgressDialogUtils.showDialog();
 			}
 

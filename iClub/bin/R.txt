@@ -484,6 +484,7 @@ int string position_desc_get_failed 0x7f070042
 int string position_getting 0x7f070041
 int string position_select 0x7f070040
 int string position_show 0x7f07003f
+int string progress_dialog_loading 0x7f07006a
 int string pull_down_to_refresh_pull_label2 0x7f070000
 int string pull_last_updated_time 0x7f070006
 int string pull_load_more_data_loading_label 0x7f070005
