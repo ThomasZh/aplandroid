@@ -31,7 +31,9 @@ import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.task.ActivityCreateTask;
 import com.redoct.iclub.task.ActivityUpdateTask;
 import com.redoct.iclub.util.Constant;
+import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.widget.DateTimeSelectorDialog;
+import com.redoct.iclub.widget.MyToast;
 
 public class ActivityCreateActivity extends Activity implements OnClickListener{
 	
@@ -63,6 +65,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	private ActivityUpdateTask mUpdateActivityTask;
 	
 	private ActivityDetailsItem mActivityDetailsItem;
+	
+	private MyProgressDialogUtils mProgressDialogUtils;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -358,22 +362,29 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		            	ActivityCreateActivity.this.setResult(Constant.RESULT_CODE_ACTIVITY_UPDATE, intent);
 		            	
 		            	finish();
+		            	
+		            	MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_update_success, MyToast.LENGTH_SHORT).show();
 		            }
 		            
 		            @Override
 		            public void complete(){
 		            	
+		            	mProgressDialogUtils.dismissDialog();
 		            }
 		            
 		            @Override
 		            public void failure(){
 		                
 		                Log.e("zyf", "update activity failure......");
+		                
+		                MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_update_failed, MyToast.LENGTH_SHORT).show();
 		            }
 		            
 		            @Override
 		            public void before(){
 		            	
+		            	mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_activity_updating, ActivityCreateActivity.this);
+						mProgressDialogUtils.showDialog();
 		            }
 
 					@Override
@@ -383,7 +394,11 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 						
 						mUpdateActivityTask.cancel(true);
 						
+						mProgressDialogUtils.dismissDialog();
+						
 						Log.e("zyf", "update activity time out......");
+						
+						MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_update_failed, MyToast.LENGTH_SHORT).show();
 					} 
 				};
 				mUpdateActivityTask.setTimeOutEnabled(true, 10*1000);
@@ -419,22 +434,29 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	            	Intent intent=new Intent();
 	            	ActivityCreateActivity.this.setResult(Constant.RESULT_CODE_ACTIVITY_CREATE, intent);
 	            	ActivityCreateActivity.this.finish();
+	            	
+	            	MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_create_success,MyToast.LENGTH_SHORT).show();
 	            }
 	            
 	            @Override
 	            public void complete(){
 	            	
+	            	mProgressDialogUtils.dismissDialog();
 	            }
 	            
 	            @Override
 	            public void failure(){
 	                
 	                Log.e("zyf", "create activity failure......");
+	                
+	                MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_create_failed,MyToast.LENGTH_SHORT).show();
 	            }
 	            
 	            @Override
 	            public void before(){
 	            	
+	            	mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_activity_creating, ActivityCreateActivity.this);
+					mProgressDialogUtils.showDialog();
 	            }
 
 				@Override
@@ -443,8 +465,11 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 					super.timeout();
 					
 					mCreateActivityTask.cancel(true);
+					mProgressDialogUtils.dismissDialog();
 					
 					Log.e("zyf", "create activity time out......");
+					
+					MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_create_failed,MyToast.LENGTH_SHORT).show();
 				} 
 
 	        };

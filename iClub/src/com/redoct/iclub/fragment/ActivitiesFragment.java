@@ -25,6 +25,7 @@ import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.task.ActivityListTask;
 import com.redoct.iclub.util.DateUtils;
 import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
 
 public class ActivitiesFragment extends Fragment{
 	
@@ -100,6 +101,8 @@ public class ActivitiesFragment extends Fragment{
 				
 				task.cancel(true);
 				Log.e("zyf", "get data time out....");
+				
+				MyToast.makeText(getActivity(), true, R.string.load_failed, MyToast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -141,6 +144,8 @@ public class ActivitiesFragment extends Fragment{
 				}else{
 					mPullToRefreshListView.setMode(Mode.BOTH);
 				}
+				
+				//MyToast.makeText(getActivity(), true, R.string.load_success, MyToast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -151,6 +156,9 @@ public class ActivitiesFragment extends Fragment{
 				Log.e("zyf", "get data failure....");
 				
 				mPullToRefreshListView.onRefreshComplete();
+				myProgressDialogUtils.dismissDialog();
+				
+				MyToast.makeText(getActivity(), true, R.string.load_failed, MyToast.LENGTH_SHORT).show();
 				
 			}
 

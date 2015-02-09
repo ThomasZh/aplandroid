@@ -102,5 +102,20 @@
     <string name="accepted">已接受</string>
     <string name="hint_invite_reason">请输入推荐的理由:</string>
     <string name="progress_dialog_loading">正在加载...</string>
+    <string name="progress_dialog_activity_canceling">正在取消本次活动...</string>
+    <string name="progress_dialog_activity_adding">正在加入本次活动...</string>
+    <string name="progress_dialog_activity_updating">正在编辑本次活动...</string>
+    <string name="progress_dialog_activity_creating">正在创建本次活动...</string>
+    
+    <string name="load_success">加载成功.</string>
+    <string name="load_failed">加载失败.</string>
+    <string name="activity_cancel_success">活动取消成功.</string>
+    <string name="activity_cancel_failed">活动取消失败.</string>
+    <string name="activity_add_success">活动加入成功.</string>
+    <string name="activity_add_failed">活动加入失败.</string>
+    <string name="activity_update_success">活动更新成功.</string>
+    <string name="activity_update_failed">活动更新失败.</string>
+    <string name="activity_create_success">活动创建成功.</string>
+    <string name="activity_create_failed">活动创建失败.</string>
 
 </resources>
