@@ -354,6 +354,9 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		switch (view.getId()) {
 		case R.id.leftBtn:
 			
+			Intent intent2=new Intent();
+			setResult(Constant.RESULT_CODE_ACTIVITY_READ,intent2);
+			
 			finish();
 			break;
 		case R.id.mLocationContainer:
@@ -420,7 +423,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				
 				Log.e("zyf", "invite invite invite...");
 				
-				Intent inviteIntent=new Intent(ActivityDetailsActivity.this,ActivityInviteActivity.class);
+				Intent inviteIntent=new Intent(ActivityDetailsActivity.this,ActivityRecommendActivity.class);
 				startActivity(inviteIntent);
 				
 				return;

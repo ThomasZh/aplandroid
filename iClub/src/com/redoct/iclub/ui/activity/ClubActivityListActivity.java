@@ -227,7 +227,7 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 			
 			Intent intent=new Intent(ClubActivityListActivity.this,ThemeSelectActivity.class);
 			intent.putExtra("id", id);
-			startActivity(intent);
+			startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_CREATE);
 			
 			break;
 		default:
@@ -242,13 +242,7 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 			
 			Log.e("zyf", "result activity create success1111111111...... ");
 			
-			if(data!=null){
-				
-				Log.e("zyf", "result activity create success...... ");
-				
-				loadData();
-
-			}
+			loadData();
 		}
 	}
 

@@ -99,7 +99,7 @@ public class ClubActivitiesBaseAdapter extends BaseAdapter {
 				intent.putExtra("id", item.getId());
 				intent.putExtra("leaderName", item.getLeaderName());
 				intent.putExtra("leaderAvatarUrl", item.getLeaderAvatarUrl());
-				((Activity)mContext).startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_CREATE);
+				mContext.startActivity(intent);
 			}
 		});
         

@@ -11,6 +11,7 @@ import com.redoct.iclub.adapter.ActivitiesBaseAdapter.ViewHolder;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.ui.activity.ActivityDetailsActivity;
+import com.redoct.iclub.util.DateUtils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +43,8 @@ public class MessageBaseAdapter extends BaseAdapter {
 		super();
 		this.messageItems = messageItems;
 		this.mContext = mContext;
+		
+		inflater=LayoutInflater.from(mContext);
 		
 		mImageLoader=ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
@@ -79,13 +82,17 @@ public class MessageBaseAdapter extends BaseAdapter {
 		ViewHolder holder;
 		final MessageItem item=messageItems.get(position);
 		
+		if(item.getUserName()==null){
+			item.setUserName("");
+		}
+		
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_message_listview, parent, false);
             holder = new ViewHolder();
             holder.mNameTv = (TextView) convertView.findViewById(R.id.mNameTv);
             holder.mTimeTv= (TextView) convertView.findViewById(R.id.mTimeTv);
             holder.mAcceptBtn= (Button) convertView.findViewById(R.id.mAcceptBtn);
-            holder.mNameTv= (TextView) convertView.findViewById(R.id.mNameTv);
+            holder.mInfoTv= (TextView) convertView.findViewById(R.id.mInfoTv);
             
             holder.mLeaderAvatarView= (ImageView) convertView.findViewById(R.id.mLeaderAvatarView);
 
@@ -94,14 +101,32 @@ public class MessageBaseAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         
-        holder.mAcceptBtn.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				accept(item.getId());
-			}
-		});
+        if(!item.isFeedback()){ //别人对自己的邀请
+        	
+        	holder.mAcceptBtn.setVisibility(View.VISIBLE);
+        	
+        	holder.mInfoTv.setText(item.getUserName()+"希望成为您的好友");
+        	
+        	holder.mAcceptBtn.setOnClickListener(new OnClickListener() {
+    			
+    			@Override
+    			public void onClick(View v) {
+    				
+    				//accept(item.getId());
+    			}
+    		});
+        	
+        }else{  //别人对自己邀请的回复
+        	
+        	holder.mAcceptBtn.setVisibility(View.GONE);
+        	
+        	holder.mInfoTv.setText(item.getUserName()+"接受了您的邀请");
+        }
+        
+        mImageLoader.displayImage(item.getUserAvatarUrl(), holder.mLeaderAvatarView, options);
+        
+        holder.mNameTv.setText(item.getUserName());
+        holder.mTimeTv.setText(DateUtils.getMessageFormatDate(item.getTimestamp()));
   
 		return convertView;
 	}
@@ -114,6 +139,8 @@ public class MessageBaseAdapter extends BaseAdapter {
 		
         TextView mTimeTv;
         TextView mNameTv;
+        TextView mInfoTv;
+        
         Button mAcceptBtn;
         
         ImageView mLeaderAvatarView;
