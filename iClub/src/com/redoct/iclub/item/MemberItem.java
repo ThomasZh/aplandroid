@@ -3,10 +3,13 @@ package com.redoct.iclub.item;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by liwenzhi on 14-10-14.
  */
-public class MemberItem {
+public class MemberItem implements Parcelable{
 
     private String groupId;
     private String userId;
@@ -76,4 +79,32 @@ public class MemberItem {
     public void setState(int state) {
         this.state = state;
     }
+
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeString(userName);
+		dest.writeString(imageUrl);
+		dest.writeString(userId);
+		
+	}
+	public static final Parcelable.Creator<MemberItem> CREATOR = new Parcelable.Creator<MemberItem>() 
+		     {
+		         public MemberItem createFromParcel(Parcel in) 
+		         {
+		             return new MemberItem();
+		         }
+
+		         public MemberItem[] newArray(int size) 
+		         {
+		             return new MemberItem[size];
+		         }
+		     };
+		     
 }

@@ -2,7 +2,6 @@ package com.redoct.iclub.ui.activity;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.oct.ga.comm.domain.club.ClubMasterInfo;
 import com.redoct.iclub.R;
 import com.redoct.iclub.iClubApplication;
@@ -18,7 +17,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,7 +44,8 @@ public class UpdateClubActivity extends Activity implements ReturnBitmap {
 				.showImageForEmptyUri(R.drawable.ic_launcher)
 
 				.bitmapConfig(Bitmap.Config.RGB_565)
-				.displayer(new RoundedBitmapDisplayer(100)).build();
+				//.displayer(new RoundedBitmapDisplayer(100))
+				.build();
 		initView();
 	}
 
@@ -112,13 +111,19 @@ public class UpdateClubActivity extends Activity implements ReturnBitmap {
 	}
 
 	public void initView() {
+		findViewById(R.id.leftBtn).setOnClickListener(new OnClickListener() {
 
-		TextView mTitleView = (TextView) findViewById(R.id.mTitleView);
-		mTitleView.setText(getResources().getString(R.string.update_club));
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+				overridePendingTransition(R.anim.push_right_in,
+						R.anim.push_right_out);
+			}
+		});
 
-		Button btnRigthButton = (Button) findViewById(R.id.rightBtn);
-		btnRigthButton.setVisibility(View.VISIBLE);
-		btnRigthButton.setText(getResources().getString(R.string.complete));
+		TextView btnRigthButton = (TextView) findViewById(R.id.rightBtn);
+
 		btnRigthButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -160,6 +165,14 @@ public class UpdateClubActivity extends Activity implements ReturnBitmap {
 		// img_head.setImageBitmap(UploadUtil.toRoundBitmap(bitmap));
 		ImageLoader.getInstance().displayImage("file:///" + path, iv_clubimg,
 				options);
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
+		overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 	}
 
 }
