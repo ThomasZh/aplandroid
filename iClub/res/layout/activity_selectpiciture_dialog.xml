@@ -5,16 +5,17 @@
     android:gravity="bottom" >
 
     <LinearLayout
+        android:background="#ffffff"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
+        
         android:orientation="vertical" >
 
         <LinearLayout
             android:id="@+id/ll_myshop_shopline"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_corner_white"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical" >
 
@@ -23,39 +24,42 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"
-                android:text="相册"
-                android:textColor="#0000ff" />
+                android:text="相册" />
+        </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/bg_gray" />
+        <LinearLayout
+            android:id="@+id/ll_myshop_shopsetting"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/tv_myshop_camera"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:gravity="center"
-                android:text="拍照"
-                android:textColor="#0000ff" />
+                android:text="拍照" />
         </LinearLayout>
 
+       
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/bg_corner_white"
+            android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/tv_myshop_cancel"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
+              
                 android:gravity="center"
-                android:text="取消"
-                android:textColor="#0000ff" />
+                android:text="取消" />
         </LinearLayout>
     </LinearLayout>
 

@@ -141,14 +141,6 @@ public class ClubListActivity extends Activity {
 						R.anim.push_right_out);
 			}
 		});
-		findViewById(R.id.rightBtn).setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				BaseActivityUtil.startActivity(ClubListActivity.this,CreateClubActivity.class, false);
-			}
-		});
 
 	}
 	@Override

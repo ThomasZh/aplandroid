@@ -1,5 +1,6 @@
 package com.redoct.iclub.ui.activity;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,6 +29,7 @@ import com.redoct.iclub.util.activity.BaseActivityUtil;
  *
  */
 public class ClubDetailActivity extends Activity {
+	
 
 	private ImageLoader mImageLoader;
 	private DisplayImageOptions options;
@@ -37,7 +39,7 @@ public class ClubDetailActivity extends Activity {
 	private TextView tvClubName, tvClubDesc, tvJoinPeople, tvActivity;
 	private ImageView ivClubPic;
 	private RelativeLayout lineActivity;
-	private String clubName, clubDesc, clubImg;
+	private String clubName,clubDesc,clubImg;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +53,7 @@ public class ClubDetailActivity extends Activity {
 				.showImageForEmptyUri(R.drawable.ic_launcher)
 				.cacheInMemory(true).cacheOnDisc(true)
 				.bitmapConfig(Bitmap.Config.RGB_565)
-				//.displayer(new RoundedBitmapDisplayer(100))
-				.build();
+				.displayer(new RoundedBitmapDisplayer(100)).build();
 
 		initView();
 		loadData();
@@ -88,8 +89,8 @@ public class ClubDetailActivity extends Activity {
 					JSONObject json = new JSONObject(task.getJsonClubDetail());
 					tvActivity.setText(json.optInt("activityNum") + "");
 					clubName = json.optString("name");
-					clubDesc = json.optString("desc");
-					clubImg = json.optString("titleBkImage");
+					clubDesc= json.optString("desc");
+					clubImg  = json.optString("titleBkImage");
 					tvClubDesc.setText(json.optString("desc"));
 					tvClubName.setText(json.optString("name"));
 					tvJoinPeople.setText(json.optInt("memberNum") + "");
@@ -141,36 +142,25 @@ public class ClubDetailActivity extends Activity {
 		ivClubPic = (ImageView) findViewById(R.id.iv_clubdetailactivity_clubimg);
 		lineActivity = (RelativeLayout) findViewById(R.id.line_activity);
 		lineActivity.setOnClickListener(new OnClickListener() {
-
+			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
-				// BaseActivityUtil.startActivity(ClubDetailActivity.this,
-				// ActivityDetailActivity.class, false);
-
-				Intent intent = new Intent(ClubDetailActivity.this,ClubActivityListActivity.class);
-				intent.putExtra("id", id);
-				BaseActivityUtil.startActivity(ClubDetailActivity.this, intent, false, false);
 				
+				//BaseActivityUtil.startActivity(ClubDetailActivity.this, ActivityDetailActivity.class, false);
+				
+				Intent intent=new Intent(ClubDetailActivity.this,ClubActivityListActivity.class);
+				intent.putExtra("id", id);
+				startActivity(intent);
 			}
 		});
-		findViewById(R.id.leftBtn).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				finish();
-				overridePendingTransition(R.anim.push_right_in,
-						R.anim.push_right_out);
-			}
-		});
-		
-		ImageView btnRigthButton = (ImageView) findViewById(R.id.rightBtn);
+		TextView mTitleView = (TextView) findViewById(R.id.mTitleView);
+		mTitleView.setText(getResources().getString(R.string.friends));
+		Button btnRigthButton = (Button) findViewById(R.id.rightBtn);
 		btnRigthButton.setVisibility(View.VISIBLE);
-		
+		btnRigthButton.setText("编辑");
 		btnRigthButton.setOnClickListener(new OnClickListener() {
-
+			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -182,18 +172,11 @@ public class ClubDetailActivity extends Activity {
 				in.putExtra("id", id);
 				startActivityForResult(in, 1);
 				BaseActivityUtil.setStartTransition(ClubDetailActivity.this);
-
+				
 			}
 		});
+		
 
-	}
-
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-		finish();
-		overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 	}
 
 }
