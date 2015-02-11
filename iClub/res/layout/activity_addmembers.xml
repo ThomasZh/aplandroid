@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/mTitleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_title_height"
+        android:background="@color/activity_title_bg" >
+
+        <ImageView
+            android:id="@+id/leftBtn"
+            android:layout_width="@dimen/activity_title_left_btn_width"
+            android:layout_height="@dimen/activity_title_left_btn_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_title_left_btn_margin_left"
+            android:src="@drawable/title_back" />
+
+        <TextView
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/activity_title_right_btn_margin_right"
+            android:text="@string/complete"
+            android:textColor="@color/white"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/mTitleView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/rightBtn"
+            android:layout_toRightOf="@id/leftBtn"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="成员"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_addmember_memberlist"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="@dimen/input_seconed_height"
+        android:divider="#00000000"
+        android:dividerHeight="5dp"
+        android:layout_weight="7"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:smoothScrollbar="true"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" >
+
+        <Button
+            android:id="@+id/btn_choosemember_add"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/bg_red"
+            android:text="添加成员"
+            android:textColor="@android:color/white"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

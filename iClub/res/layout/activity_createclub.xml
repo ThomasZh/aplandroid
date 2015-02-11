@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/mTitleContainer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_title_height"
+        android:background="@color/activity_title_bg" >
+
+        <ImageView
+            android:id="@+id/leftBtn"
+            android:layout_width="@dimen/activity_title_left_btn_width"
+            android:layout_height="@dimen/activity_title_left_btn_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_title_left_btn_margin_left"
+            android:src="@drawable/title_back" />
+
+        <TextView
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/activity_title_right_btn_margin_right"
+            android:text="@string/complete"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/mTitleView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/rightBtn"
+            android:layout_toRightOf="@id/leftBtn"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="创建"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_createclub_clubname"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_corner_white"
+        android:hint="名称"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textsize_smallest" />
+
+    <EditText
+        android:id="@+id/et_createclub_clubdesc"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_corner_white"
+        android:ems="10"
+        android:gravity="left|top"
+        android:hint="描述"
+        android:inputType="textMultiLine"
+        android:lines="5"
+        android:minLines="6"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textsize_smallest" >
+
+        <requestFocus />
+    </EditText>
+
+    <RelativeLayout
+        android:id="@+id/rl_createclub_num"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_seconed_height"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_corner_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_createclub_people"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="成员"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_clubdetailactivity_peonum"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/tv_createclub_people"
+            android:gravity="center_vertical"
+            android:text="4"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/icon_enter" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_corner_white"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/iv_update_clubimg"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:scaleType="center"
+            android:src="@drawable/icon_club_temp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="主题图片"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+</LinearLayout>
