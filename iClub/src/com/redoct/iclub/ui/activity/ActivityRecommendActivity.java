@@ -1,6 +1,10 @@
 package com.redoct.iclub.ui.activity;
 
+import java.util.ArrayList;
+
 import com.redoct.iclub.R;
+import com.redoct.iclub.adapter.ActivityRecommendAdapter;
+import com.redoct.iclub.item.ContactItem;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -11,19 +15,25 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ActivityInviteActivity extends Activity implements OnClickListener{
+public class ActivityRecommendActivity extends Activity implements OnClickListener{
 	
 	private EditText mEditText;
 	
 	private ListView mListView;
+	
+	private ArrayList<ContactItem> contactItems;
+	
+	private ActivityRecommendAdapter mActivityRecommendAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setContentView(R.layout.activity_activity_invite);
+		setContentView(R.layout.activity_activity_recommend);
 		
 		initTitle();
+		
+		contactItems=(ArrayList<ContactItem>) getIntent().getSerializableExtra("ContactList");
 		
 		initViews();
 	}
@@ -49,6 +59,8 @@ public class ActivityInviteActivity extends Activity implements OnClickListener{
 		mEditText=(EditText)findViewById(R.id.mEditText);
 		
 		mListView=(ListView)findViewById(R.id.mListView);
+		mActivityRecommendAdapter=new ActivityRecommendAdapter(this, contactItems);
+		mListView.setAdapter(mActivityRecommendAdapter);
 	}
 
 	@Override

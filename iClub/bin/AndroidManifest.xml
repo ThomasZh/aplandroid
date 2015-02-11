@@ -112,7 +112,7 @@
         <activity android:name="com.redoct.iclub.ui.activity.ContactDetailActivity" />
         <activity android:name="com.redoct.iclub.ui.activity.AddContactActivity" />
         <activity android:name="com.redoct.iclub.ui.activity.ContactQueryResultActivity" />
-        <activity android:name="com.redoct.iclub.ui.activity.ActivityInviteActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.ActivityRecommendActivity" />
     </application>
 
 </manifest>
