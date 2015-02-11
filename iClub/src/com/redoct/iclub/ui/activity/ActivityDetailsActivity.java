@@ -425,6 +425,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				
 				Intent inviteIntent=new Intent(ActivityDetailsActivity.this,ChooseMemberActivity.class);
 				inviteIntent.putExtra("isFromActivityDetails", true);
+				inviteIntent.putExtra("activityId", id);
 				startActivity(inviteIntent);
 				
 				return;

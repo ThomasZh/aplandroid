@@ -25,6 +25,10 @@ public class ActivityRecommendActivity extends Activity implements OnClickListen
 	private ArrayList<ContactItem> contactItems;
 	
 	private ActivityRecommendAdapter mActivityRecommendAdapter;
+	
+	private String activityId;
+	
+	private String [] userIds;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +38,8 @@ public class ActivityRecommendActivity extends Activity implements OnClickListen
 		
 		initTitle();
 		
-		
 		contactItems=(ArrayList<ContactItem>) getIntent().getSerializableExtra("ContactItems");
-		Log.i("zyf",contactItems.size()+"");
-
+		activityId=getIntent().getStringExtra("activityId");
 		
 		initViews();
 	}

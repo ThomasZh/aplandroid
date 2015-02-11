@@ -50,6 +50,7 @@ public class ChooseMemberActivity extends Activity {
 	private PinyinComparator pinyinComparator;
 	
 	private boolean isFromActivityDetails;
+	private String activityId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class ChooseMemberActivity extends Activity {
 		setContentView(R.layout.activity_choosemember);
 		
 		isFromActivityDetails=getIntent().getBooleanExtra("isFromActivityDetails", false);
+		activityId=getIntent().getStringExtra("activityId");
 		
 	/*	ActivityRecommendActivity*/
 		
@@ -70,6 +72,7 @@ public class ChooseMemberActivity extends Activity {
 					
 					Intent intent = new Intent();
 					intent.putExtra("ContactItems", list);
+					intent.putExtra("activityId", activityId);
 					intent.setClass(ChooseMemberActivity.this,ActivityRecommendActivity.class);
 					
 					BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, true, false);
