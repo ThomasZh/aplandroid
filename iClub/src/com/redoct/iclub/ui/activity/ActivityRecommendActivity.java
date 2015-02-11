@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivityRecommendAdapter;
 import com.redoct.iclub.item.ContactItem;
+import com.redoct.iclub.task.ActivityRecommendTask;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class ActivityRecommendActivity extends Activity implements OnClickListen
 	private String activityId;
 	
 	private String [] userIds;
+	
+	private ActivityRecommendTask mActivityRecommendTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,14 @@ public class ActivityRecommendActivity extends Activity implements OnClickListen
 			
 			break;
 		case R.id.rightBtn:
+			
+			if(contactItems==null)
+				return;
+			
+			userIds=new String[contactItems.size()];
+			for(int i=0;i<contactItems.size();i++){
+				userIds[i]=contactItems.get(i).getId();
+			}
 
 			finish();
 			
