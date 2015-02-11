@@ -15,10 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 
-public class AddMenberActivity extends Activity{
+public class AddMenberActivity extends Activity {
 	private ListView lvMembersList;
 	private MembersListAdapter adapter;
-	private List<MemberItem> list ;
+	private List<MemberItem> list;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -26,28 +27,52 @@ public class AddMenberActivity extends Activity{
 		setContentView(R.layout.activity_addmembers);
 		list = new ArrayList<MemberItem>();
 		MemberItem item = new MemberItem();
-		item.setImageUrl(PersistentUtil.getInstance().readString(this,"imageurl", ""));
-		item.setUserName(PersistentUtil.getInstance().readString(this,"username", ""));
+		item.setImageUrl(PersistentUtil.getInstance().readString(this,
+				"imageurl", ""));
+		item.setUserName(PersistentUtil.getInstance().readString(this,
+				"username", ""));
 		list.add(item);
 		initView();
 	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		finish();
+		overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+	}
+
 	private void initView() {
 		// TODO Auto-generated method stub
 		lvMembersList = (ListView) findViewById(R.id.lv_addmember_memberlist);
 		adapter = new MembersListAdapter(list, this);
 		lvMembersList.setAdapter(adapter);
-		findViewById(R.id.btn_choosemember_add).setOnClickListener(new OnClickListener() {
-			
+		findViewById(R.id.btn_choosemember_add).setOnClickListener(
+				new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent();
+						intent.setClass(AddMenberActivity.this,
+								ChooseMemberActivity.class);
+						startActivityForResult(intent, 1);
+						overridePendingTransition(R.anim.push_left_in,
+								R.anim.push_left_out);
+					}
+				});
+		findViewById(R.id.leftBtn).setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				intent.setClass(AddMenberActivity.this,ChooseMemberActivity.class);
-				startActivityForResult(intent,1);
-				overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+				finish();
+				overridePendingTransition(R.anim.push_right_in,
+						R.anim.push_right_out);
 			}
 		});
-		
+
 	}
 
 }

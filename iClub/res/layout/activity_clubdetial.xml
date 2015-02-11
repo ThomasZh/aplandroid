@@ -2,64 +2,151 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/bg_gray"
     android:orientation="vertical" >
-      <include layout="@layout/activity_title"/>
+
+    <RelativeLayout
+        android:id="@+id/mTitleContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/activity_title_height"
+        android:background="@color/activity_title_bg" >
+
+        <ImageView
+            android:id="@+id/leftBtn"
+            android:layout_width="@dimen/activity_title_left_btn_width"
+            android:layout_height="@dimen/activity_title_left_btn_height"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/activity_title_left_btn_margin_left"
+            android:src="@drawable/title_back" />
+
+        <ImageView
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/activity_title_right_btn_margin_right"
+            android:src="@drawable/icon_edit" />
+
+        <TextView
+            android:id="@+id/mTitleView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/rightBtn"
+            android:layout_toRightOf="@id/leftBtn"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="详情"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/input_seconed_height"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_corner_white"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tv_clubdetailactivity_clubname"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+          
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize_smaller" />
 
         <TextView
             android:id="@+id/tv_clubdetial_detail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+           
+            android:textColor="@color/black" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_clubdetailactivity_clubimg"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_corner_white"
+        android:orientation="horizontal" >
 
-    <LinearLayout
+        <ImageView
+            android:id="@+id/iv_clubdetailactivity_clubimg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_launcher" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/input_seconed_height"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_corner_white"
+        android:gravity="center_vertical"
         android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/people" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="成员"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_clubdetailactivity_peonum"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp"
+            android:gravity="center_vertical"
+            android:text="4"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/icon_enter" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/line_activity"
         android:layout_width="match_parent"
         android:layout_height="@dimen/input_seconed_height"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_corner_white"
         android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activities" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:text="@string/activities"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tv_clubdetailactivity_actnum"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true" />
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp"
+            android:gravity="center_vertical"
+            android:text="4"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/icon_enter" />
     </RelativeLayout>
 
 </LinearLayout>
