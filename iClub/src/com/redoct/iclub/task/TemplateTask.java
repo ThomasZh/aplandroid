@@ -177,8 +177,6 @@ public class TemplateTask extends AsyncTask<Void, Void, Boolean> {
      */
     private void unavailable(){
         //BusProvider.getInstance().post(new NetworkUnavailable());
-    	
-    	failure();
     }
 
     /**

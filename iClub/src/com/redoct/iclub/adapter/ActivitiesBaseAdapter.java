@@ -2,7 +2,6 @@ package com.redoct.iclub.adapter;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -25,7 +24,6 @@ import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.ui.activity.ActivityDetailsActivity;
 import com.redoct.iclub.ui.activity.SplashActivity;
-import com.redoct.iclub.util.Constant;
 
 public class ActivitiesBaseAdapter extends BaseAdapter {
 	
@@ -79,7 +77,6 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
 		
 		ViewHolder holder;
 		final ActivityItem item=activityItems.get(position);
-		final int pos=position;
 		
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_activities_listview, parent, false);
@@ -157,23 +154,15 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
 			@Override
 			public void onClick(View view) {
 				
-				/*Intent intent=new Intent(mContext,ActivityDetailsActivity.class);
-				intent.putExtra("position", pos);
+				Intent intent=new Intent(mContext,ActivityDetailsActivity.class);
 				intent.putExtra("id", item.getId());
 				intent.putExtra("leaderName", item.getLeaderName());
 				intent.putExtra("leaderAvatarUrl", item.getLeaderAvatarUrl());
-				
-				((Activity)mContext).startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_READ);*/
-				
-				gotoDetails(item,pos);
+				mContext.startActivity(intent);
 			}
 		});
         
 		return convertView;
-	}
-	
-	public void gotoDetails(ActivityItem item,int position){
-		
 	}
 	
 	class ViewHolder {

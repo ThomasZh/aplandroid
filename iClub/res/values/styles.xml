@@ -44,12 +44,6 @@
         <item name="android:windowContentOverlay">@null</item>
     </style>
     
-    <style name="MyProgressDialog" parent="@android:Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowNoTitle">true</item> 
-        <!-- <item name="android:windowBackground">@drawable/bg_custom_progress_dialog</item> -->
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
+    
 
 </resources>

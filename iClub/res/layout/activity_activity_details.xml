@@ -9,7 +9,7 @@
 	    android:id="@+id/mTotalContainer" 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:visibility="gone"
+	    android:visibility="visible"
 	    android:scrollbars="@null">
 		<LinearLayout
 		    android:layout_width="match_parent"
@@ -137,7 +137,7 @@
 				    android:layout_weight="1"
 				    android:padding="6dip"
 				    android:orientation="vertical"
-				    android:gravity="center">
+				    android:gravity="center_vertical|right">
 				    <TextView
 				         android:id="@+id/mEndDateTv"
 					     android:layout_width="wrap_content"
@@ -193,29 +193,30 @@
 			    android:orientation="horizontal"
 			    android:background="@drawable/bg_corner_white">
 			    <Button
-			        android:id="@+id/mSharedBtn"
-			        android:layout_width="90dip"
-			        android:layout_height="32dip"
+			        android:id="@+id/mShareBtn"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
 			        android:layout_alignParentLeft="true"
 			        android:layout_centerVertical="true"
-			        android:textColor="@android:color/white"
-			        android:background="@drawable/bg_btn_red"
+			        android:textColor="@color/activity_title_bg"
+			        android:background="@null"
 			        android:text="@string/share"
-			        android:textSize="@dimen/textsize_small"/>
+			        android:textSize="@dimen/textsize_small"
+			        android:visibility="gone"/>
 			    <Button
 			        android:id="@+id/mCancelBtn"
-			        android:layout_width="90dip"
-			        android:layout_height="32dip"
-			        android:textColor="@android:color/white"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textColor="@color/activity_title_bg"
+			        android:background="@null"
 			        android:layout_alignParentRight="true"
 			        android:layout_centerVertical="true"
 			        android:text="@string/cancel"
-			        android:textSize="@dimen/textsize_small"
-			        android:background="@drawable/bg_btn_red"/>
+			        android:textSize="@dimen/textsize_small"/>
 			    <Button
 			        android:id="@+id/mJoinBtn"
-			        android:layout_width="90dip"
-			        android:layout_height="32dip"
+			        android:layout_width="120dip"
+			        android:layout_height="36dip"
 			        android:textSize="@dimen/textsize_normal"
 			        android:textColor="@android:color/white"
 			        android:layout_centerInParent="true"

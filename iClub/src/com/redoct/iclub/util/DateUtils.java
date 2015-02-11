@@ -54,15 +54,4 @@ public class DateUtils {
 		
 		return dateTime;
 	}
-	
-	public static String getMessageFormatDate(int time){
-		
-		String fromatString="MM-dd HH:mm";
-
-		SimpleDateFormat sdf= new SimpleDateFormat(fromatString);
-		long realTime=(long)time*1000;
-		String dateTime = sdf.format(realTime);
-		
-		return dateTime;
-	}
 }
