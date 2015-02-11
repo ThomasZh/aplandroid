@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.oct.ga.comm.domain.Contact;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MemberSortAdapter;
-import com.redoct.iclub.adapter.SortAdapter;
 import com.redoct.iclub.item.ContactItem;
 import com.redoct.iclub.task.GetContactTask;
 import com.redoct.iclub.util.CharacterParser;
@@ -26,9 +24,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,22 +48,32 @@ public class ChooseMemberActivity extends Activity {
 	 * 根据拼音来排列ListView里面的数据类
 	 */
 	private PinyinComparator pinyinComparator;
+	
+	private boolean isFromActivityDetails;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_choosemember);
+		
+		isFromActivityDetails=getIntent().getBooleanExtra("isFromActivityDetails", false);
+		
+	/*	ActivityRecommendActivity*/
+		
 		tvRight = (TextView) findViewById(R.id.rightBtn);
 		tvRight.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent();
-				
-				intent.setClass(ChooseMemberActivity.this,ContactDetailActivity.class);
-				intent.putExtra("ContactList", list);
-				BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, true, false);
+				if(isFromActivityDetails){
+					
+					Intent intent = new Intent();
+					intent.putExtra("ContactItems", list);
+					intent.setClass(ChooseMemberActivity.this,ActivityRecommendActivity.class);
+					
+					BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, true, false);
+				}
 			}
 		});
 		iv_left= (ImageView) findViewById(R.id.leftBtn);
