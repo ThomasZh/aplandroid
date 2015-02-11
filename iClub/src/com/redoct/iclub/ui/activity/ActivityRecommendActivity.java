@@ -8,6 +8,7 @@ import com.redoct.iclub.item.ContactItem;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,7 +34,10 @@ public class ActivityRecommendActivity extends Activity implements OnClickListen
 		
 		initTitle();
 		
-		contactItems=(ArrayList<ContactItem>) getIntent().getSerializableExtra("ContactList");
+		
+		contactItems=(ArrayList<ContactItem>) getIntent().getSerializableExtra("ContactItems");
+		Log.i("zyf",contactItems.size()+"");
+
 		
 		initViews();
 	}

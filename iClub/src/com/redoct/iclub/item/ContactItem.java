@@ -1,8 +1,10 @@
 package com.redoct.iclub.item;
 
+import java.io.Serializable;
+
 import com.redoct.iclub.util.CharacterParser;
 
-public class ContactItem {
+public class ContactItem  implements Serializable{
 	  /*"desc": "",
       "email": "thomas.zh@qq.com",
       "id": "33d1dfdf-c11b-42bf-90a6-2b43e1f16f4e",

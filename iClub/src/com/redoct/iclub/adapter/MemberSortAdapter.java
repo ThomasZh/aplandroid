@@ -103,7 +103,8 @@ public class MemberSortAdapter extends BaseAdapter implements SectionIndexer{
 					list_num.add(mContent);
 				    mContext.setContactList(list_num);
 				}else{
-					 mContext.setContactList(list_num);
+					list_num.remove(mContent);
+					mContext.setContactList(list_num);
 				}
 				
 			}
