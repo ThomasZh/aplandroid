@@ -423,7 +423,8 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				
 				Log.e("zyf", "invite invite invite...");
 				
-				Intent inviteIntent=new Intent(ActivityDetailsActivity.this,ActivityRecommendActivity.class);
+				Intent inviteIntent=new Intent(ActivityDetailsActivity.this,ChooseMemberActivity.class);
+				inviteIntent.putExtra("isFromActivityDetails", true);
 				startActivity(inviteIntent);
 				
 				return;
