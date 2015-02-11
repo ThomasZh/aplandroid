@@ -32,6 +32,8 @@ import com.redoct.iclub.task.ActivityJoinTask;
 import com.redoct.iclub.task.MembersListTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.DateUtils;
+import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
 
 public class ActivityDetailsActivity extends Activity implements OnClickListener{
 	
@@ -66,6 +68,10 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	private Button mCancelBtn,mJoinBtn;
 	
 	private LinearLayout mMemberListContainer;
+	
+	private boolean isJoined;
+	
+	private MyProgressDialogUtils mProgressDialogUtils;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +109,9 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				
 				mActivityDetailsItem=mMeetupDetailsTask.getDetails();
 				
-				//Log.e("zyf", "call back members num: "+mActivityDetailsItem.getMembers().length());
-				
 				updateUI();
+				
+				//MyToast.makeText(ActivityDetailsActivity.this, true, R.string.load_success, MyToast.LENGTH_SHORT).show();
 				
 			}
 
@@ -113,12 +119,17 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			public void before() {
 				// TODO Auto-generated method stub
 				super.before();
+				
+				mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_loading, ActivityDetailsActivity.this);
+				mProgressDialogUtils.showDialog();
 			}
 
 			@Override
 			public void failure() {
 				// TODO Auto-generated method stub
 				super.failure();
+				
+				MyToast.makeText(ActivityDetailsActivity.this, true, R.string.load_failed, MyToast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -128,7 +139,19 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				
 				mMeetupDetailsTask.cancel(true);
 				
+				mProgressDialogUtils.dismissDialog();
+				
 				Log.e("zyf", "time out......");
+				
+				MyToast.makeText(ActivityDetailsActivity.this, true, R.string.load_failed, MyToast.LENGTH_SHORT).show();
+			}
+
+			@Override
+			public void complete() {
+				// TODO Auto-generated method stub
+				super.complete();
+				
+				mProgressDialogUtils.dismissDialog();
 			}
 		};
 		mMeetupDetailsTask.setTimeOutEnabled(true, 10*1000);
@@ -288,10 +311,12 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			mCancelBtn.setVisibility(View.GONE);
 		}else{   //活动正在进行中
 			if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_LEADER){   //本次活动的leader
-			
-				mOptionContainer.setVisibility(View.VISIBLE);
-				mJoinBtn.setVisibility(View.GONE);
+				
+				isJoined=true;
+				mJoinBtn.setText(getResources().getString(R.string.recommend));
+				
 				mCancelBtn.setVisibility(View.VISIBLE);
+				mOptionContainer.setVisibility(View.VISIBLE);
 				
 				int curTime=(int)(System.currentTimeMillis()/1000);
 				if(mActivityDetailsItem.getStartTime()>curTime){   //活动还没开始，可以进行编辑
@@ -306,11 +331,16 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			}else if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){  //尚未参加此次活动
 				
 				mOptionContainer.setVisibility(View.VISIBLE);
+				
+				isJoined=false;
 				mJoinBtn.setVisibility(View.VISIBLE);
+				
 				mCancelBtn.setVisibility(View.GONE);
 			}else{  //已经参加了该次活动
-				mOptionContainer.setVisibility(View.GONE);
-				mJoinBtn.setVisibility(View.GONE);
+				
+				isJoined=true;
+				mJoinBtn.setText(getResources().getString(R.string.recommend));
+				
 				mCancelBtn.setVisibility(View.GONE);
 			}
 		}
@@ -323,6 +353,9 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		
 		switch (view.getId()) {
 		case R.id.leftBtn:
+			
+			Intent intent2=new Intent();
+			setResult(Constant.RESULT_CODE_ACTIVITY_READ,intent2);
 			
 			finish();
 			break;
@@ -343,22 +376,29 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	            public void callback(){
 	               
 	            	Log.e("zyf", "cancel activity success......");
+	            	
+	            	MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_cancel_success, MyToast.LENGTH_SHORT).show();
 	            }
 	            
 	            @Override
 	            public void complete(){
 	            	
+	            	mProgressDialogUtils.dismissDialog();
 	            }
 	            
 	            @Override
 	            public void failure(){
 	                
 	                Log.e("zyf", "cancel activity failure......");
+	                
+	                MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_cancel_failed, MyToast.LENGTH_SHORT).show();
 	            }
 	            
 	            @Override
 	            public void before(){
 	            	
+	            	mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_activity_canceling, ActivityDetailsActivity.this);
+					mProgressDialogUtils.showDialog();
 	            }
 
 				@Override
@@ -369,6 +409,8 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 					mActivityCancelTask.cancel(true);
 					
 					Log.e("zyf", "cancel activity time out......");
+					
+					MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_cancel_failed, MyToast.LENGTH_SHORT).show();
 				} 
 			};
 			mActivityCancelTask.setTimeOutEnabled(true, 10*1000);
@@ -377,28 +419,45 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			break;
 		case R.id.mJoinBtn:
 			
+			if(isJoined){
+				
+				Log.e("zyf", "invite invite invite...");
+				
+				Intent inviteIntent=new Intent(ActivityDetailsActivity.this,ActivityRecommendActivity.class);
+				startActivity(inviteIntent);
+				
+				return;
+			}
+			
 			mActivityJoinTask=new ActivityJoinTask(id){
 				
 				@Override
 	            public void callback(){
 	               
 	            	Log.e("zyf", "join activity success......");
+	            	
+	            	MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_add_success, MyToast.LENGTH_SHORT).show();
 	            }
 	            
 	            @Override
 	            public void complete(){
 	            	
+	            	mProgressDialogUtils.dismissDialog();
 	            }
 	            
 	            @Override
 	            public void failure(){
 	                
 	                Log.e("zyf", "join activity failure......");
+	                
+	                MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_add_failed, MyToast.LENGTH_SHORT).show();
 	            }
 	            
 	            @Override
 	            public void before(){
 	            	
+	            	mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_activity_adding, ActivityDetailsActivity.this);
+					mProgressDialogUtils.showDialog();
 	            }
 
 				@Override
@@ -409,6 +468,8 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 					mActivityJoinTask.cancel(true);
 					
 					Log.e("zyf", "create activity time out......");
+					
+					MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_add_failed, MyToast.LENGTH_SHORT).show();
 				} 
 			};
 			mActivityJoinTask.setTimeOutEnabled(true, 10*1000);

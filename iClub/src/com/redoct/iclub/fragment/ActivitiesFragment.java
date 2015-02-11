@@ -3,6 +3,7 @@ package com.redoct.iclub.fragment;
 import java.util.ArrayList;
 
 import android.R.integer;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,7 +24,11 @@ import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.task.ActivityListTask;
+import com.redoct.iclub.ui.activity.ActivityDetailsActivity;
+import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.DateUtils;
+import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
 
 public class ActivitiesFragment extends Fragment{
 	
@@ -33,7 +38,6 @@ public class ActivitiesFragment extends Fragment{
 	
 	private ActivitiesBaseAdapter mActivitiesBaseAdapter;
 	
-	
 	short pageNum=1;
 	short pageSize=10;
 	
@@ -41,6 +45,9 @@ public class ActivitiesFragment extends Fragment{
 	
 	private int mode=-1;
 	
+	private MyProgressDialogUtils myProgressDialogUtils;
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -48,11 +55,22 @@ public class ActivitiesFragment extends Fragment{
 		
 		initTitle(contentView);
 		
-		//Log.e("zyf", "format date: "+DateUtils.getFormatDate(1422406800));
-	
-		
 		mPullToRefreshListView=(PullToRefreshListView)contentView.findViewById(R.id.mPullToRefreshListView);
-		mActivitiesBaseAdapter=new ActivitiesBaseAdapter(getActivity(),activityItems);
+		mActivitiesBaseAdapter=new ActivitiesBaseAdapter(getActivity(),activityItems){
+
+			@Override
+			public void gotoDetails(ActivityItem item,int position) {
+				
+				Intent intent=new Intent(getActivity(),ActivityDetailsActivity.class);
+				intent.putExtra("position", position);
+				intent.putExtra("id", item.getId());
+				intent.putExtra("leaderName", item.getLeaderName());
+				intent.putExtra("leaderAvatarUrl", item.getLeaderAvatarUrl());
+				
+				startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_READ);
+			}
+			
+		};
 		mPullToRefreshListView.setAdapter(mActivitiesBaseAdapter);
 		mPullToRefreshListView.setVerticalScrollBarEnabled(true);
 		
@@ -99,6 +117,8 @@ public class ActivitiesFragment extends Fragment{
 				
 				task.cancel(true);
 				Log.e("zyf", "get data time out....");
+				
+				MyToast.makeText(getActivity(), true, R.string.load_failed, MyToast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -107,6 +127,9 @@ public class ActivitiesFragment extends Fragment{
 				super.before();
 				
 				Log.e("zyf", "start get data....");
+				
+				myProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_loading, getActivity());
+				myProgressDialogUtils.showDialog();
 			}
 
 			@Override
@@ -137,6 +160,8 @@ public class ActivitiesFragment extends Fragment{
 				}else{
 					mPullToRefreshListView.setMode(Mode.BOTH);
 				}
+				
+				//MyToast.makeText(getActivity(), true, R.string.load_success, MyToast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -147,6 +172,9 @@ public class ActivitiesFragment extends Fragment{
 				Log.e("zyf", "get data failure....");
 				
 				mPullToRefreshListView.onRefreshComplete();
+				myProgressDialogUtils.dismissDialog();
+				
+				MyToast.makeText(getActivity(), true, R.string.load_failed, MyToast.LENGTH_SHORT).show();
 				
 			}
 
@@ -158,6 +186,8 @@ public class ActivitiesFragment extends Fragment{
 				Log.e("zyf", "get data complete....");
 				
 				mPullToRefreshListView.onRefreshComplete();
+				
+				myProgressDialogUtils.dismissDialog();
 			}
 		};
 		task.setTimeOutEnabled(true, 10*1000);
@@ -184,7 +214,17 @@ public class ActivitiesFragment extends Fragment{
 		
 		TextView mTitleView=(TextView) contentView.findViewById(R.id.mTitleView);
 		mTitleView.setText(getResources().getString(R.string.title_activities));
+	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(requestCode==Constant.RESULT_CODE_ACTIVITY_READ){
+			
+			Log.e("zyf", "result activity read read read...... ");
+		}
 	}
 
 }

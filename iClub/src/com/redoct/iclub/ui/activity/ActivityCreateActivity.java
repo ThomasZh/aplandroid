@@ -18,18 +18,22 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.oct.ga.comm.LogErrorMessage;
 import com.oct.ga.comm.domain.club.ActivityDetailInfo;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.task.ActivityCreateTask;
 import com.redoct.iclub.task.ActivityUpdateTask;
 import com.redoct.iclub.util.Constant;
+import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.widget.DateTimeSelectorDialog;
+import com.redoct.iclub.widget.MyToast;
 
 public class ActivityCreateActivity extends Activity implements OnClickListener{
 	
@@ -61,6 +65,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	private ActivityUpdateTask mUpdateActivityTask;
 	
 	private ActivityDetailsItem mActivityDetailsItem;
+	
+	private MyProgressDialogUtils mProgressDialogUtils;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +122,17 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		Calendar calendar=new GregorianCalendar();
 		calendar.setTime(date);
 		
+		//获取星期几
+		/*SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+	    Log.e("zyf", "init date: "+dateFm.format(date))*/;
+		
 		startYear=calendar.get(calendar.YEAR);
 		startMonth=calendar.get(calendar.MONTH)+1;
 		startDay=calendar.get(calendar.DAY_OF_MONTH);
 		startHour=calendar.get(calendar.HOUR_OF_DAY);
 		startMinute=calendar.get(calendar.MINUTE);
+		
+		startDayOfWeek=getDayOfWeek(startYear, startMonth, startDay);
 		
 		Log.e("zyf start date: ", startYear+"-"+startMonth+"-"+startDay+"  "+startHour+":"+startMinute);
 		
@@ -132,6 +144,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		endDay=calendar.get(calendar.DAY_OF_MONTH);
 		endHour=calendar.get(calendar.HOUR_OF_DAY);
 		endMinute=calendar.get(calendar.MINUTE);
+		
+		endDayOfWeek=getDayOfWeek(endYear, endMonth, endDay);
 		
 		Log.e("zyf end date: ", endYear+"-"+endMonth+"-"+endDay+" "+endHour+":"+endMinute);
 		
@@ -171,6 +185,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		startMonth=calendar.get(calendar.MONTH)+1;
 		startDay=calendar.get(calendar.DAY_OF_MONTH);
 		
+		startDayOfWeek=getDayOfWeek(startYear, startMonth, startDay);
+		
 		Log.e("zyf start date: ", startYear+"-"+startMonth+"-"+startDay);
 		
 		calendar.add(calendar.DATE, 1);
@@ -178,6 +194,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		endYear=calendar.get(calendar.YEAR);
 		endMonth=calendar.get(calendar.MONTH)+1;
 		endDay=calendar.get(calendar.DAY_OF_MONTH);
+		
+		endDayOfWeek=getDayOfWeek(endYear, endMonth, endDay);
 		
 		Log.e("zyf end date: ", endYear+"-"+endMonth+"-"+endDay);
 		
@@ -189,8 +207,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		mStartDateTv.setText(startMonth+getResources().getString(R.string.month)+startDay+getResources().getString(R.string.day));
 		mEndDateTv.setText(endMonth+getResources().getString(R.string.month)+endDay+getResources().getString(R.string.day));
 		
-		mStartTimeTv.setText(startHour+":"+getFormatTime(startMinute));
-		mEndTimeTv.setText(endHour+":"+getFormatTime(endMinute));
+		mStartTimeTv.setText(startDayOfWeek+"  "+startHour+":"+getFormatTime(startMinute));
+		mEndTimeTv.setText(endDayOfWeek+"  "+endHour+":"+getFormatTime(endMinute));
 	}
 	
 	private String getFormatTime(int minute){
@@ -271,6 +289,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 					startHour=hour;
 					startMinute=minute;
 					
+					startDayOfWeek=getDayOfWeek(startYear, startMonth, startDay);
+					
 					updateDateTime();
 				}
 			});
@@ -293,6 +313,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 					
 					endHour=hour;
 					endMinute=minute;
+					
+					endDayOfWeek=getDayOfWeek(endYear, endMonth, endDay);
 					
 					updateDateTime();
 				}
@@ -340,22 +362,29 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		            	ActivityCreateActivity.this.setResult(Constant.RESULT_CODE_ACTIVITY_UPDATE, intent);
 		            	
 		            	finish();
+		            	
+		            	MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_update_success, MyToast.LENGTH_SHORT).show();
 		            }
 		            
 		            @Override
 		            public void complete(){
 		            	
+		            	mProgressDialogUtils.dismissDialog();
 		            }
 		            
 		            @Override
 		            public void failure(){
 		                
 		                Log.e("zyf", "update activity failure......");
+		                
+		                MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_update_failed, MyToast.LENGTH_SHORT).show();
 		            }
 		            
 		            @Override
 		            public void before(){
 		            	
+		            	mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_activity_updating, ActivityCreateActivity.this);
+						mProgressDialogUtils.showDialog();
 		            }
 
 					@Override
@@ -365,7 +394,11 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 						
 						mUpdateActivityTask.cancel(true);
 						
+						mProgressDialogUtils.dismissDialog();
+						
 						Log.e("zyf", "update activity time out......");
+						
+						MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_update_failed, MyToast.LENGTH_SHORT).show();
 					} 
 				};
 				mUpdateActivityTask.setTimeOutEnabled(true, 10*1000);
@@ -401,22 +434,29 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	            	Intent intent=new Intent();
 	            	ActivityCreateActivity.this.setResult(Constant.RESULT_CODE_ACTIVITY_CREATE, intent);
 	            	ActivityCreateActivity.this.finish();
+	            	
+	            	MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_create_success,MyToast.LENGTH_SHORT).show();
 	            }
 	            
 	            @Override
 	            public void complete(){
 	            	
+	            	mProgressDialogUtils.dismissDialog();
 	            }
 	            
 	            @Override
 	            public void failure(){
 	                
 	                Log.e("zyf", "create activity failure......");
+	                
+	                MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_create_failed,MyToast.LENGTH_SHORT).show();
 	            }
 	            
 	            @Override
 	            public void before(){
 	            	
+	            	mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_activity_creating, ActivityCreateActivity.this);
+					mProgressDialogUtils.showDialog();
 	            }
 
 				@Override
@@ -425,8 +465,11 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 					super.timeout();
 					
 					mCreateActivityTask.cancel(true);
+					mProgressDialogUtils.dismissDialog();
 					
 					Log.e("zyf", "create activity time out......");
+					
+					MyToast.makeText(ActivityCreateActivity.this, true, R.string.activity_create_failed,MyToast.LENGTH_SHORT).show();
 				} 
 
 	        };
@@ -438,6 +481,22 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		default:
 			break;
 		}
+	}
+	
+	private String getDayOfWeek(int year,int month,int day){
+		
+		String sDt=year+"/"+month+"/"+day;
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy/MM/dd");
+		Date date;
+		try {
+			date = sdf.parse(sDt);
+			SimpleDateFormat dateFm = new SimpleDateFormat("EEEE");
+		    return dateFm.format(date);
+		} catch (ParseException e) {
+			Log.e("zyf","get day of week exception: "+e.toString());
+		}
+		
+		return "";
 	}
 	
 	private long getFormatTime(int year,int month,int day,int hour,int minute){

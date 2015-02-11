@@ -13,6 +13,8 @@ import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.task.GetActivitiesInClubTask;
 import com.redoct.iclub.task.ActivityListTask;
 import com.redoct.iclub.util.Constant;
+import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -38,6 +40,8 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 	short pageSize=10;
 	
 	private int mode=0;
+	
+	private MyProgressDialogUtils mProgressDialogUtils;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,10 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 				
 				mGetActivitiesInClubTask.cancel(true);
 				Log.e("zyf", "get data time out....");
+				
+				mProgressDialogUtils.dismissDialog();
+				
+				MyToast.makeText(ClubActivityListActivity.this, true, R.string.load_failed, MyToast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -90,6 +98,9 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 				super.before();
 				
 				Log.e("zyf", "start get data....");
+				
+				mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_loading, ClubActivityListActivity.this);
+				mProgressDialogUtils.showDialog();
 			}
 
 			@Override
@@ -118,6 +129,8 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 				}else{
 					mPullToRefreshListView.setMode(Mode.BOTH);
 				}
+				
+				MyToast.makeText(ClubActivityListActivity.this, true, R.string.load_success, MyToast.LENGTH_SHORT).show();
 			}
 
 			@Override
@@ -129,6 +142,8 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 				
 				mPullToRefreshListView.onRefreshComplete();
 				
+				MyToast.makeText(ClubActivityListActivity.this, true, R.string.load_failed, MyToast.LENGTH_SHORT).show();
+				
 			}
 
 			@Override
@@ -139,6 +154,8 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 				Log.e("zyf", "get data complete....");
 				
 				mPullToRefreshListView.onRefreshComplete();
+				
+				mProgressDialogUtils.dismissDialog();
 			}
 		};
 		mGetActivitiesInClubTask.setTimeOutEnabled(true, 10*1000);
@@ -210,7 +227,7 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 			
 			Intent intent=new Intent(ClubActivityListActivity.this,ThemeSelectActivity.class);
 			intent.putExtra("id", id);
-			startActivity(intent);
+			startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_CREATE);
 			
 			break;
 		default:
@@ -225,13 +242,7 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 			
 			Log.e("zyf", "result activity create success1111111111...... ");
 			
-			if(data!=null){
-				
-				Log.e("zyf", "result activity create success...... ");
-				
-				loadData();
-
-			}
+			loadData();
 		}
 	}
 
