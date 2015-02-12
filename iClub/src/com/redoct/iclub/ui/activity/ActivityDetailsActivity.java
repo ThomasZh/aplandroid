@@ -60,6 +60,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	
 	private ScrollView mTotalContainer;
 	
+	private TextView mTitleView;
 	private TextView mLeaderNameTv,mNameTv,mDescTv,mLocDescTv,mStartDateTv,mStartTimeTv,mEndDateTv,mEndTimeTv,mRecommandNumTv;
 	
 	private RelativeLayout mRecommandContainer,mLocationContainer;
@@ -218,8 +219,8 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	}
 	
 	private void initTitle(){
-		//TextView mTitleView=(TextView) findViewById(R.id.mTitleView);
-		//mTitleView.setText(leaderName+getResources().getString(R.string.activity_of_somebody));
+		mTitleView=(TextView) findViewById(R.id.mTitleView);
+		mTitleView.setText(getResources().getString(R.string.activities));
 		
 		Button leftBtn=(Button) findViewById(R.id.leftBtn);
 		leftBtn.setBackgroundResource(R.drawable.title_back);
@@ -260,7 +261,6 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	
 	private void updateUI(){
 		
-		TextView mTitleView=(TextView) findViewById(R.id.mTitleView);
 		mTitleView.setText(mActivityDetailsItem.getLeaderName()+getResources().getString(R.string.activity_of_somebody));
 		
 		mLeaderNameTv.setText(mActivityDetailsItem.getLeaderName());
@@ -377,6 +377,10 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	               
 	            	Log.e("zyf", "cancel activity success......");
 	            	
+	            	mActivityDetailsItem.setState(GlobalArgs.CLUB_ACTIVITY_STATE_CANCELED);
+					
+					updateUI();
+	            	
 	            	MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_cancel_success, MyToast.LENGTH_SHORT).show();
 	            }
 	            
@@ -439,6 +443,10 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	            	Log.e("zyf", "join activity success......");
 	            	
 	            	MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_add_success, MyToast.LENGTH_SHORT).show();
+	            	
+	            	mActivityDetailsItem.setMemberRank(GlobalArgs.MEMBER_RANK_NORMAL);
+	            	
+	            	updateUI();
 	            }
 	            
 	            @Override
@@ -469,7 +477,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 					
 					mActivityJoinTask.cancel(true);
 					
-					Log.e("zyf", "create activity time out......");
+					Log.e("zyf", "cancel activity time out......");
 					
 					MyToast.makeText(ActivityDetailsActivity.this, true, R.string.activity_add_failed, MyToast.LENGTH_SHORT).show();
 				} 

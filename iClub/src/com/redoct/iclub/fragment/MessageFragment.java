@@ -17,12 +17,16 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.LogErrorMessage;
+import com.oct.ga.comm.cmd.invite.InviteFeedbackReq;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MessageBaseAdapter;
 import com.redoct.iclub.item.MessageItem;
+import com.redoct.iclub.task.InviteFeedbackTask;
 import com.redoct.iclub.task.MessageCommitTask;
 import com.redoct.iclub.task.MessageListTask;
+import com.redoct.iclub.util.FileUtils;
 import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +40,9 @@ public class MessageFragment extends Fragment{
 	
 	private MessageListTask mMessageListTask;
 	
+	private InviteFeedbackTask mInviteFeedbackTask;
+	
+	//用于确认已收到消息
 	private String [] inviteIds;
 	private String [] inviteFeedbackIds;
 	
@@ -46,6 +53,8 @@ public class MessageFragment extends Fragment{
 			Bundle savedInstanceState) {
 		
 		View contentView=inflater.inflate(R.layout.fragment_message, container, false);
+		
+		//messageItems=FileUtils.readMessageHistory();
 		
 		initViews(contentView);
 		
@@ -64,11 +73,63 @@ public class MessageFragment extends Fragment{
 		mBaseAdapter=new MessageBaseAdapter(messageItems, getActivity()){
 
 			@Override
-			public void accept(String id) {
-				// TODO Auto-generated method stub
-				super.accept(id);
+			public void accept(String id,int position) {
 				
+				short feedbackState=0;
 				
+				final int pos=position;
+				
+				mInviteFeedbackTask=new InviteFeedbackTask(id, feedbackState){
+
+					@Override
+					public void before() {
+						// TODO Auto-generated method stub
+						super.before();
+						
+						mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_committing, getActivity());
+						mProgressDialogUtils.showDialog();
+					}
+
+					@Override
+					public void callback() {
+						// TODO Auto-generated method stub
+						super.callback();
+						
+						//接受好友成功，更新界面
+						MessageItem item=messageItems.get(pos);
+						
+						MyToast.makeText(getActivity(), true, R.string.invite_commit_success, MyToast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void failure() {
+						// TODO Auto-generated method stub
+						super.failure();
+						
+						MyToast.makeText(getActivity(), true, R.string.invite_commit_failed, MyToast.LENGTH_SHORT).show();
+					}
+
+					@Override
+					public void complete() {
+						// TODO Auto-generated method stub
+						super.complete();
+						
+						mProgressDialogUtils.dismissDialog();
+					}
+
+					@Override
+					public void timeout() {
+						// TODO Auto-generated method stub
+						super.timeout();
+						
+						mProgressDialogUtils.dismissDialog();
+						
+						MyToast.makeText(getActivity(), true, R.string.invite_commit_failed, MyToast.LENGTH_SHORT).show();
+					}
+					
+				};
+				mInviteFeedbackTask.setTimeOutEnabled(true, 10*1000);
+				mInviteFeedbackTask.safeExecute();
 			}
 		};
 		mPullToRefreshListView.setAdapter(mBaseAdapter);
@@ -129,17 +190,20 @@ public class MessageFragment extends Fragment{
 				
 				messageItems.clear();
 				
-				messageItems=mMessageListTask.getMessageList();
+				for(int i=0;i<mMessageListTask.getMessageList().size();i++){
+					messageItems.add(mMessageListTask.getMessageList().get(i));
+				}
 				
-				mPullToRefreshListView.onRefreshComplete();
-				mBaseAdapter.notifyDataSetChanged();
-			
 				inviteIds=mMessageListTask.getInviteIds();
 				inviteFeedbackIds=mMessageListTask.getInviteFeedIds();
 				
-				/*Message msg=new Message();
-				msg.what=1;
-				mHandler.sendMessage(msg);*/
+				Log.e("zyf", "call back inviteIds length: "+inviteIds.length);
+				Log.e("zyf", "call back inviteFeedbackIds length: "+inviteFeedbackIds.length);
+				
+				//FileUtils.updateMessageHistory(messageItems);
+				
+				mPullToRefreshListView.onRefreshComplete();
+				mBaseAdapter.notifyDataSetChanged();
 				
 			}
 
@@ -170,7 +234,7 @@ public class MessageFragment extends Fragment{
 		};
 		mMessageListTask.setTimeOutEnabled(true, 10*1000);
 		mMessageListTask.safeExecute();
-		//mMessageListTask.then(messageCommitRunnable);
+		mMessageListTask.then(messageCommitRunnable);
 	}
 	
 	Runnable messageCommitRunnable=new Runnable() {
@@ -179,6 +243,7 @@ public class MessageFragment extends Fragment{
 		public void run() {
 			
 			MessageCommitTask messageCommitTask=new MessageCommitTask(inviteIds, inviteFeedbackIds);
+			messageCommitTask.setTimeOutEnabled(true, 10*1000);
 			messageCommitTask.safeExecute();
 		}
 	};

@@ -14,6 +14,9 @@ public class MessageCommitTask extends TemplateTask {
 		super();
 		this.inviteIds = inviteIds;
 		this.inviteFeedbackIds = inviteFeedbackIds;
+		
+		Log.e("zyf", "task call back inviteIds length: "+inviteIds.length);
+		Log.e("zyf", "task call back inviteFeedbackIds length: "+inviteFeedbackIds.length);
 	}
 
 
@@ -24,7 +27,7 @@ public class MessageCommitTask extends TemplateTask {
 		
 		try {
 			
-			iClubApplication.send(req);
+			iClubApplication.send(req,false);
 			
 		} catch (Exception e) {
 			

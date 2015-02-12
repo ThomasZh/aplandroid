@@ -167,6 +167,71 @@ public class StpClient
 		return messageHandler.getResponse();
 
 	}
+	
+	public RespCommand send(StpCommand request,boolean wait) throws InterruptedException, UnsupportedEncodingException
+	{
+        if(running){
+            logger.warn(">>>> only one request allowed!");
+            return null;
+        }
+
+        running = true;//open running state
+
+        //FIXME, remember this command just send and check it in messageHandler.messageReceived
+        //lwz7512@2014/10/28
+        session.setAttribute("tag", request.getTag());
+        //FIXME, clear last response, to avoid return last response in current request
+        //lwz7512@2014/11/05
+        messageHandler.resetResonse();
+
+        TlvObject msg = request.encode();
+		WriteFuture writeFuture = session.write(msg);
+		writeFuture.awaitUninterruptibly();
+
+		if (writeFuture.getException() != null) {//network connection broken!
+			session.getConfig().setUseReadOperation(false);
+            running = false;
+            connected = false;
+            logger.warn(">>>> write message exception!");
+			return null;
+		}
+
+        logger.info(">>>>>>>>> open read mode ...");
+		session.getConfig().setUseReadOperation(true);
+
+		if(wait){
+			final ReadFuture readFuture = session.read();
+	
+			readFuture.awaitUninterruptibly();// read response message
+	
+	        logger.info(">>>>>>>>> read message complete ...");
+			if (readFuture.getException() != null) {
+				session.getConfig().setUseReadOperation(false);
+	            running = false;
+	            connected = false;
+	            logger.warn(">>>> read message exception!");
+				return null;
+			}
+	
+	        // stop blocking inbound messages
+			session.getConfig().setUseReadOperation(false);
+	
+	        //reset the status
+	        running = false;
+	
+			return messageHandler.getResponse();
+			
+		}else{
+			
+			session.getConfig().setUseReadOperation(false);
+			
+	        //reset the status
+	        running = false;
+	        
+	        return null;
+		}
+
+	}
 
     /**
      * get responses in same type

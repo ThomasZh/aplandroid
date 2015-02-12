@@ -53,7 +53,12 @@ public class TemplateTask extends AsyncTask<Void, Void, Boolean> {
      * @return execute result
      */
     public boolean safeExecute(){
-        if(isRunning()) return false;
+        /*if(isRunning()){
+        	Log.e("zyf", "api is running......");
+        	return false;
+        }else{
+        	Log.e("zyf", "api is not not not running......");
+        }*/
     	
     	if(iClubApplication.apiOk()){
     		Log.e("zyf", "api is ok.......");

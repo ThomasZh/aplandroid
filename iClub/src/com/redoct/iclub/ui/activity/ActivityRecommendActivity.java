@@ -6,6 +6,8 @@ import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivityRecommendAdapter;
 import com.redoct.iclub.item.ContactItem;
 import com.redoct.iclub.task.ActivityRecommendTask;
+import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -32,6 +34,8 @@ public class ActivityRecommendActivity extends Activity implements OnClickListen
 	private String [] userIds;
 	
 	private ActivityRecommendTask mActivityRecommendTask;
+	
+	private MyProgressDialogUtils mProgressDialogUtils;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +94,57 @@ public class ActivityRecommendActivity extends Activity implements OnClickListen
 			for(int i=0;i<contactItems.size();i++){
 				userIds[i]=contactItems.get(i).getId();
 			}
+			
+			mActivityRecommendTask=new ActivityRecommendTask(this, activityId, userIds, mEditText.getText().toString()){
 
-			finish();
+				@Override
+				public void before() {
+					// TODO Auto-generated method stub
+					super.before();
+					
+					mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_activity_recommending, ActivityRecommendActivity.this);
+					mProgressDialogUtils.showDialog();
+				}
+
+				@Override
+				public void callback() {
+					// TODO Auto-generated method stub
+					super.callback();
+					
+					MyToast.makeText(ActivityRecommendActivity.this, true, R.string.activity_recommend_success, MyToast.LENGTH_SHORT).show();
+					
+					ActivityRecommendActivity.this.finish();
+				}
+
+				@Override
+				public void failure() {
+					// TODO Auto-generated method stub
+					super.failure();
+					
+					MyToast.makeText(ActivityRecommendActivity.this, true, R.string.activity_recommend_failed, MyToast.LENGTH_SHORT).show();
+				}
+
+				@Override
+				public void complete() {
+					// TODO Auto-generated method stub
+					super.complete();
+					
+					mProgressDialogUtils.dismissDialog();
+				}
+
+				@Override
+				public void timeout() {
+					// TODO Auto-generated method stub
+					super.timeout();
+					
+					mProgressDialogUtils.dismissDialog();
+					
+					MyToast.makeText(ActivityRecommendActivity.this, true, R.string.activity_recommend_failed, MyToast.LENGTH_SHORT).show();
+				}
+				
+			};
+			mActivityRecommendTask.setTimeOutEnabled(true, 10*1000);
+			mActivityRecommendTask.safeExecute();
 			
 			break;
 

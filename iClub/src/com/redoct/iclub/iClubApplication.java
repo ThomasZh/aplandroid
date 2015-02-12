@@ -134,6 +134,17 @@ public class iClubApplication extends Application implements
 
 		return respCommand;
 	}
+	
+	public static RespCommand send(StpCommand req,boolean wait) throws InterruptedException,
+	        UnsupportedEncodingException {
+		
+		if (api == null)
+			return null;
+		
+		RespCommand respCommand = api.send(req,wait);
+		
+		return respCommand;
+	}
 
 	public static void close() {
 		api.close();

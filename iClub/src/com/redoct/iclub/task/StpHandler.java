@@ -4,6 +4,8 @@ import android.util.Log;
 
 import com.oct.ga.comm.cmd.RespCommand;
 import com.oct.ga.comm.parser.CommandParser;
+import com.oct.ga.comm.tlv.TlvByteUtil;
+import com.oct.ga.comm.tlv.TlvByteUtilPrinter;
 import com.oct.ga.comm.tlv.TlvObject;
 
 import org.apache.mina.core.service.IoHandlerAdapter;
@@ -72,6 +74,10 @@ public class StpHandler extends IoHandlerAdapter {
 		
 		TlvObject tlv = (TlvObject) message;
         logger.info("received tag: "+tlv.getTag());
+        
+        //Log.e("zyf", "received tlv: "+new String(tlv.getValue(),"utf-8"));
+        //Log.e("zyf", "received tlv: "+);
+        com.redoct.iclub.task.TlvByteUtilPrinter.hexDump("aaa", tlv.getValue());
 
         //FIXME, compare tag just send with
         int expectTag = (Short)session.getAttribute("tag")+1;

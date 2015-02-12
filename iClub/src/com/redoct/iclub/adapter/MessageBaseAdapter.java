@@ -81,6 +81,7 @@ public class MessageBaseAdapter extends BaseAdapter {
 		
 		ViewHolder holder;
 		final MessageItem item=messageItems.get(position);
+		final int pos=position;
 		
 		if(item.getUserName()==null){
 			item.setUserName("");
@@ -112,7 +113,7 @@ public class MessageBaseAdapter extends BaseAdapter {
     			@Override
     			public void onClick(View v) {
     				
-    				//accept(item.getId());
+    				accept(item.getInviteId(),pos);
     			}
     		});
         	
@@ -131,7 +132,7 @@ public class MessageBaseAdapter extends BaseAdapter {
 		return convertView;
 	}
 	
-	public void accept(String id){
+	public void accept(String id,int position){
 		
 	}
 	
