@@ -47,8 +47,8 @@ public class ClubDetailActivity extends Activity {
 		id = getIntent().getStringExtra("id");
 		mImageLoader = ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
-				.showStubImage(R.drawable.ic_launcher)
-				.showImageForEmptyUri(R.drawable.ic_launcher)
+				//.showStubImage(R.drawable.ic_launcher)
+				.showImageForEmptyUri(R.drawable.icon_club_temp)
 				.cacheInMemory(true).cacheOnDisc(true)
 				.bitmapConfig(Bitmap.Config.RGB_565)
 				//.displayer(new RoundedBitmapDisplayer(100))
@@ -92,7 +92,7 @@ public class ClubDetailActivity extends Activity {
 					clubImg = json.optString("titleBkImage");
 					tvClubDesc.setText(json.optString("desc"));
 					tvClubName.setText(json.optString("name"));
-					tvJoinPeople.setText(json.optInt("memberNum") + "");
+					tvJoinPeople.setText(json.optInt("subscriberNum") + "");
 					mImageLoader.displayImage(json.optString("titleBkImage"),
 							ivClubPic, options);
 
@@ -183,6 +183,15 @@ public class ClubDetailActivity extends Activity {
 				startActivityForResult(in, 1);
 				BaseActivityUtil.setStartTransition(ClubDetailActivity.this);
 
+			}
+		});
+		findViewById(R.id.rl_clubdetail_menber).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(ClubDetailActivity.this,AddMenberActivity.class);
+				BaseActivityUtil.startActivity(ClubDetailActivity.this, intent, false, false);
 			}
 		});
 

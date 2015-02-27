@@ -14,7 +14,7 @@
         <ImageView
             android:layout_centerVertical="true"
             android:id="@+id/iv_clublistactivity_clubimg"
-            android:src="@drawable/ic_launcher"
+          
             android:layout_width="140dp"
             android:layout_height="60dp" />
 

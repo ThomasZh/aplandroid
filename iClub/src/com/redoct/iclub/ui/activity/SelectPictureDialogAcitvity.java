@@ -127,7 +127,7 @@ public class SelectPictureDialogAcitvity extends Activity {
         intent.putExtra("crop", "true");
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 200);
+        intent.putExtra("outputX", 300);
         intent.putExtra("outputY", 200);
         intent.putExtra("return-data", true);
         startActivityForResult(intent, CODE_RESULT_REQUEST);  

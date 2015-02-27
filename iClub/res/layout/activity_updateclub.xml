@@ -49,6 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:text="hasdfihi"
+        android:padding="10dp"
         android:background="@drawable/bg_corner_white"
         android:textSize="@dimen/textsize_smaller" />
 
@@ -62,11 +64,12 @@
         android:inputType="textMultiLine"
         android:lines="5"
         android:minLines="6"
+        android:padding="10dp"
         android:textSize="@dimen/textsize_smallest" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="160dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="20dp"
@@ -76,7 +79,9 @@
         <ImageView
             android:id="@+id/iv_update_clubimg"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
+            android:scaleType="fitXY"
+            android:padding="5dp"
             android:src="@drawable/ic_launcher" />
 
         <TextView

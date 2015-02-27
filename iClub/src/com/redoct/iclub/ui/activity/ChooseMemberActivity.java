@@ -24,6 +24,9 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,6 +41,8 @@ public class ChooseMemberActivity extends Activity {
 	private ImageView iv_left;
 	private TextView tvRight;
 	private ArrayList<ContactItem> list = new ArrayList<ContactItem>();
+	private ArrayList<String> listId = new ArrayList<String>();
+	
 	
 	/**
 	 * 汉字转换成拼音的类
@@ -76,6 +81,16 @@ public class ChooseMemberActivity extends Activity {
 					intent.setClass(ChooseMemberActivity.this,ActivityRecommendActivity.class);
 					
 					BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, true, false);
+				}else{
+					Intent in = new Intent();
+					in.putExtra("idList", list);
+					
+					setResult(11, in);
+					finish();
+					overridePendingTransition(R.anim.push_right_in,
+							R.anim.push_right_out);
+					
+					
 				}
 			}
 		});
@@ -102,8 +117,8 @@ public class ChooseMemberActivity extends Activity {
 		
 		pinyinComparator = new PinyinComparator();
 		
-		sideBar = (SideBar) findViewById(R.id.csidrbar);
-		dialog = (TextView) findViewById(R.id.cdialog);
+		sideBar = (SideBar) findViewById(R.id.sidrbar);
+		dialog = (TextView) findViewById(R.id.dialog);
 		sideBar.setTextView(dialog);
 		
 		//设置右侧触摸监听
@@ -120,24 +135,9 @@ public class ChooseMemberActivity extends Activity {
 			}
 		});
 		
-		sortListView = (ListView) findViewById(R.id.country_lvcountry);
-		/*sortListView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				//这里要利用adapter.getItem(position)来获取当前position所对应的对象
-			
-				Intent intent = new Intent();
-			
-				intent.setClass(ChooseMemberActivity.this,ContactDetailActivity.class);
-				intent.putExtra("name",((ContactItem)adapter.getItem(position)).getName());
-				intent.putExtra("email", ((ContactItem)adapter.getItem(position)).getEmail());
-				intent.putExtra("img", ((ContactItem)adapter.getItem(position)).getImageUrl());
-				BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, false, false);
-				//Toast.makeText(getApplication(), ((ContactItem)adapter.getItem(position)).getName(), Toast.LENGTH_SHORT).show();
-			}
-		});*/
+		sortListView = (ListView) findViewById(R.id.lv_chosemember_list);
+		
+		
 		
 		//SourceDateList = filledData(getResources().getStringArray(R.array.date));
 		
@@ -168,6 +168,24 @@ public class ChooseMemberActivity extends Activity {
 			public void afterTextChanged(Editable s) {
 			}
 		});
+		/*sortListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				//这里要利用adapter.getItem(position)来获取当前position所对应的对象
+				Checkable check = (Checkable) view.findViewById(R.id.checkBox1);
+				if(check.isChecked()){
+					listId.add(((ContactItem)adapter.getItem(position)).getId());
+				}else{
+					listId.remove(((ContactItem)adapter.getItem(position)).getId());
+				}
+			
+				
+			}
+		});*/
+		
+		
 	}
 
 

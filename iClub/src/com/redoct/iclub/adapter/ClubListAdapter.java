@@ -28,8 +28,8 @@ public class ClubListAdapter extends BaseAdapter {
 		this.context= context;
 		mImageLoader=ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
-		.showStubImage(R.drawable.ic_launcher)
-		.showImageForEmptyUri(R.drawable.ic_launcher)
+		//.showStubImage(R.drawable.ic_launcher)
+		.showImageForEmptyUri(R.drawable.icon_club_temp)
 		.cacheInMemory(true)
 		.cacheOnDisc(true)
 		.bitmapConfig(Bitmap.Config.RGB_565)

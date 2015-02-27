@@ -78,10 +78,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            android:src="@drawable/ic_launcher" />
+            android:scaleType="fitXY"
+        
+            
+            />
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_clubdetail_menber"
         android:layout_width="match_parent"
         android:layout_height="@dimen/input_seconed_height"
         android:layout_margin="5dp"
@@ -104,7 +108,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp"
             android:gravity="center_vertical"
-            android:text="4"
             android:textColor="@color/black" />
 
         <ImageView
@@ -138,7 +141,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp"
             android:gravity="center_vertical"
-            android:text="4"
             android:textColor="@color/black" />
 
         <ImageView

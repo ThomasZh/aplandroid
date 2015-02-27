@@ -59,6 +59,7 @@ public class ClubListActivity extends Activity {
 				Intent in = new Intent();
 				in.setClass(ClubListActivity.this, ClubDetailActivity.class);
 				in.putExtra("id", clubList.get(i).getId());
+				in.putExtra("memberNum", clubList.get(i).getSubscriberNum());
 				BaseActivityUtil.startActivity(ClubListActivity.this, in,
 						false, false);
 
@@ -146,7 +147,10 @@ public class ClubListActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				BaseActivityUtil.startActivity(ClubListActivity.this,CreateClubActivity.class, false);
+				Intent in = new Intent();
+				in.setClass(ClubListActivity.this,CreateClubActivity.class);
+				startActivityForResult(in, 1);
+				BaseActivityUtil.setStartTransition(ClubListActivity.this);
 			}
 		});
 
@@ -159,5 +163,12 @@ public class ClubListActivity extends Activity {
 		overridePendingTransition(R.anim.push_right_in,
 				R.anim.push_right_out);
 	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		loadData();
+	}
+	
 
 }

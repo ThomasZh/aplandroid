@@ -5,12 +5,17 @@ import java.util.List;
 
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MembersListAdapter;
+import com.redoct.iclub.item.ContactItem;
 import com.redoct.iclub.item.MemberItem;
+import com.redoct.iclub.task.GetClubListTask;
+import com.redoct.iclub.task.MembersListTask;
 import com.redoct.iclub.util.PersistentUtil;
+import com.redoct.iclub.util.ToastUtil;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
@@ -19,6 +24,7 @@ public class AddMenberActivity extends Activity {
 	private ListView lvMembersList;
 	private MembersListAdapter adapter;
 	private List<MemberItem> list;
+	private MembersListTask task;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,7 @@ public class AddMenberActivity extends Activity {
 				"username", ""));
 		list.add(item);
 		initView();
+		//loadData();
 	}
 
 	@Override
@@ -74,5 +81,19 @@ public class AddMenberActivity extends Activity {
 		});
 
 	}
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(data!=null){
+			
+			ArrayList<ContactItem> listId =(ArrayList<ContactItem>) data.getSerializableExtra("idList");
+			Intent in = new Intent();
+			in.putExtra("idList", listId);
+			setResult(11, in);
+			finish();
+			
+			
+		}
+	}
 }
