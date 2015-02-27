@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray"
+    android:background="#fdf4f2"
     android:orientation="vertical" >
  <include layout="@layout/activity_title"/>
 
@@ -17,8 +17,9 @@
             android:id="@+id/myhead"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
             android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_launcher" />
+            />
 
         <TextView
             android:id="@+id/myname"
@@ -31,9 +32,10 @@
         <ImageView
             android:id="@+id/mymore"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/icon_enter" />
     </RelativeLayout>
 
     <LinearLayout
@@ -54,6 +56,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
+            android:textColor="@color/red"
             android:text="@string/connctor" />
 
         <TextView
@@ -67,6 +70,7 @@
             android:layout_weight="1"
             android:background="@drawable/bg_radio_color_red"
             android:gravity="center"
+              android:textColor="@color/red"
             android:text="@string/friends" />
     </LinearLayout>
 
@@ -88,6 +92,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
+              android:textColor="@color/red"
             android:text="@string/alterpass" />
 
         <TextView
@@ -100,6 +105,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
+              android:textColor="@color/red"
             android:text="@string/quit" />
     </LinearLayout>
 
