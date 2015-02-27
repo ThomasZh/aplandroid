@@ -56,27 +56,42 @@
 		        android:text="@string/activities"
 		        android:textSize="@dimen/textsize_smaller"/>
 		</LinearLayout>
-		<LinearLayout
-		    android:id="@+id/mContainer2Layout"
+		<FrameLayout
 		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:orientation="vertical"
-		    android:gravity="center">
-		    <ImageView
-		        android:id="@+id/mIcon2ImageView" 
-		        android:layout_width="@dimen/tabview_icon_width"
-		        android:layout_height="@dimen/tabview_icon_height"/>
-		    <TextView
-		        android:id="@+id/mOptionName2Tv"  
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="@dimen/tabview_margin_top_title"
-		        android:gravity="center_horizontal"
-		        android:textColor="@color/tabview_color_normal"
-		        android:text="@string/invitation"
-		        android:textSize="@dimen/textsize_smaller"/>
-		</LinearLayout>
+			android:layout_height="wrap_content"
+			android:layout_weight="1">
+			<LinearLayout
+			    android:id="@+id/mContainer2Layout"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="vertical"
+			    android:gravity="center">
+			    <ImageView
+			        android:id="@+id/mIcon2ImageView" 
+			        android:layout_width="@dimen/tabview_icon_width"
+			        android:layout_height="@dimen/tabview_icon_height"/>
+			    <TextView
+			        android:id="@+id/mOptionName2Tv"  
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="@dimen/tabview_margin_top_title"
+			        android:gravity="center_horizontal"
+			        android:textColor="@color/tabview_color_normal"
+			        android:text="@string/invitation"
+			        android:textSize="@dimen/textsize_smaller"/>
+			</LinearLayout>
+			<TextView
+			    android:id="@+id/mUnreadMessageNumTv"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginRight="0dip"
+			    android:text="1"
+			    android:textSize="@dimen/textsize_small"
+			    android:textStyle="bold"
+			    android:textColor="#ff0000"
+			    android:gravity="center"
+			    android:visibility="gone"/>
+	    </FrameLayout>
 		<LinearLayout
 		    android:id="@+id/mContainer3Layout"
 		    android:layout_width="match_parent"

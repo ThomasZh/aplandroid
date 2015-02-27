@@ -54,7 +54,7 @@ public class MessageFragment extends Fragment{
 		
 		View contentView=inflater.inflate(R.layout.fragment_message, container, false);
 		
-		//messageItems=FileUtils.readMessageHistory();
+		messageItems=FileUtils.readMessageHistory();
 		
 		initViews(contentView);
 		
@@ -97,6 +97,11 @@ public class MessageFragment extends Fragment{
 						
 						//接受好友成功，更新界面
 						MessageItem item=messageItems.get(pos);
+						item.setAccept(true);
+						
+						FileUtils.updateMessageHistory(messageItems);
+						
+						notifyDataSetChanged();
 						
 						MyToast.makeText(getActivity(), true, R.string.invite_commit_success, MyToast.LENGTH_SHORT).show();
 					}
@@ -188,7 +193,7 @@ public class MessageFragment extends Fragment{
 				
 				Log.e("zyf", "message list size: "+mMessageListTask.getMessageList().size());
 				
-				messageItems.clear();
+				//messageItems.clear();
 				
 				for(int i=0;i<mMessageListTask.getMessageList().size();i++){
 					messageItems.add(mMessageListTask.getMessageList().get(i));
@@ -197,10 +202,13 @@ public class MessageFragment extends Fragment{
 				inviteIds=mMessageListTask.getInviteIds();
 				inviteFeedbackIds=mMessageListTask.getInviteFeedIds();
 				
-				Log.e("zyf", "call back inviteIds length: "+inviteIds.length);
-				Log.e("zyf", "call back inviteFeedbackIds length: "+inviteFeedbackIds.length);
+				if(inviteIds!=null)
+					Log.e("zyf", "call back inviteIds length: "+inviteIds.length);
 				
-				//FileUtils.updateMessageHistory(messageItems);
+				if(inviteFeedbackIds!=null)
+					Log.e("zyf", "call back inviteFeedbackIds length: "+inviteFeedbackIds.length);
+				
+				FileUtils.updateMessageHistory(messageItems);
 				
 				mPullToRefreshListView.onRefreshComplete();
 				mBaseAdapter.notifyDataSetChanged();
@@ -234,6 +242,7 @@ public class MessageFragment extends Fragment{
 		};
 		mMessageListTask.setTimeOutEnabled(true, 10*1000);
 		mMessageListTask.safeExecute();
+		
 		mMessageListTask.then(messageCommitRunnable);
 	}
 	

@@ -80,9 +80,9 @@ public class MessageListTask extends TemplateTask {
 					
 					gaInvite=gaInvites.get(i);
 					
-					messageItem=new MessageItem();
+					inviteIds[i]=gaInvite.getInviteId();
 					
-					inviteIds[i]=messageItem.getInviteId();
+					messageItem=new MessageItem();
 					
 					messageItem.setFeedback(false);
 					messageItem.setChannelId(gaInvite.getChannelId());
@@ -115,9 +115,9 @@ public class MessageListTask extends TemplateTask {
 					
 					gaInviteFeedback=gaInviteFeedbacks.get(i);
 					
-					messageItem=new MessageItem();
+					inviteFeedbackIds[i]=gaInviteFeedback.getInviteId();
 					
-					inviteFeedbackIds[i]=messageItem.getInviteId();
+					messageItem=new MessageItem();
 					
 					messageItem.setFeedback(true);
 					

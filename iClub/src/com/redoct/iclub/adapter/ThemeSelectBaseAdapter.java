@@ -1,9 +1,13 @@
 package com.redoct.iclub.adapter;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.redoct.iclub.R;
 
 import android.R.integer;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,9 @@ public class ThemeSelectBaseAdapter extends BaseAdapter {
 	
 	private LayoutInflater mInflater;
 	
+	private ImageLoader mImageLoader;
+	private DisplayImageOptions options;
+	
 	private String [] iconUrls;
 	
 	private String [] iconTitles;
@@ -29,6 +36,16 @@ public class ThemeSelectBaseAdapter extends BaseAdapter {
 		this.iconTitles = iconTitles;
 		
 		mInflater=LayoutInflater.from(mContext);
+		
+		mImageLoader=ImageLoader.getInstance();
+		options = new DisplayImageOptions.Builder()
+		.showStubImage(R.drawable.icon_default)
+		.showImageForEmptyUri(R.drawable.icon_default)
+		.cacheInMemory(true)
+		.cacheOnDisc(true)
+		.bitmapConfig(Bitmap.Config.RGB_565)
+		.displayer(new RoundedBitmapDisplayer(100)) 
+		.build();
 	}
 
 	@Override
@@ -61,6 +78,8 @@ public class ThemeSelectBaseAdapter extends BaseAdapter {
 		TextView mTitleTv=(TextView) convertView.findViewById(R.id.mTitleTv);
 		
 		mTitleTv.setText(iconTitles[position]);
+		
+		mImageLoader.displayImage(iconUrls[position], mImageView, options);
 		
 		return convertView;
 	}

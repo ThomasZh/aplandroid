@@ -16,6 +16,7 @@ public class MessageItem implements Serializable{
 	private short inviteType;
 	private int timestamp;
 	private String toUserSemiId;
+	private boolean isAccept;   //是否接受请求
 	
 	public boolean isFeedback() {
 		return isFeedback;
@@ -88,5 +89,11 @@ public class MessageItem implements Serializable{
 	}
 	public void setToUserSemiId(String toUserSemiId) {
 		this.toUserSemiId = toUserSemiId;
+	}
+	public boolean isAccept() {
+		return isAccept;
+	}
+	public void setAccept(boolean isAccept) {
+		this.isAccept = isAccept;
 	}
 }

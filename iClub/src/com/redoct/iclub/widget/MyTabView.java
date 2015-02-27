@@ -24,6 +24,8 @@ public class MyTabView extends LinearLayout{
 	private TextView [] optionTextViews;
 	private LinearLayout [] optionContainers;
 	
+	private TextView mUnreadMessageNumTv;
+	
 	public interface MyOnTabClickLister
 	{
 		void OnTabClick(int choice);
@@ -54,6 +56,8 @@ public class MyTabView extends LinearLayout{
 	private void initViews(){
 		
 		View contentView=mInflater.inflate(R.layout.custom_my_tabview, this);//must write this
+		
+		mUnreadMessageNumTv=(TextView)contentView.findViewById(R.id.mUnreadMessageNumTv);
 		
 		optionImageViews=new ImageView[OPTION_NUM];
 		optionTextViews=new TextView[OPTION_NUM];
@@ -134,6 +138,15 @@ public class MyTabView extends LinearLayout{
 		if(mOnTabClickLister!=null){
 			mOnTabClickLister.OnTabClick(index);;
 		}
+	}
+	
+	public void setUnreadMessageNum(int num){
+		mUnreadMessageNumTv.setVisibility(View.VISIBLE);
+		mUnreadMessageNumTv.setText(num+"");
+	}
+	
+	public void setUnreadMessageNumGone(){
+		mUnreadMessageNumTv.setVisibility(View.GONE);
 	}
 
 }

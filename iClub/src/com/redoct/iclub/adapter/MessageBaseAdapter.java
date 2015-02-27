@@ -108,14 +108,23 @@ public class MessageBaseAdapter extends BaseAdapter {
         	
         	holder.mInfoTv.setText(item.getUserName()+"希望成为您的好友");
         	
-        	holder.mAcceptBtn.setOnClickListener(new OnClickListener() {
-    			
-    			@Override
-    			public void onClick(View v) {
-    				
-    				accept(item.getInviteId(),pos);
-    			}
-    		});
+        	if(!item.isAccept()){   //尚未同意请求
+        		
+        		holder.mAcceptBtn.setText("接受");
+        		holder.mAcceptBtn.setClickable(true);
+        		holder.mAcceptBtn.setOnClickListener(new OnClickListener() {
+        			
+        			@Override
+        			public void onClick(View v) {
+        				
+        				accept(item.getInviteId(),pos);
+        			}
+        		});
+        	}else{
+        		
+        		holder.mAcceptBtn.setClickable(false);
+        		holder.mAcceptBtn.setText("已接受");
+        	}
         	
         }else{  //别人对自己邀请的回复
         	

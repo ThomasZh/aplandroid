@@ -60,7 +60,7 @@
 				        android:textColor="#ffffff"
 				        android:text="@string/accept"
 				        android:layout_alignParentRight="true"
-				        android:background="@drawable/bg_btn_red"
+				        android:background="@drawable/bg_btn_red_gray_selector"
 				        android:layout_centerVertical="true"/>
 				    <TextView
 				        android:id="@+id/mInfoTv"

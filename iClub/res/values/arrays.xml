@@ -173,174 +173,174 @@
     </string-array>
     
         <string-array name="icon_url_theme0">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-shangwucha.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-xiawucha.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-kafei.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zaocan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-wucan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-wancan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jiuba.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-yecan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme1">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-dianying.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-changge.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-bengdi.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-gongyuan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-youleyuan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-youxi.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-yanchanghui.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-wutaiju.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-yinyuehui.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme2">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-beibaoxing.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-ziyouxing.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-gentuanyou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-qinziyou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zcvx.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zhoubianyou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-tubu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zijiayou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-youlunyou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme3">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jiatingjucan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jiarilvyou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jiatinghuodong.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-kewaihuodong.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jiatinghuiiyi.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jinianri.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jiatingjihua.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-gouwu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zhuangxiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jiawu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme4">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-guangjie.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-gouwuzhongxin.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-chaoshi.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-daigou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-wanggou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-tuangou.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-miaohui.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme5">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-meifa.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-meirong.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zuliao.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-meiti.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-tijain.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-kqbj.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-kfxl.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zhenjiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-yuyueguahao.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme6">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-peixun.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jiangzuo.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-baogaohui.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zixun.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-shixi.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-baoming.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-baoming.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-baoming.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-yuedu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme7">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-linshihuiyi.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-lixinghuiyi.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-xmch.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-tdhd.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-sthd.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-gyxm.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-peixun.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-pailianjiemu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-yundonghui.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-kandashan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme8">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-youyong.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-diaoyu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-chuantin.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-chonglang.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-fanban.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-qianshui.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-chaunmo.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme9">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-ykmx.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-hangpai.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-huaxiangyi.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-reqiqiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-bengji.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-sheji.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-tiaosan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme10">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jianmeicao.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-boji.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-wushu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-taiji.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-sanda.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-jianmeicao.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-taiquandao.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-ticao.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme11">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-snjs.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-yujia.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-pulati.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-xiandaiwu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-ladingwu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-guangchangwu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-wudao.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-wushu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme12">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zuqiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-lanqiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-wangqiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-yumaoqiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-ppq.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-baolingqiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-paiqiu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-gaoerfu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
     
     <string-array name="icon_url_theme13">
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-tubu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-paobu.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-zixingche.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-panpashan.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-lunhua.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-huabing.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/i-huaxue.png</item>
+        <item>http://tripc2c-default.b0.upaiyun.com/icon-interests2/C0.png</item>
     </string-array>
 </resources>
