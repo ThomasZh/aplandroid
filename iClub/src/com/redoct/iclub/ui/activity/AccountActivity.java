@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -81,9 +82,11 @@ public class AccountActivity extends Activity implements ReturnBitmap {
 				BaseActivityUtil.setUpTransition(AccountActivity.this);
 			}
 		});
-		ImageLoader.getInstance().displayImage(
-				PersistentUtil.getInstance().readString(this, "imageurl", ""),
-				img_head, optionsnet);
+		if(!TextUtils.isEmpty(PersistentUtil.getInstance().readString(this, "imageurl", ""))){
+			
+			ImageLoader.getInstance().displayImage(PersistentUtil.getInstance().readString(this, "imageurl", ""),img_head, optionsnet);
+		}
+		
 		btn_left = (Button) findViewById(R.id.leftBtn);
 		btn_left.setVisibility(View.VISIBLE);
 		btn_right = (Button) findViewById(R.id.rightBtn);
@@ -117,7 +120,7 @@ public class AccountActivity extends Activity implements ReturnBitmap {
 		// "https://avatars1.githubusercontent.com/u/920778?v=2&s=460";
 
 		final AccountDetailInfo act = new AccountDetailInfo();
-		act.setId(AppConfig.account.getAccountId());
+		//act.setId(AppConfig.account.getAccountId());
 		act.setName(et_name.getText().toString());
 		act.setTelephone(et_phone.getText().toString());
 		act.setDesc(et_desc.getText().toString());

@@ -11,6 +11,7 @@ import com.redoct.iclub.ui.activity.ContactActivity;
 import com.redoct.iclub.ui.activity.LoginActivity;
 import com.redoct.iclub.ui.activity.RegisterActivity;
 import com.redoct.iclub.ui.activity.UpdatePasswordActivity;
+import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.CircleBitmapDisplayer;
@@ -18,6 +19,7 @@ import com.redoct.iclub.widget.CircleBitmapDisplayer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -51,7 +53,10 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onResume();
 		tv_name.setText(new UserInformationLocalManagerUtil(getActivity()).ReadUserInformation().getName());
-		ImageLoader.getInstance().displayImage(new UserInformationLocalManagerUtil(getActivity()).ReadUserInformation().getImageUrl(), ivMyhead,options); 
+		if(!TextUtils.isEmpty(new UserInformationLocalManagerUtil(getActivity()).ReadUserInformation().getImageUrl())){
+			
+			ImageLoader.getInstance().displayImage(new UserInformationLocalManagerUtil(getActivity()).ReadUserInformation().getImageUrl(), ivMyhead,options); 
+		}
 	}
 
 	
