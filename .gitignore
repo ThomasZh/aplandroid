@@ -26,3 +26,4 @@ proguard/
 # Log Files
 *.log
 library_refresh/gen/com/handmark/pulltorefresh/library/BuildConfig.java
+iClub/bin/R.txt

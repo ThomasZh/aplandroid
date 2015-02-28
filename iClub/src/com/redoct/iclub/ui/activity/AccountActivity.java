@@ -48,6 +48,16 @@ public class AccountActivity extends Activity implements ReturnBitmap {
 	}
 
 	private void initView() {
+		findViewById(R.id.leftBtn).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+				overridePendingTransition(R.anim.push_right_in,
+						R.anim.push_right_out);
+			}
+		});
 		optionslocal = new DisplayImageOptions.Builder()
 		// .cacheInMemory(true)
 		// .cacheOnDisk(true)
@@ -111,15 +121,16 @@ public class AccountActivity extends Activity implements ReturnBitmap {
 		act.setName(et_name.getText().toString());
 		act.setTelephone(et_phone.getText().toString());
 		act.setDesc(et_desc.getText().toString());
-		act.setImageUrl(PersistentUtil.getInstance().readString(this, "imageurl",
-				""));
+		act.setImageUrl(PersistentUtil.getInstance().readString(this,
+				"imageurl", ""));
 
 		postTask = new UpdateAccountTask(act, avatarImgPath) {
 			@Override
 			public void callback() {
 				//
 				ToastUtil.toastshort(AccountActivity.this, "更新成功！");
-				new UserInformationLocalManagerUtil(AccountActivity.this).WriteUserInformation(iClubApplication.act);
+				new UserInformationLocalManagerUtil(AccountActivity.this)
+						.WriteUserInformation(iClubApplication.act);
 
 			}
 
