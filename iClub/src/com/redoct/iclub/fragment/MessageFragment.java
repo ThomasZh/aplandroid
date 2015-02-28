@@ -79,6 +79,8 @@ public class MessageFragment extends Fragment{
 				
 				short feedbackState=GlobalArgs.INVITE_STATE_ACCPET;
 				
+				Log.e("zyf", "accept pos: "+position);
+				
 				final int pos=position;
 				
 				mInviteFeedbackTask=new InviteFeedbackTask(id, feedbackState){

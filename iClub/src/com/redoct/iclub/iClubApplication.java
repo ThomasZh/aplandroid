@@ -70,7 +70,7 @@ public class iClubApplication extends Application implements
 		AppConfig.OS_VERSION = DeviceUtil.getDeviceOS();
 		Log.e("zyf", "os: " + AppConfig.OS_VERSION);
 
-		api = new StpClient(new StpHandler(api) {
+		/*api = new StpClient(new StpHandler(api) {
 
 			@Override
 			public void sessionClosed(IoSession session) throws Exception { // TODO
@@ -91,10 +91,10 @@ public class iClubApplication extends Application implements
 
 				Log.e("zyf", "stp handler session opened......");
 			}
-		});
-		IntentFilter mFilter = new IntentFilter();
+		});*/
+		/*IntentFilter mFilter = new IntentFilter();
 		mFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-		registerReceiver(mReceiver, mFilter);
+		registerReceiver(mReceiver, mFilter);*/
 
 	}
 
@@ -117,7 +117,7 @@ public class iClubApplication extends Application implements
 		System.exit(0);
 	}
 
-	private static StpClient api;
+	public static StpClient api;
 
 	public static void connect(String ip, int port) {
 
@@ -210,8 +210,8 @@ public class iClubApplication extends Application implements
 			//"thomas.zh@qq.com"  "m"
 			//"thomas@c2c.com"  "t"
 
-			UserLoginTask login = new UserLoginTask("thomas@c2c.com",
-					"t") {
+			UserLoginTask login = new UserLoginTask("quincy@c2c.com",
+					"q") {
 				public void callback() {
 					fetchAccountInfo();
 				}
