@@ -107,7 +107,7 @@ public class SplashActivity extends Activity{
 	
 	private void autoLogin(){
 		
-		UserLoginTask login = new UserLoginTask("quincy3@c2c.com","q") {
+		UserLoginTask login = new UserLoginTask("thomas.zh@qq.com","m") {
 			
 			public void callback() {
 				
