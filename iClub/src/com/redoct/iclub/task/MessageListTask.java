@@ -99,6 +99,8 @@ public class MessageListTask extends TemplateTask {
 					
 					messageItems.add(messageItem);
 				}
+			}else {
+				Log.e("zyf","getInviteList() is null......");
 			}
 			
 			List<GaInviteFeedback> gaInviteFeedbacks=resp.getInviteFeedbackList();
@@ -134,6 +136,8 @@ public class MessageListTask extends TemplateTask {
 					
 					messageItems.add(messageItem);
 				}
+			}else {
+				Log.e("zyf","getInviteFeedbackList() is null......");
 			}
 			
 		} catch (Exception e) {
