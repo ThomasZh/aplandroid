@@ -94,12 +94,13 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 
 			break;
 		case R.id.quit:
-			Intent intent = new Intent(getActivity(),
+			/*Intent intent = new Intent(getActivity(),
 					RegisterActivity.class);
 			 
 			startActivity(intent);
 			BaseActivityUtil.setUpTransition(getActivity());
-			getActivity().finish();
+			getActivity().finish();*/
+			System.exit(0);
 			break;
 		case R.id.connctor:
         	BaseActivityUtil.startActivity(getActivity(),ContactActivity.class, false);

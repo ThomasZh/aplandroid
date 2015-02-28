@@ -14,14 +14,20 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.oct.ga.comm.domain.club.ClubMasterInfo;
+import com.redoct.iclub.MainActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.iClubApplication;
+import com.redoct.iclub.config.AppConfig;
+import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.task.RegisterTask;
 import com.redoct.iclub.task.UpdateClubTask;
 import com.redoct.iclub.ui.activity.SelectPictureDialogAcitvity.ReturnBitmap;
 import com.redoct.iclub.util.EncryptUtil;
+import com.redoct.iclub.util.PersistentUtil;
 import com.redoct.iclub.util.ToastUtil;
+import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 
 public class RegisterActivity extends Activity implements ReturnBitmap {
@@ -41,6 +47,8 @@ public class RegisterActivity extends Activity implements ReturnBitmap {
 	private String md5pwd;//
 	private String facePhoto;//
 	private String apnsToken;
+	private GetAccountTask getTask;
+	public static AccountDetailInfo act;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +109,15 @@ public class RegisterActivity extends Activity implements ReturnBitmap {
 				// TODO Auto-generated method stub
 				super.callback();
 
-				ToastUtil.toastshort(RegisterActivity.this, "update succeed!");
+				ToastUtil.toastshort(RegisterActivity.this, "注册成功!");
+				BaseActivityUtil.startActivity(RegisterActivity.this,
+						MainActivity.class, true);
+				PersistentUtil.getInstance().write(RegisterActivity.this,
+						"loginName", firstName);
+				PersistentUtil.getInstance().write(RegisterActivity.this,
+						"passWord", md5pwd);
+
+				fetchAccountInfo();
 
 			}
 
@@ -187,6 +203,45 @@ public class RegisterActivity extends Activity implements ReturnBitmap {
 		// img_head.setImageBitmap(UploadUtil.toRoundBitmap(bitmap));
 		ImageLoader.getInstance().displayImage("file:///" + path,
 				ivRegisterImg, options);
+	}
+	private void fetchAccountInfo() {
+		
+
+		getTask = new GetAccountTask() {
+			@Override
+			public void callback() {
+				act = getTask.getAccount();
+				AppConfig.act = act;
+				if (act != null) {
+					Log.i("getAccount", "get accout  success��");
+					new UserInformationLocalManagerUtil(getApplicationContext())
+							.WriteUserInformation(act);
+				}
+
+				// fillAccountView(act);
+			}
+
+			@Override
+			public void failure() {
+				Log.i("getAccount", "get accout  failure��");
+			}
+
+			@Override
+			public void complete() {
+				getTask = null;
+			}
+
+			@Override
+			public void pullback() {
+				getTask = null;
+			}
+
+			@Override
+			public void before() {
+			}
+		};
+		getTask.safeExecute();
+		Log.d("sima", "get account...");
 	}
 
 }

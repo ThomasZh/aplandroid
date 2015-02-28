@@ -24,6 +24,7 @@ public class RegisterTask extends TemplateTask {
 	private ClubMasterInfo clubInfo;
 	private String avatarImgPath;
 	private String name, mail, pass;
+	String imageURL;
 
 	public RegisterTask(String name, String mail, String pass,
 			String avatarImgPath) {
@@ -58,7 +59,7 @@ public class RegisterTask extends TemplateTask {
 			String path = Calendar.YEAR + "/" + (Calendar.MONTH + 1) + "/"
 					+ Calendar.DAY_OF_MONTH + "/";
 			String remoteFilePath = "/" + path + fileTransferId + ".jpg";
-			String imageURL = "http://tripc2c-person-face.b0.upaiyun.com"
+			 imageURL = "http://tripc2c-person-face.b0.upaiyun.com"
 					+ remoteFilePath;
 			boolean result = UploadUtil.upyUploadFaceImage(this.avatarImgPath,
 					remoteFilePath);
@@ -67,6 +68,7 @@ public class RegisterTask extends TemplateTask {
 				return result;
 
 			}
+		}
 
 			// 3. modify user account
 			// id
@@ -105,9 +107,10 @@ public class RegisterTask extends TemplateTask {
 			}
 
 
+			return true;
 		}
-		return true;
+
 	
 
-	}
+	
 }

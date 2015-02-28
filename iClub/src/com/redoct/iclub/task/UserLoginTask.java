@@ -58,7 +58,7 @@ public class UserLoginTask extends TemplateTask{
         req.setMyDeviceId(AppConfig.DEVICE_ID);
         req.setOsVersion(DeviceUtil.getDeviceOS());
         //FIXME, MD5 encrypt@2014/09/25
-        mPassword = EncryptUtil.md5(mPassword);
+       // mPassword = EncryptUtil.md5(mPassword);
         req.setPassword(mPassword);
         req.setSequence(DatetimeUtil.currentTimestamp());
 

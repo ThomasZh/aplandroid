@@ -58,6 +58,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 	private void initView() {
 		// TODO Auto-generated method stub
+
 		tvLoginForgetPassWord = (TextView) findViewById(R.id.tv_longin_forgetpass);
 		tvLoginForgetPassWord.setOnClickListener(this);
 
@@ -98,16 +99,14 @@ public class LoginActivity extends Activity implements OnClickListener {
 			break;
 		}
 		case R.id.btn_register: {
-
+			BaseActivityUtil.startActivity(LoginActivity.this,
+					RegisterActivity.class, true);
 			break;
 		}
 		case R.id.btn_login: {
-			
-			
-					
-					login();
-				
-			
+
+			login();
+
 		}
 		default: {
 			break;
@@ -136,7 +135,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			ToastUtil.toastshort(this, getString(R.string.login_enter_pwd));
 			return;
 		}
-		UserLoginTask login = new UserLoginTask("15656586483@163.com", "456") {
+		UserLoginTask login = new UserLoginTask(name, pwd) {
 			public void callback() {
 				Log.i("zyf", "成功》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》");
 				BaseActivityUtil.startActivity(LoginActivity.this,
@@ -152,15 +151,16 @@ public class LoginActivity extends Activity implements OnClickListener {
 			public void failure() {
 				// showToast(R.string.login_failure);
 				// popupLogin();//re login
-			
+
 				ToastUtil.toastshort(LoginActivity.this, getResources()
 						.getString(R.string.login_faile));
-				/*SharedPreferences sp = getSharedPreferences(FILENAME,
-						Context.MODE_PRIVATE);
-				Editor editor = sp.edit();
-				editor.remove("passWord");
-
-				editor.commit();*/
+				/*
+				 * SharedPreferences sp = getSharedPreferences(FILENAME,
+				 * Context.MODE_PRIVATE); Editor editor = sp.edit();
+				 * editor.remove("passWord");
+				 * 
+				 * editor.commit();
+				 */
 			}
 
 			public void complete() {
@@ -179,7 +179,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 				// TODO Auto-generated method stub
 				super.timeout();
 
-				//Log.e("zyf", "time out.......");
+				// Log.e("zyf", "time out.......");
 
 				this.cancel(true);
 			}

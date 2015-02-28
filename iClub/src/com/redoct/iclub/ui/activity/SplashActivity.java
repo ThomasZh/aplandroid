@@ -63,12 +63,12 @@ public class SplashActivity extends Activity{
 				
 				Log.e("zyf", "get gate keeper call back......");
 				
-				autoLogin();
+				//autoLogin();
 				
-				/*Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
+				Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
 				SplashActivity.this.startActivity(intent);
 				
-				finish();*/
+				finish();
 			}
 
 			@Override
