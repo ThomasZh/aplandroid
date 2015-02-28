@@ -2,6 +2,8 @@ package com.redoct.iclub.item;
 
 import java.io.Serializable;
 
+import android.text.TextUtils;
+
 import com.redoct.iclub.util.CharacterParser;
 
 public class ContactItem  implements Serializable{
@@ -56,6 +58,9 @@ public class ContactItem  implements Serializable{
 		return name;
 	}
 	public void setName(String name) {
+		if(TextUtils.isEmpty(name)){
+			name = "shabi";
+		}
 		this.name = name;
 		CharacterParser characterParser = CharacterParser.getInstance();
 		String pinyin = characterParser.getSelling(name);
