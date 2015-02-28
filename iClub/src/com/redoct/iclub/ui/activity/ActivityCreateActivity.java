@@ -41,7 +41,9 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	
 	private LinearLayout mEndDateTimeConatiner;
 	
-	private TextView mThemeTv,mStartDateTv,mEndDateTv,mStartTimeTv,mEndTimeTv;
+	private TextView mStartDateTv,mEndDateTv,mStartTimeTv,mEndTimeTv;
+	
+	private EditText mThemeEt;
 	
 	private EditText mLocationEt,mDescEt;
 	
@@ -90,7 +92,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 			theme=getIntent().getStringExtra("theme");
 			id=getIntent().getStringExtra("id");
 			
-			mThemeTv.setText(theme);
+			mThemeEt.setText(theme);
 			
 			try {
 				
@@ -108,7 +110,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		theme=mActivityDetailsItem.getName();
 		id=mActivityDetailsItem.getId();
 		
-		mThemeTv.setText(theme);
+		mThemeEt.setText(theme);
 		
 		mDescEt.setText(mActivityDetailsItem.getDesc());
 		
@@ -232,7 +234,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		mStartDateTimeConatiner.setOnClickListener(this);
 		mEndDateTimeConatiner.setOnClickListener(this);
 		
-		mThemeTv=(TextView)findViewById(R.id.mThemeTv);
+		mThemeEt=(EditText)findViewById(R.id.mThemeEt);
 		
 		mStartDateTv=(TextView)findViewById(R.id.mStartDateTv);
 		mEndDateTv=(TextView)findViewById(R.id.mEndDateTv);
@@ -343,7 +345,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 				
 				ActivityDetailInfo info=new ActivityDetailInfo();
 		    	info.setId(id);
-		    	info.setName(theme);
+		    	info.setName(mThemeEt.getText().toString());
 		    	info.setStartTime((int)getFormatTime(startYear, startMonth, startDay, startHour, startMinute));
 		    	info.setEndTime((int)getFormatTime(endYear, endMonth, endDay, endHour, endMinute));
 		    	info.setDesc(mDescEt.getText().toString());
@@ -418,7 +420,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 			JSONObject contentJsonObject = new JSONObject();
 
 	        try {
-	        	contentJsonObject.put("name", theme);
+	        	contentJsonObject.put("name", mThemeEt.getText().toString());
 	        	contentJsonObject.put("desc", mDescEt.getText().toString());
 	        	contentJsonObject.put("locDesc", mLocationEt.getText().toString());
 	        	contentJsonObject.put("startTime", getFormatTime(startYear,startMonth,startDay,startHour,startMinute));
