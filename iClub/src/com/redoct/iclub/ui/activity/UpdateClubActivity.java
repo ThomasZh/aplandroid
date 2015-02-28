@@ -31,6 +31,8 @@ public class UpdateClubActivity extends Activity implements ReturnBitmap {
 	private UpdateClubTask task;
 	private ClubMasterInfo info;
 	private String avatarImgPath;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
