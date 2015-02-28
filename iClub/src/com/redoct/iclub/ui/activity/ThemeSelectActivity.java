@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ThemeSelectBaseAdapter;
+import com.redoct.iclub.util.Constant;
 
 public class ThemeSelectActivity extends Activity implements OnClickListener{
 	
@@ -97,9 +98,9 @@ public class ThemeSelectActivity extends Activity implements OnClickListener{
 				Intent intent=new Intent(ThemeSelectActivity.this,ActivityCreateActivity.class);
 				intent.putExtra("id", id);
 				intent.putExtra("theme", iconTitles[position]);
-				startActivity(intent);
+				startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_CREATE);
 				
-				finish();
+				//finish();
 			}
 		});
 		
@@ -234,6 +235,20 @@ public class ThemeSelectActivity extends Activity implements OnClickListener{
 		mPopGridView.setAdapter(mThemeSelectBaseAdapter);
 		
 		mPopupWindow.showAsDropDown(mTitleContainer);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(requestCode==Constant.RESULT_CODE_ACTIVITY_CREATE){
+			
+			if(data!=null&&data.getBooleanExtra("ActivityCreateSuccess", false)){
+				Intent intent=new Intent();
+	        	intent.putExtra("ActivityCreateSuccess", true);
+	        	setResult(Constant.RESULT_CODE_ACTIVITY_CREATE, intent);
+	        	finish();
+			}
+		}
 	}
 	
 }

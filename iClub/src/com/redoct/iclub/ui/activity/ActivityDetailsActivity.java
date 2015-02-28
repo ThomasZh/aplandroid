@@ -32,6 +32,7 @@ import com.redoct.iclub.task.ActivityJoinTask;
 import com.redoct.iclub.task.MembersListTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.DateUtils;
+import com.redoct.iclub.util.DeviceUtil;
 import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.widget.MyToast;
 
@@ -177,8 +178,8 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 					/*mGalleryAdapter=new ActivityDetailsGalleryAdapter(ActivityDetaisActivity.this, mMemberItems, mImageLoader, options);
 					mGallery.setAdapter(mGalleryAdapter);*/
 					
-					LinearLayout.LayoutParams lpLayoutParams=new LayoutParams(120, 120);
-					lpLayoutParams.setMargins(0, 0, 10, 0);
+					LinearLayout.LayoutParams lpLayoutParams=new LayoutParams(DeviceUtil.dip2px(ActivityDetailsActivity.this, 50), DeviceUtil.dip2px(ActivityDetailsActivity.this, 50));
+					lpLayoutParams.setMargins(0, 0, DeviceUtil.dip2px(ActivityDetailsActivity.this, 8), 0);
 					
 					for(int i=0;i<mMemberItems.size();i++){
 						ImageView imageView=new ImageView(ActivityDetailsActivity.this);

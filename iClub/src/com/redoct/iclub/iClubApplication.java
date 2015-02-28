@@ -206,9 +206,12 @@ public class iClubApplication extends Application implements
 	private class AutoLogin implements Runnable {
 		@Override
 		public void run() {
+			
+			//"thomas.zh@qq.com"  "m"
+			//"thomas@c2c.com"  "t"
 
-			UserLoginTask login = new UserLoginTask("thomas.zh@qq.com",
-					"m") {
+			UserLoginTask login = new UserLoginTask("thomas@c2c.com",
+					"t") {
 				public void callback() {
 					fetchAccountInfo();
 				}

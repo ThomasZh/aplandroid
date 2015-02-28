@@ -43,5 +43,10 @@ public class DeviceUtil {
     public static String getDeviceManufacture() {
         return android.os.Build.BRAND;
     }
+    
+    public static int dip2px(Context context, float dipValue){ 
+        float density = context.getResources().getDisplayMetrics().density; 
+        return (int)(dipValue*density + 0.5f);
+    }
 
 }

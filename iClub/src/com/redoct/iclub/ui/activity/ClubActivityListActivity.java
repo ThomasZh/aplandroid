@@ -240,9 +240,12 @@ public class ClubActivityListActivity extends Activity implements OnClickListene
 		
 		if(requestCode==Constant.RESULT_CODE_ACTIVITY_CREATE){
 			
-			Log.e("zyf", "result activity create success1111111111...... ");
-			
-			loadData();
+			if(data!=null&&data.getBooleanExtra("ActivityCreateSuccess", false)){
+				
+				Log.e("zyf", "result activity create success...... ");
+				
+				loadData();
+			}
 		}
 	}
 

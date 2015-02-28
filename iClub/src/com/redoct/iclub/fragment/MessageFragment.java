@@ -16,8 +16,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.oct.ga.comm.LogErrorMessage;
-import com.oct.ga.comm.cmd.invite.InviteFeedbackReq;
+import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MessageBaseAdapter;
 import com.redoct.iclub.item.MessageItem;
@@ -26,11 +25,8 @@ import com.redoct.iclub.task.MessageCommitTask;
 import com.redoct.iclub.task.MessageListTask;
 import com.redoct.iclub.util.FileUtils;
 import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.widget.MyToast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class MessageFragment extends Fragment{
 	
@@ -58,9 +54,15 @@ public class MessageFragment extends Fragment{
 		
 		initViews(contentView);
 		
+		Log.e("zyf:", "account id: "+new UserInformationLocalManagerUtil(getActivity()).ReadUserInformation().getId());
+		
 		load();
 		
 		return contentView;
+	}
+	
+	public void updateUnreadMessageNum(){
+		
 	}
 	
 	private void initViews(View convertView){
@@ -75,7 +77,7 @@ public class MessageFragment extends Fragment{
 			@Override
 			public void accept(String id,int position) {
 				
-				short feedbackState=0;
+				short feedbackState=GlobalArgs.INVITE_STATE_ACCPET;
 				
 				final int pos=position;
 				
@@ -104,6 +106,7 @@ public class MessageFragment extends Fragment{
 						notifyDataSetChanged();
 						
 						MyToast.makeText(getActivity(), true, R.string.invite_commit_success, MyToast.LENGTH_SHORT).show();
+				
 					}
 
 					@Override
@@ -212,6 +215,8 @@ public class MessageFragment extends Fragment{
 				
 				mPullToRefreshListView.onRefreshComplete();
 				mBaseAdapter.notifyDataSetChanged();
+				
+				updateUnreadMessageNum();
 				
 			}
 

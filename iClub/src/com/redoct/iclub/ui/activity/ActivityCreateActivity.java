@@ -181,6 +181,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		
 		calendar.setTime(date);
 		
+		calendar.add(calendar.DATE, 1);
+		
 		startYear=calendar.get(calendar.YEAR);
 		startMonth=calendar.get(calendar.MONTH)+1;
 		startDay=calendar.get(calendar.DAY_OF_MONTH);
@@ -290,6 +292,13 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 					startMinute=minute;
 					
 					startDayOfWeek=getDayOfWeek(startYear, startMonth, startDay);
+					
+					//更新结束时间
+					endYear=year;
+					endMonth=startMonth;
+					endDay=day+1;
+					
+					endDayOfWeek=getDayOfWeek(endYear, endMonth, endDay);
 					
 					updateDateTime();
 				}
@@ -432,6 +441,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	            	Log.e("zyf", "create activity success......");
 	            	
 	            	Intent intent=new Intent();
+	            	intent.putExtra("ActivityCreateSuccess", true);
 	            	ActivityCreateActivity.this.setResult(Constant.RESULT_CODE_ACTIVITY_CREATE, intent);
 	            	ActivityCreateActivity.this.finish();
 	            	

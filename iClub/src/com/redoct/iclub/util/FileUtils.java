@@ -10,12 +10,13 @@ import java.util.ArrayList;
 import android.os.Environment;
 import android.util.Log;
 
+import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.item.MessageItem;
 
 public class FileUtils {
 	
 	//用户本地Message记录文件
-	private static String FILE_NAME_QUERY_HISTORY="message.out";   
+	private static String FILE_NAME_QUERY_HISTORY=AppConfig.account.getAccountId()+"_message.out";   
     
 	//读取本地的历史查询记录
     public static ArrayList<MessageItem> readMessageHistory() {
