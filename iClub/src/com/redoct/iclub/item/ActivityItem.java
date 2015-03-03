@@ -8,7 +8,7 @@ public class ActivityItem {
 	private String leaderName;
 	private String locDesc;
 	private String memberNum;
-	private String memberRank;
+	private short memberRank;
 	private String name;
 	private String pid;
 	private String recommendNum;
@@ -52,10 +52,10 @@ public class ActivityItem {
 	public void setMemberNum(String memberNum) {
 		this.memberNum = memberNum;
 	}
-	public String getMemberRank() {
+	public short getMemberRank() {
 		return memberRank;
 	}
-	public void setMemberRank(String memberRank) {
+	public void setMemberRank(short memberRank) {
 		this.memberRank = memberRank;
 	}
 	public String getName() {

@@ -2,21 +2,10 @@ package com.redoct.iclub.fragment;
 
 import java.util.ArrayList;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
@@ -28,9 +17,22 @@ import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.widget.MyToast;
 
-public class ActivitiesFragment extends Fragment{
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MyActivitiesFragment extends Fragment{
 	
-	private PullToRefreshListView mPullToRefreshListView;
+private PullToRefreshListView mPullToRefreshListView;
 	
 	private ArrayList<ActivityItem> activityItems=new ArrayList<ActivityItem>();
 	
@@ -50,7 +52,7 @@ public class ActivitiesFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View contentView=inflater.inflate(R.layout.fragment_activities, container, false);
+		View contentView=inflater.inflate(R.layout.fragment_my_activities, container, false);
 		
 		initTitle(contentView);
 		
@@ -147,7 +149,9 @@ public class ActivitiesFragment extends Fragment{
 				ArrayList<ActivityItem> resultActivityItems=task.getActivities();
 				for(int i=0;i<resultActivityItems.size();i++){
 					
-					activityItems.add(resultActivityItems.get(i));
+					if(resultActivityItems.get(i).getMemberRank()==GlobalArgs.MEMBER_RANK_LEADER){
+						activityItems.add(resultActivityItems.get(i));
+					}
 				}
 				
 				sortData();
@@ -213,9 +217,9 @@ public class ActivitiesFragment extends Fragment{
 	private void initTitle(View contentView){
 		
 		TextView mTitleView=(TextView) contentView.findViewById(R.id.mTitleView);
-		mTitleView.setText(getResources().getString(R.string.title_activities));
+		mTitleView.setText(getResources().getString(R.string.title_my_activities));
 		
-		/*Button rightBtn=(Button) contentView.findViewById(R.id.rightBtn);
+		Button rightBtn=(Button) contentView.findViewById(R.id.rightBtn);
 		rightBtn.setText(getString(R.string.add));;
 		rightBtn.setVisibility(View.VISIBLE);
 		rightBtn.setOnClickListener(new OnClickListener() {
@@ -226,7 +230,7 @@ public class ActivitiesFragment extends Fragment{
 				Intent intent=new Intent(getActivity(),ThemeSelectActivity.class);
 				startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_CREATE);
 			}
-		});*/
+		});
 	}
 
 	@Override
@@ -239,5 +243,5 @@ public class ActivitiesFragment extends Fragment{
 			Log.e("zyf", "result activity read read read...... ");
 		}
 	}
-
+	
 }

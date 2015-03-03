@@ -141,7 +141,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         	
         	holder.mStateTv.setTextColor(Color.parseColor("#a2a2a2"));
         	
-        	short memberRank=Short.parseShort(item.getMemberRank());
+        	short memberRank=item.getMemberRank();
         	
         	if(memberRank==GlobalArgs.MEMBER_RANK_NONE){   //未参加
         		

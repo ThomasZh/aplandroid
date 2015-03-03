@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.redoct.iclub.fragment.ActivitiesFragment;
 import com.redoct.iclub.fragment.MessageFragment;
-import com.redoct.iclub.fragment.MyPlansFragment;
+import com.redoct.iclub.fragment.MyActivitiesFragment;
 import com.redoct.iclub.fragment.MySelfFragment;
 import com.redoct.iclub.task.MessageCommitTask;
 import com.redoct.iclub.task.MessageListTask;
@@ -20,7 +20,7 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
 	
 	private MyTabView mTabView;
 	
-	private MyPlansFragment mPlansFragment;
+	private MyActivitiesFragment mPlansFragment;
 	private ActivitiesFragment mActivitiesFragment;
 	private MessageFragment mMessageFragment;
 	private MySelfFragment mMySelfFragment;
@@ -104,7 +104,7 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
 		switch (choice) {
 		case 0:
 			if(mPlansFragment==null){
-				mPlansFragment=new MyPlansFragment();
+				mPlansFragment=new MyActivitiesFragment();
 				
 				transaction.add(R.id.contentLayout, mPlansFragment);  
 			}else{

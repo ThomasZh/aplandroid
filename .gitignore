@@ -27,3 +27,6 @@ proguard/
 *.log
 library_refresh/gen/com/handmark/pulltorefresh/library/BuildConfig.java
 iClub/bin/R.txt
+iClub/bin/R.txt
+library_refresh/bin/library_refresh.jar
+iClub/bin/R.txt

@@ -98,7 +98,7 @@ public class ActivityListTask extends TemplateTask {
             	item.setLeaderName(jsonObject.getString("leaderName"));
             	item.setLocDesc(jsonObject.getString("locDesc"));
             	item.setMemberNum(jsonObject.getString("memberNum"));
-            	item.setMemberRank(jsonObject.getString("memberRank"));
+            	item.setMemberRank(Short.parseShort(jsonObject.getString("memberRank")));
             	item.setName(jsonObject.getString("name"));
             	item.setPid(jsonObject.getString("pid"));
             	item.setRecommendNum(jsonObject.getString("recommendNum"));

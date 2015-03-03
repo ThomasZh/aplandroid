@@ -182,6 +182,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 					
 					for(int i=0;i<mMemberItems.size();i++){
 						ImageView imageView=new ImageView(ActivityDetailsActivity.this);
+						imageView.setOnClickListener(new MemberOnclickListenter(mMemberItems.get(i)));
 						mImageLoader.displayImage(mMemberItems.get(i).getImageUrl(), imageView, options);
 						
 						mMemberListContainer.addView(imageView, lpLayoutParams);
@@ -216,6 +217,23 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			mMembersListTask.safeExecute();
 
 		}
+	}
+	
+	class MemberOnclickListenter implements View.OnClickListener{
+		
+		private MemberItem memberItem;
+
+		public MemberOnclickListenter(MemberItem memberItem) {
+			super();
+			this.memberItem = memberItem;
+		}
+
+		@Override
+		public void onClick(View view) {
+			
+			Log.e("zyf","onclick name: "+memberItem.getUserName());
+		}
+		
 	}
 	
 	private void initTitle(){
