@@ -8,8 +8,8 @@
 
     <!-- logo -->
 
-    
-     <include layout="@layout/activity_title"/>
+    <include layout="@layout/activity_title" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -52,32 +52,32 @@
             android:textSize="@dimen/font_size_com" />
 
         <CheckBox
-             android:layout_marginTop="25dp"
             android:id="@+id/cb_login_rememberpwd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
             android:text="@string/rempass"
             android:textColor="@color/black" />
 
         <Button
-             android:layout_marginTop="25dp"
             android:id="@+id/btn_register"
             android:layout_width="@dimen/input_seconed_width"
             android:layout_height="@dimen/input_seconed_height"
-            android:background="@drawable/bg_corner_white"
             android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/bg_corner_white"
             android:text="注册"
             android:textColor="@color/red"
             android:textSize="@dimen/font_size_com_second" />
+
         <TextView
             android:id="@+id/tv_longin_forgetpass"
-            android:textColor="@color/black" 
-             android:layout_marginTop="25dp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
             android:text="@string/forgetpass"
-            />
+            android:textColor="@color/black" />
     </LinearLayout>
 
 </LinearLayout>

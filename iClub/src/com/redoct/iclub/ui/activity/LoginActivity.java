@@ -85,9 +85,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 
 		// 记住密码
 		cbLoginRememberpwd = (CheckBox) findViewById(R.id.cb_login_rememberpwd);
-		boolean checked = PersistentUtil.getInstance().readBoolean(this, "",
-				false);
-		cbLoginRememberpwd.setChecked(checked);
+
+		cbLoginRememberpwd.setChecked(true);
 	}
 
 	@Override
@@ -118,6 +117,8 @@ public class LoginActivity extends Activity implements OnClickListener {
 	private void login() {
 		// TODO Auto-generated method stub
 		// 检查
+		final Boolean isCheck = cbLoginRememberpwd.isChecked();
+		PersistentUtil.getInstance().write(this, "isChcek", isCheck);
 
 		name = etLoginName.getText().toString().trim();
 		// if(TextUtils.isEmpty(pwd)){
@@ -140,10 +141,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 				Log.i("zyf", "成功》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》");
 				BaseActivityUtil.startActivity(LoginActivity.this,
 						MainActivity.class, true);
+				if (isCheck) {
+
+					PersistentUtil.getInstance().write(LoginActivity.this,
+							"passWord", pwd);
+				}
 				PersistentUtil.getInstance().write(LoginActivity.this,
 						"loginName", name);
-				PersistentUtil.getInstance().write(LoginActivity.this,
-						"passWord", pwd);
 
 				fetchAccountInfo();
 			}

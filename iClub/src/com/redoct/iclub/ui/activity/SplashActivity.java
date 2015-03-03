@@ -22,6 +22,7 @@ import com.redoct.iclub.task.ServerConfigTask;
 import com.redoct.iclub.task.StpClient;
 import com.redoct.iclub.task.StpHandler;
 import com.redoct.iclub.task.UserLoginTask;
+import com.redoct.iclub.util.PersistentUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 
 public class SplashActivity extends Activity{
@@ -62,8 +63,11 @@ public class SplashActivity extends Activity{
 			public void callback() {
 				
 				Log.e("zyf", "get gate keeper call back......");
-				
-				//autoLogin();
+				if(PersistentUtil.getInstance().readBoolean(SplashActivity.this, "isChcek", false)){
+					
+					autoLogin();
+					return;
+				}
 				
 				Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
 				SplashActivity.this.startActivity(intent);
@@ -106,8 +110,10 @@ public class SplashActivity extends Activity{
 	}
 	
 	private void autoLogin(){
+		String pass = PersistentUtil.getInstance().readString(this,"passWord", "");
+		String name = PersistentUtil.getInstance().readString(this,"loginName", "");
 		
-		UserLoginTask login = new UserLoginTask("thomas.zh@qq.com","m") {
+		UserLoginTask login = new UserLoginTask(name,pass) {
 			
 			public void callback() {
 				
@@ -125,7 +131,11 @@ public class SplashActivity extends Activity{
 				
 				Log.e("zyf", "auto login failed......");
 				
-				updateShowInfo();
+				//updateShowInfo();
+				Intent intent=new Intent(SplashActivity.this,LoginActivity.class);
+				SplashActivity.this.startActivity(intent);
+				
+				SplashActivity.this.finish();
 			}
 
 			public void before() {
