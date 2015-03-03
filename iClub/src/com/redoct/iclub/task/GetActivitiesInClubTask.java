@@ -83,7 +83,7 @@ public class GetActivitiesInClubTask extends TemplateTask {
             	item.setClubName(jsonObject.getString("clubName"));
             	item.setId(jsonObject.getString("id"));
             	item.setMemberNum(jsonObject.getString("memberNum"));
-            	item.setMemberRank(jsonObject.getString("memberRank"));
+            	item.setMemberRank(Short.parseShort(jsonObject.getString("memberRank")));
             	item.setName(jsonObject.getString("name"));
             	item.setRecommendNum(jsonObject.getString("recommendNum"));
             	item.setState(jsonObject.getString("state"));
