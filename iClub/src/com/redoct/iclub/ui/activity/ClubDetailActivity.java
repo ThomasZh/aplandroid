@@ -190,8 +190,13 @@ public class ClubDetailActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				
 				Intent intent = new Intent(ClubDetailActivity.this,AddMenberActivity.class);
-				BaseActivityUtil.startActivity(ClubDetailActivity.this, intent, false, false);
+				intent.putExtra("id", id);
+				startActivityForResult(intent, 2);
+				BaseActivityUtil.setStartTransition(ClubDetailActivity.this);
+				
+				
 			}
 		});
 
@@ -203,6 +208,23 @@ public class ClubDetailActivity extends Activity {
 		super.onBackPressed();
 		finish();
 		overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		int code = requestCode;
+		switch (code) {
+		case 2:
+			if(data!=null){
+				tvJoinPeople.setText(data.getStringExtra("joinpeople"));
+			}
+			
+			break;
+
+		default:
+			break;
+		}
 	}
 
 }

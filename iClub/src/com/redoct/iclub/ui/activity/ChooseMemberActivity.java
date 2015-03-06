@@ -93,14 +93,17 @@ public class ChooseMemberActivity extends Activity {
 					
 					finish();
 				}else{
-					Intent in = new Intent();
+					/*Intent in = new Intent();
 					in.putExtra("idList", list);
 					
 					setResult(11, in);
 					finish();
 					overridePendingTransition(R.anim.push_right_in,
 							R.anim.push_right_out);
+							
+*/	
 					
+					addMember();
 					
 				}
 			}
@@ -287,6 +290,10 @@ public class ChooseMemberActivity extends Activity {
 	}
 	public void  setContactList(ArrayList<ContactItem> list){
 		this.list =  list;
+	}
+	
+	public void addMember(){
+		
 	}
 
 	
