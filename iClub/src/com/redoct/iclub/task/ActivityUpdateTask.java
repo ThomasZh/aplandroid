@@ -19,19 +19,8 @@ public class ActivityUpdateTask extends TemplateTask {
 
     @Override
     protected boolean justTodo() {
-
     	
-    	/*ActivityDetailInfo info=new ActivityDetailInfo();
-    	info.setId("");
-    	info.setName("");
-    	info.setStartTime(0);
-    	info.setEndTime(0);
-    	info.setDesc("");
-    	info.setLocX("");
-    	info.setLocY("");
-    	info.setLocDesc("");*/
-    	
-    	ActivityUpdateReq req=new ActivityUpdateReq(DatetimeUtil.currentTimestamp(),info);
+    	/*ActivityUpdateReq req=new ActivityUpdateReq(DatetimeUtil.currentTimestamp(),info);
         
         try {
             ActivityUpdateResp resp = (ActivityUpdateResp) iClubApplication.send(req);
@@ -49,7 +38,7 @@ public class ActivityUpdateTask extends TemplateTask {
         } catch (Exception e) {
             Log.e("zyf","activity update exception： "+e.toString());
             return false;
-        }
+        }*/
         
         return true;
     }

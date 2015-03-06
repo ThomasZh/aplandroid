@@ -92,6 +92,7 @@
     <string name="edit_activity">编辑活动</string>
     <string name="hint_activity_desc">介绍一下活动的主要内容吧</string>
     <string name="hint_position">地点</string>
+    <string name="selected_members">已选成员:</string>
     <string name="summit">确定</string>
     <string name="cancel">取消</string>
     <string name="add">添加</string>

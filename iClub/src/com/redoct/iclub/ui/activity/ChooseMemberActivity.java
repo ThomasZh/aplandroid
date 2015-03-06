@@ -9,6 +9,7 @@ import com.redoct.iclub.adapter.MemberSortAdapter;
 import com.redoct.iclub.item.ContactItem;
 import com.redoct.iclub.task.GetContactTask;
 import com.redoct.iclub.util.CharacterParser;
+import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.PinyinComparator;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.ClearEditText;
@@ -56,6 +57,8 @@ public class ChooseMemberActivity extends Activity {
 	
 	private boolean isFromActivityDetails;
 	private String activityId;
+	
+	private boolean isFromActivityCreate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class ChooseMemberActivity extends Activity {
 		setContentView(R.layout.activity_choosemember);
 		
 		isFromActivityDetails=getIntent().getBooleanExtra("isFromActivityDetails", false);
+		isFromActivityCreate=getIntent().getBooleanExtra("isFromActivityCreate", false);
 		activityId=getIntent().getStringExtra("activityId");
 		
 	/*	ActivityRecommendActivity*/
@@ -81,6 +85,13 @@ public class ChooseMemberActivity extends Activity {
 					intent.setClass(ChooseMemberActivity.this,ActivityRecommendActivity.class);
 					
 					BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, true, false);
+				}else if(isFromActivityCreate){
+					
+					Intent intent = new Intent();
+					intent.putExtra("ContactItems", list);
+					setResult(Constant.RESULT_CODE_MEMBER_SELECT, intent);
+					
+					finish();
 				}else{
 					Intent in = new Intent();
 					in.putExtra("idList", list);
