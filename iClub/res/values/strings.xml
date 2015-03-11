@@ -110,6 +110,7 @@
     <string name="progress_dialog_activity_creating">正在创建本次活动...</string>
     <string name="progress_dialog_activity_recommending">正在推荐本次活动给好友...</string>
     <string name="progress_dialog_committing">正在提交请求...</string>
+    <string name="progress_dialog_activity_members_modify">正在修改活动成员...</string>
     
     <string name="load_success">加载成功.</string>
     <string name="load_failed">加载失败.</string>
@@ -125,5 +126,7 @@
     <string name="activity_recommend_failed">活动推荐失败.</string>
     <string name="invite_commit_success">提交成功.</string>
     <string name="invite_commit_failed">提交失败.</string>
+    <string name="activity_members_modify_success">活动成员修改成功.</string>
+    <string name="activity_members_modify_failed">活动成员修改失败.</string>
 
 </resources>

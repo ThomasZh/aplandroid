@@ -38,7 +38,7 @@ public class MyActivitiesFragment extends Fragment{
 	private ActivitiesBaseAdapter mActivitiesBaseAdapter;
 	
 	short pageNum=1;
-	short pageSize=1;
+	short pageSize=10;
 	
 	//private ActivityListTask task;
 	

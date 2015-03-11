@@ -161,6 +161,7 @@
 			        android:id="@+id/mMembersTv"
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
+			        android:textSize="@dimen/textsize_normal"
 			        android:layout_toLeftOf="@id/mLocationView"
 			        android:hint="@string/selected_members"
 			        android:background="@null"

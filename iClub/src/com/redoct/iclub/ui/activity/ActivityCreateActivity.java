@@ -33,6 +33,7 @@ import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.ContactItem;
 import com.redoct.iclub.task.ActivityCreateTask;
 import com.redoct.iclub.task.ActivityUpdateTask;
+import com.redoct.iclub.task.GetActivityInviteMembersTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.widget.DateTimeSelectorDialog;
@@ -74,6 +75,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	private MyProgressDialogUtils mProgressDialogUtils;
 	
 	private ArrayList<ContactItem> selectedContactItems;
+	
+	private GetActivityInviteMembersTask getActivityInviteMembersTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +94,52 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 			
 			initTitle();
 			
-			return;
+			getActivityInviteMembersTask=new GetActivityInviteMembersTask(mActivityDetailsItem.getId()){
+
+				@Override
+				public void before() {
+					// TODO Auto-generated method stub
+					super.before();
+				}
+
+				@Override
+				public void callback() {
+					
+					Log.e("zyf", "get activity invite members success......");
+					
+					selectedContactItems=getActivityInviteMembersTask.getMembers();
+					
+					Log.e("zyf", "get activity invite memebers size: "+selectedContactItems.size());
+					
+					Log.e("zyf", "result member select list size: "+selectedContactItems.size());
+					
+					String members=getString(R.string.selected_members);
+					for(int i=0;i<selectedContactItems.size();i++){
+						members+=selectedContactItems.get(i).getName()+";";
+					}
+					mMembersTv.setText(members);
+				}
+
+				@Override
+				public void failure() {
+					
+					Log.e("zyf", "get activity invite members failure......");
+				}
+
+				@Override
+				public void complete() {
+					// TODO Auto-generated method stub
+					super.complete();
+				}
+
+				@Override
+				public void timeout() {
+					
+					Log.e("zyf", "get activity invite members time out......");
+				}
+			};
+			getActivityInviteMembersTask.setTimeOutEnabled(true, 10*1000);
+			getActivityInviteMembersTask.safeExecute();
 		}else{
 			
 			theme=getIntent().getStringExtra("theme");
@@ -280,6 +328,12 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 				selectedContactItems=(ArrayList<ContactItem>) data.getSerializableExtra("ContactItems");
 
 				Log.e("zyf", "result member select list size: "+selectedContactItems.size());
+				
+				String members=getString(R.string.selected_members);
+				for(int i=0;i<selectedContactItems.size();i++){
+					members+=selectedContactItems.get(i).getName()+";";
+				}
+				mMembersTv.setText(members);
 			}
 		}
 	}
@@ -526,7 +580,14 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 			Log.e("zyf", "select memebers...");
 			
 			Intent memberSelectIntent=new Intent(ActivityCreateActivity.this,ChooseMemberActivity.class);
-			memberSelectIntent.putExtra("isFromActivityCreate", true);
+	
+			if(mActivityDetailsItem!=null){  //活动的编辑
+				memberSelectIntent.putExtra("isFromActivityModify", true);
+				memberSelectIntent.putExtra("activityId", mActivityDetailsItem.getId());
+				memberSelectIntent.putExtra("selectedContactItems", selectedContactItems);
+			}else{
+				memberSelectIntent.putExtra("isFromActivityCreate", true);
+			}
 			startActivityForResult(memberSelectIntent, Constant.RESULT_CODE_MEMBER_SELECT);
 			
 			break;
