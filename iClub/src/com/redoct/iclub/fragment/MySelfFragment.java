@@ -1,5 +1,11 @@
 package com.redoct.iclub.fragment;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -20,6 +26,8 @@ import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.CircleBitmapDisplayer;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -109,7 +117,12 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 			BaseActivityUtil.setUpTransition(getActivity());
 			getActivity().finish();*/
 			//System.exit(0);
-			 showShare();
+			 try {
+				showShare();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			break;
 		case R.id.connctor:
@@ -127,7 +140,20 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 	
 		}
 	}
-	private void showShare() {
+	private void showShare() throws IOException {
+		File pathFile = android.os.Environment.getExternalStorageDirectory();
+		
+		
+        File myCaptureFile = new File(pathFile,"test.jpg");  
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));  
+        InputStream is = getResources().openRawResource(R.drawable.ic_launcher);  
+
+        Bitmap mBitmap = BitmapFactory.decodeStream(is);
+        
+        mBitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);  
+        bos.flush();  
+        bos.close();  
+		
 		 ShareSDK.initSDK(getActivity());
 		 OnekeyShare oks = new OnekeyShare();
 		 //关闭sso授权
@@ -136,15 +162,18 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 		// 分享时Notification的图标和文字
 		// oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
 		 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
-		 oks.setTitle(getString(R.string.share));
+		 oks.setTitle("每天努力一点多了而已吧，关于生活的快乐你们看见都是内啊。。。。。。。");
 		 // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-		 oks.setTitleUrl("http://sharesdk.cn");
+		  oks.setTitleUrl("http://www.sina.com");
 		 // text是分享文本，所有平台都需要这个字段
-		 oks.setText("我是分享文本");
+		  oks.setText("我是程才！！！");
 		 // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+		 
+		 
+		 
 		 oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
 		 // url仅在微信（包括好友和朋友圈）中使用
-		 oks.setUrl("http://sharesdk.cn");
+		   oks.setUrl("http://www.baidu.com");
 		 // comment是我对这条分享的评论，仅在人人网和QQ空间使用
 		 oks.setComment("我是测试评论文本");
 		 // site是分享此内容的网站名称，仅在QQ空间使用

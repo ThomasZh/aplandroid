@@ -1,5 +1,6 @@
 package com.redoct.iclub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -40,7 +41,7 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
         mTabView=(MyTabView)findViewById(R.id.mTabView);
         mTabView.setDatas(mTabviewNormalIcons, mTabviewSelectedIcons);
         mTabView.setOnTabClickListener(this);
-        
+        Intent intent = new Intent();
         mTabView.setCurItem(0);
         
         mMessageListTask=new MessageListTask(){

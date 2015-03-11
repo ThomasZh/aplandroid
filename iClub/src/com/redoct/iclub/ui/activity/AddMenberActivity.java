@@ -66,10 +66,15 @@ public class AddMenberActivity extends Activity {
 
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
+						id_string = new String[task.getList().size()];
+					    for(int i =0;i<task.getList().size();i++){
+					    	id_string[i]= task.getList().get(i).getId();
+					    }
 						Intent intent = new Intent();
 						intent.setClass(AddMenberActivity.this,
 								ChooseMemberActivity.class);
+						intent.putExtra("membering", id_string);
+						intent.putExtra("id", id);
 						startActivityForResult(intent, 1);
 						overridePendingTransition(R.anim.push_left_in,
 								R.anim.push_left_out);
@@ -102,12 +107,13 @@ public class AddMenberActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (data != null) {
 
-			ArrayList<ContactItem> listId = (ArrayList<ContactItem>) data
+			/*ArrayList<ContactItem> listId = (ArrayList<ContactItem>) data
 					.getSerializableExtra("idList");
 			Intent in = new Intent();
 			in.putExtra("idList", listId);
 			setResult(11, in);
-			finish();
+			finish();*/
+			loadData();
 
 		}
 	}

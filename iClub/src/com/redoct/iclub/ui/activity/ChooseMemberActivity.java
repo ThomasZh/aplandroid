@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.oct.ga.comm.domain.account.AccountMasterInfo;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MemberSortAdapter;
 import com.redoct.iclub.item.ContactItem;
+import com.redoct.iclub.task.ClubSubscribersAddTask;
+import com.redoct.iclub.task.ClubSubscribersRemoveTask;
 import com.redoct.iclub.task.GetContactTask;
 import com.redoct.iclub.util.CharacterParser;
 import com.redoct.iclub.util.PinyinComparator;
+import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.ClearEditText;
 import com.redoct.iclub.widget.SideBar;
@@ -24,9 +28,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +43,9 @@ public class ChooseMemberActivity extends Activity {
 	private TextView tvRight;
 	private ArrayList<ContactItem> list = new ArrayList<ContactItem>();
 	private ArrayList<String> listId = new ArrayList<String>();
+	private List<String> id_list=new ArrayList<String>();
+	private ClubSubscribersAddTask task_add;
+	private String id;
 	
 	
 	/**
@@ -56,6 +60,7 @@ public class ChooseMemberActivity extends Activity {
 	
 	private boolean isFromActivityDetails;
 	private String activityId;
+	private String [] id_string;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,8 @@ public class ChooseMemberActivity extends Activity {
 		
 		isFromActivityDetails=getIntent().getBooleanExtra("isFromActivityDetails", false);
 		activityId=getIntent().getStringExtra("activityId");
+		id_string = getIntent().getStringArrayExtra("membering");
+		id = getIntent().getStringExtra("id");
 		
 	/*	ActivityRecommendActivity*/
 		
@@ -82,15 +89,7 @@ public class ChooseMemberActivity extends Activity {
 					
 					BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, true, false);
 				}else{
-					/*Intent in = new Intent();
-					in.putExtra("idList", list);
 					
-					setResult(11, in);
-					finish();
-					overridePendingTransition(R.anim.push_right_in,
-							R.anim.push_right_out);
-							
-*/	
 					
 					addMember();
 					
@@ -146,7 +145,7 @@ public class ChooseMemberActivity extends Activity {
 		
 		// 根据a-z进行排序源数据
 		Collections.sort(listContact, pinyinComparator);
-		adapter = new MemberSortAdapter(this, listContact);
+		adapter = new MemberSortAdapter(this, listContact,id_string);
 		sortListView.setAdapter(adapter);
 		
 		
@@ -283,7 +282,69 @@ public class ChooseMemberActivity extends Activity {
 	
 	public void addMember(){
 		
+		
+		for (int i = 0; i < list.size(); i++) {
+			ContactItem item = list.get(i);
+			id_list.add(item.getId());
+		}
+		id_string = new String[id_list.size()];
+		id_string =id_list.toArray(id_string);
+		task_add = new ClubSubscribersAddTask(id, id_string) {
+
+			@Override
+			public void timeout() {
+				// TODO Auto-generated method stub
+				super.timeout();
+
+				task.cancel(true);
+				Log.e("zyf", "get data time out....");
+			}
+
+			@Override
+			public void before() {
+				// TODO Auto-generated method stub
+				super.before();
+
+				Log.e("zyf", "start get data....");
+			}
+
+			@Override
+			public void callback() {
+				// TODO Auto-generated method stub
+				super.callback();
+				ToastUtil.toastshort(ChooseMemberActivity.this, "succeful!");
+				Intent intent = new Intent();
+				setResult(1, intent);
+				
+				finish();
+
+			}
+
+			@Override
+			public void failure() {
+				// TODO Auto-generated method stub
+				super.failure();
+				ToastUtil.toastshort(ChooseMemberActivity.this, "failure");
+
+				// loadData();
+				Log.e("zyf", "get data failure....");
+
+			}
+
+			@Override
+			public void complete() {
+				// TODO Auto-generated method stub
+				super.complete();
+
+				Log.e("zyf", "get data complete....");
+
+				// mPullToRefreshListView.onRefreshComplete();
+			}
+		};
+		task_add.setTimeOutEnabled(true, 10 * 1000);
+		task_add.safeExecute();
 	}
+	
 
 	
 }

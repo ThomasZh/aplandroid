@@ -80,6 +80,7 @@ public class RegisterTask extends TemplateTask {
 			req.setFacePhoto(imageURL);
 			req.setGateToken(ServiceConfig.gateway.getAppToken());
 			req.setOsVersion(AppConfig.APP_VERSION);
+			
 			req.setFirstName(name);
 			req.setApnsToken("");
 

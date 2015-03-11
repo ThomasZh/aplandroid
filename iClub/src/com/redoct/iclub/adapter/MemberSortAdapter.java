@@ -30,10 +30,24 @@ public class MemberSortAdapter extends BaseAdapter implements SectionIndexer{
 	private ImageLoader mImageLoader;
 	private DisplayImageOptions options;
 	private ArrayList<ContactItem> list_num = new ArrayList<ContactItem>();
+	private String [] id_string;
+	private List<String> containList = new ArrayList<String>();
 	
-	public MemberSortAdapter(ChooseMemberActivity mContext, List<ContactItem> list) {
+	public MemberSortAdapter(ChooseMemberActivity mContext, List<ContactItem> list,String [] id_string) {
 		this.mContext = mContext;
 		this.list = list;
+		this.id_string=id_string;
+		for(int i = 0;i<id_string.length;i++){
+			for(int j=0;j<list.size();j++){
+				if(id_string[i]!=null&&list!=null){
+					
+					if(id_string[i].equals(list.get(j).getId())){
+						containList.add(id_string[i]);
+						
+					}
+				}
+			}
+		}
 		mImageLoader=ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 		.showStubImage(R.drawable.ic_launcher)
@@ -109,7 +123,12 @@ public class MemberSortAdapter extends BaseAdapter implements SectionIndexer{
 				
 			}
 		});
-		
+	
+		if(containList!=null){
+			if(containList.contains(list.get(position).getId())){
+				 viewHolder.box.setVisibility(View.INVISIBLE);
+			}
+		}
 		return view;
 
 	}
