@@ -128,5 +128,7 @@
     <string name="invite_commit_failed">提交失败.</string>
     <string name="activity_members_modify_success">活动成员修改成功.</string>
     <string name="activity_members_modify_failed">活动成员修改失败.</string>
+    
+    <string name="contacts">通讯录</string>
 
 </resources>

@@ -124,6 +124,8 @@ public class ChooseMemberActivity extends Activity {
 				}else{
 >>>>>>> origin/master
 					
+					Log.e("zyf", "add member.......");
+					
 					addMember();
 					
 				}

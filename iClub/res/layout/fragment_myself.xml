@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/myself_detail_height"
         android:layout_margin="5dp"
+        android:paddingTop="8dip"
+        android:paddingBottom="8dip"
         android:background="@drawable/bg_radio_color_white" >
 
         <ImageView
@@ -28,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="chengxiaocai"
+            android:textSize="@dimen/textsize_normal"
             android:textColor="@color/black" />
 
         <ImageView
@@ -50,7 +53,7 @@
         <TextView
             android:id="@+id/connctor"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="36dp"
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:background="@drawable/bg_radio_color_red"
@@ -58,20 +61,21 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:textColor="@color/red"
+            android:textSize="@dimen/textsize_smaller"
             android:text="@string/connctor" />
 
         <TextView
-              android:paddingTop="5dp"
-             android:paddingBottom="5dp"
-               android:layout_margin="5dp"
-                android:layout_height="30dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_margin="5dp"
+            android:layout_height="36dp"
             android:id="@+id/friends"
             android:layout_width="0dp"
-            
             android:layout_weight="1"
             android:background="@drawable/bg_radio_color_red"
             android:gravity="center"
-              android:textColor="@color/red"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textsize_smaller"
             android:text="@string/friends" />
     </LinearLayout>
 
@@ -86,27 +90,29 @@
         <TextView
             android:id="@+id/alterpass"
               android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="36dp"
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:background="@drawable/bg_radio_color_red"
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-              android:textColor="@color/red"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textsize_smaller"
             android:text="@string/alterpass" />
 
         <TextView
             android:id="@+id/quit"
-              android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:background="@drawable/bg_radio_color_red"
             android:gravity="center"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-              android:textColor="@color/red"
+            android:textColor="@color/red"
+            android:textSize="@dimen/textsize_smaller"
             android:text="@string/quit" />
     </LinearLayout>
 

@@ -54,14 +54,18 @@ public class ClubListActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int i,
 					long arg3) {
-				// TODO Auto-generated method stub
 
-				Intent in = new Intent();
+				/*Intent in = new Intent();
 				in.setClass(ClubListActivity.this, ClubDetailActivity.class);
 				in.putExtra("id", clubList.get(i).getId());
 				in.putExtra("memberNum", clubList.get(i).getSubscriberNum());
 				BaseActivityUtil.startActivity(ClubListActivity.this, in,
-						false, false);
+						false, false);*/
+				
+				Intent intent = new Intent(ClubListActivity.this,AddMenberActivity.class);
+				intent.putExtra("id", clubList.get(i).getId());
+				startActivity(intent);
+				BaseActivityUtil.setStartTransition(ClubListActivity.this);
 
 			}
 		});

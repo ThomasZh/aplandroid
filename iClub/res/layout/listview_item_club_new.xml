@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_corner_white"
+    android:paddingLeft="6dip"
+    android:paddingRight="6dip"
+    android:paddingTop="10dip"
+    android:paddingBottom="10dip">
+
+    <TextView
+        android:id="@+id/tv_clublistacitvity_name"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="chengcai" 
+        android:textSize="@dimen/textsize_small"/>
+
+    <ImageView
+        android:id="@+id/mRightView"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="12dip"
+        android:layout_height="28dip"
+        android:src="@drawable/icon_enter" />
+    
+    <TextView
+        android:id="@+id/tv_clublistactivity_num"
+        android:layout_toLeftOf="@id/mRightView"
+        android:layout_toRightOf="@id/tv_clublistacitvity_name"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dip"
+        android:layout_marginLeft="4dip"
+        android:textColor="@color/black"
+        android:text="2人" 
+        android:textSize="@dimen/textsize_small"
+        android:gravity="right"/>
+
+</RelativeLayout>

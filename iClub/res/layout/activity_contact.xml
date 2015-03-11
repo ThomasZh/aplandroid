@@ -5,7 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <include layout="@layout/activity_contact_title" />
+    <!-- <include layout="@layout/activity_contact_title" /> -->
+    
+    <include layout="@layout/activity_title" />
 
     <com.redoct.iclub.widget.ClearEditText
         android:id="@+id/filter_edit"

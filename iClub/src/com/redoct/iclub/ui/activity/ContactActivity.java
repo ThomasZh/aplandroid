@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -56,7 +57,7 @@ public class ContactActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact);
-		iv_right = (ImageView) findViewById(R.id.rightBtn);
+		/*iv_right = (ImageView) findViewById(R.id.rightBtn);
 		iv_right.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -77,9 +78,43 @@ public class ContactActivity extends Activity {
 			}
 		});
 		rbFriends = (RadioButton) findViewById(R.id.rb_contact_friends);
-		rbFriends.setChecked(true);
+		rbFriends.setChecked(true);*/
+		
+		initTitleViews();
+		
 		loadData();
 		
+	}
+	
+	private void initTitleViews(){
+		
+		TextView mTitleView=(TextView) findViewById(R.id.mTitleView);
+		mTitleView.setText(getResources().getString(R.string.contacts));
+		
+		Button leftBtn=(Button) findViewById(R.id.leftBtn);
+		leftBtn.setBackgroundResource(R.drawable.title_back);
+		leftBtn.setVisibility(View.VISIBLE);
+		leftBtn.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				
+				finish();
+				overridePendingTransition(R.anim.push_right_in,R.anim.push_right_out);
+			}
+		});
+		
+		Button rightBtn=(Button) findViewById(R.id.rightBtn);
+		rightBtn.setBackgroundResource(R.drawable.title_add);;
+		rightBtn.setVisibility(View.VISIBLE);
+		rightBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View view) {
+				
+				BaseActivityUtil.startActivity(ContactActivity.this, AddContactActivity.class, false);
+			}
+		});
 	}
 
 	private void initViews( final List<ContactItem> listContact ) {

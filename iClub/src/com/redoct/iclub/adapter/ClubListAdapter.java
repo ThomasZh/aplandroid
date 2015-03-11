@@ -72,12 +72,12 @@ public class ClubListAdapter extends BaseAdapter {
 			return null;
 		}
 		if (convertView == null) {
-			convertView = context.getLayoutInflater().inflate(R.layout.listview_item_club,
+			convertView = context.getLayoutInflater().inflate(R.layout.listview_item_club_new,
 					null);
 		}
 		ClubItem club = list.get(position);
-		ImageView iv_headImge = ViewHolder.get(convertView, R.id.iv_clublistactivity_clubimg);
-        mImageLoader.displayImage(club.getTitleBkImage(), iv_headImge, options);
+		/*ImageView iv_headImge = ViewHolder.get(convertView, R.id.iv_clublistactivity_clubimg);
+        mImageLoader.displayImage(club.getTitleBkImage(), iv_headImge, options);*/
        
 
 		TextView tvName = ViewHolder.get(convertView, R.id.tv_clublistacitvity_name);
