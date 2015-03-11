@@ -56,20 +56,8 @@ public class ActivityDetailsTask extends TemplateTask {
 
             activityDetailsItem = ActivityDetailsItem.parseJsonToObj(jo);
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Log.e("sima", "InterruptedException");
-            //FileLogger.writeLogFileToSDCard("ERROR: InterruptedException!");
-            return false;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            Log.e("sima", "UnsupportedEncodingException");
-            //FileLogger.writeLogFileToSDCard("ERROR: UnsupportedEncodingException!");
-            return false;
-        }catch (JSONException e) {
-            e.printStackTrace();
-            Log.e("sima", "JSONException");
-            //FileLogger.writeLogFileToSDCard("ERROR: JSONException!");
+        } catch (Exception e) {
+            Log.e("zyf", "Activity Details exception: "+e.toString());
             return false;
         }
 

@@ -24,6 +24,7 @@ public class ContactItem  implements Serializable{
 	private String name;
 	private int state ;
     private String telephone;
+    private boolean isSelected;//用于判断是否选中
 	public String getDesc() {
 		return desc;
 	}
@@ -90,6 +91,12 @@ public class ContactItem  implements Serializable{
 	}
 	public void setSortLetters(String sortLetters) {
 		this.sortLetters = sortLetters;
+	}
+	public boolean isSelected() {
+		return isSelected;
+	}
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
 	}
     
 }

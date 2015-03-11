@@ -2,6 +2,7 @@ package com.redoct.iclub.ui.activity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -25,11 +26,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.oct.ga.comm.LogErrorMessage;
+import com.oct.ga.comm.domain.club.ActivityCreateInfo;
 import com.oct.ga.comm.domain.club.ActivityDetailInfo;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityDetailsItem;
+import com.redoct.iclub.item.ContactItem;
 import com.redoct.iclub.task.ActivityCreateTask;
 import com.redoct.iclub.task.ActivityUpdateTask;
+import com.redoct.iclub.task.GetActivityInviteMembersTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.widget.DateTimeSelectorDialog;
@@ -37,11 +41,11 @@ import com.redoct.iclub.widget.MyToast;
 
 public class ActivityCreateActivity extends Activity implements OnClickListener{
 	
-	private RelativeLayout mLocationContainer,mStartDateTimeConatiner;
+	private RelativeLayout mLocationContainer,mStartDateTimeConatiner,mMembersContainer;
 	
 	private LinearLayout mEndDateTimeConatiner;
 	
-	private TextView mStartDateTv,mEndDateTv,mStartTimeTv,mEndTimeTv;
+	private TextView mStartDateTv,mEndDateTv,mStartTimeTv,mEndTimeTv,mMembersTv;
 	
 	private EditText mThemeEt;
 	
@@ -69,6 +73,10 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	private ActivityDetailsItem mActivityDetailsItem;
 	
 	private MyProgressDialogUtils mProgressDialogUtils;
+	
+	private ArrayList<ContactItem> selectedContactItems;
+	
+	private GetActivityInviteMembersTask getActivityInviteMembersTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +94,52 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 			
 			initTitle();
 			
-			return;
+			getActivityInviteMembersTask=new GetActivityInviteMembersTask(mActivityDetailsItem.getId()){
+
+				@Override
+				public void before() {
+					// TODO Auto-generated method stub
+					super.before();
+				}
+
+				@Override
+				public void callback() {
+					
+					Log.e("zyf", "get activity invite members success......");
+					
+					selectedContactItems=getActivityInviteMembersTask.getMembers();
+					
+					Log.e("zyf", "get activity invite memebers size: "+selectedContactItems.size());
+					
+					Log.e("zyf", "result member select list size: "+selectedContactItems.size());
+					
+					String members=getString(R.string.selected_members);
+					for(int i=0;i<selectedContactItems.size();i++){
+						members+=selectedContactItems.get(i).getName()+";";
+					}
+					mMembersTv.setText(members);
+				}
+
+				@Override
+				public void failure() {
+					
+					Log.e("zyf", "get activity invite members failure......");
+				}
+
+				@Override
+				public void complete() {
+					// TODO Auto-generated method stub
+					super.complete();
+				}
+
+				@Override
+				public void timeout() {
+					
+					Log.e("zyf", "get activity invite members time out......");
+				}
+			};
+			getActivityInviteMembersTask.setTimeOutEnabled(true, 10*1000);
+			getActivityInviteMembersTask.safeExecute();
 		}else{
 			
 			theme=getIntent().getStringExtra("theme");
@@ -228,11 +281,13 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		
 		mLocationContainer=(RelativeLayout)findViewById(R.id.mLocationContainer);
 		mStartDateTimeConatiner=(RelativeLayout)findViewById(R.id.mStartDateTimeConatiner);
+		mMembersContainer=(RelativeLayout)findViewById(R.id.mMembersContainer);
 		mEndDateTimeConatiner=(LinearLayout)findViewById(R.id.mEndDateTimeConatiner);
 		
 		mLocationContainer.setOnClickListener(this);
 		mStartDateTimeConatiner.setOnClickListener(this);
 		mEndDateTimeConatiner.setOnClickListener(this);
+		mMembersContainer.setOnClickListener(this);
 		
 		mThemeEt=(EditText)findViewById(R.id.mThemeEt);
 		
@@ -241,6 +296,8 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		
 		mStartTimeTv=(TextView)findViewById(R.id.mStartTimeTv);
 		mEndTimeTv=(TextView)findViewById(R.id.mEndTimeTv);
+		
+		mMembersTv=(TextView)findViewById(R.id.mMembersTv);
 		
 		mLocationEt=(EditText)findViewById(R.id.mLocationEt);
 		mDescEt=(EditText)findViewById(R.id.mDescEt);
@@ -263,6 +320,20 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 					mLocationEt.setText(data.getStringExtra("locDesc"));;
 				}
 
+			}
+		}else if(requestCode==Constant.RESULT_CODE_MEMBER_SELECT){
+			
+			if(data!=null){
+				
+				selectedContactItems=(ArrayList<ContactItem>) data.getSerializableExtra("ContactItems");
+
+				Log.e("zyf", "result member select list size: "+selectedContactItems.size());
+				
+				String members=getString(R.string.selected_members);
+				for(int i=0;i<selectedContactItems.size();i++){
+					members+=selectedContactItems.get(i).getName()+";";
+				}
+				mMembersTv.setText(members);
 			}
 		}
 	}
@@ -417,7 +488,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 				return;
 			}
 			
-			JSONObject contentJsonObject = new JSONObject();
+			/*JSONObject contentJsonObject = new JSONObject();
 
 	        try {
 	        	contentJsonObject.put("name", mThemeEt.getText().toString());
@@ -433,9 +504,23 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	        } catch (JSONException e) {
 	            Log.e("zyf", "format json exception: "+e.toString());
 	            return;
-	        }
+	        }*/
+			
+			ActivityCreateInfo activityCreateInfo=new ActivityCreateInfo();
+			activityCreateInfo.setName(mThemeEt.getText().toString());
+			activityCreateInfo.setDesc(mDescEt.getText().toString());
+			activityCreateInfo.setLocDesc(mLocationEt.getText().toString());
+			activityCreateInfo.setStartTime(getFormatTime(startYear,startMonth,startDay,startHour,startMinute));
+			activityCreateInfo.setEndTime(getFormatTime(endYear,endMonth,endDay,endHour,endMinute));
+			activityCreateInfo.setLocX(locX);
+			activityCreateInfo.setLocY(locY);
+			
+			String [] subscriberIds=new String[selectedContactItems.size()];
+			for(int i=0;i<selectedContactItems.size();i++){
+				subscriberIds[i]=selectedContactItems.get(i).getId();
+			}
 	        
-	        mCreateActivityTask=new ActivityCreateTask(contentJsonObject.toString()){
+	        mCreateActivityTask=new ActivityCreateTask(activityCreateInfo,subscriberIds){
 
 	            @Override
 	            public void callback(){
@@ -489,6 +574,23 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 	        mCreateActivityTask.safeExecute();
 	        
 			break;
+			
+		case R.id.mMembersContainer:
+			
+			Log.e("zyf", "select memebers...");
+			
+			Intent memberSelectIntent=new Intent(ActivityCreateActivity.this,ChooseMemberActivity.class);
+	
+			if(mActivityDetailsItem!=null){  //活动的编辑
+				memberSelectIntent.putExtra("isFromActivityModify", true);
+				memberSelectIntent.putExtra("activityId", mActivityDetailsItem.getId());
+				memberSelectIntent.putExtra("selectedContactItems", selectedContactItems);
+			}else{
+				memberSelectIntent.putExtra("isFromActivityCreate", true);
+			}
+			startActivityForResult(memberSelectIntent, Constant.RESULT_CODE_MEMBER_SELECT);
+			
+			break;
 
 		default:
 			break;
@@ -511,7 +613,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 		return "";
 	}
 	
-	private long getFormatTime(int year,int month,int day,int hour,int minute){
+	private int getFormatTime(int year,int month,int day,int hour,int minute){
 		
 		//have a try
 		try {
@@ -525,7 +627,7 @@ public class ActivityCreateActivity extends Activity implements OnClickListener{
 			
 			long longTime=date.getTime()/1000;
 			
-			return longTime;
+			return (int)longTime;
 			
 			/*Log.e("zyf", "fromat long time: "+longTime);
 			

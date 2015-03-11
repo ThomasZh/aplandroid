@@ -11,11 +11,15 @@ import com.redoct.iclub.item.ContactItem;
 import com.redoct.iclub.task.ClubSubscribersAddTask;
 import com.redoct.iclub.task.ClubSubscribersRemoveTask;
 import com.redoct.iclub.task.GetContactTask;
+import com.redoct.iclub.task.ModifyAcitivityMembersTask;
 import com.redoct.iclub.util.CharacterParser;
+import com.redoct.iclub.util.Constant;
+import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.util.PinyinComparator;
 import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.ClearEditText;
+import com.redoct.iclub.widget.MyToast;
 import com.redoct.iclub.widget.SideBar;
 import com.redoct.iclub.widget.SideBar.OnTouchingLetterChangedListener;
 
@@ -59,8 +63,18 @@ public class ChooseMemberActivity extends Activity {
 	private PinyinComparator pinyinComparator;
 	
 	private boolean isFromActivityDetails;
+	private ArrayList<ContactItem> selectedContactItems;
 	private String activityId;
+
 	private String [] id_string;
+
+	
+	private boolean isFromActivityCreate;
+	private boolean isFromActivityModify;
+	
+	public ModifyAcitivityMembersTask mModifyAcitivityMembersTask;
+	private MyProgressDialogUtils mProgressDialogUtils;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,11 +82,12 @@ public class ChooseMemberActivity extends Activity {
 		setContentView(R.layout.activity_choosemember);
 		
 		isFromActivityDetails=getIntent().getBooleanExtra("isFromActivityDetails", false);
+		isFromActivityCreate=getIntent().getBooleanExtra("isFromActivityCreate", false);
+		isFromActivityModify=getIntent().getBooleanExtra("isFromActivityModify", false);
+		selectedContactItems=(ArrayList<ContactItem>) getIntent().getSerializableExtra("selectedContactItems");
 		activityId=getIntent().getStringExtra("activityId");
 		id_string = getIntent().getStringArrayExtra("membering");
 		id = getIntent().getStringExtra("id");
-		
-	/*	ActivityRecommendActivity*/
 		
 		tvRight = (TextView) findViewById(R.id.rightBtn);
 		tvRight.setOnClickListener(new OnClickListener() {
@@ -80,7 +95,8 @@ public class ChooseMemberActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(isFromActivityDetails){
+				
+				if(isFromActivityDetails){    //推荐好友
 					
 					Intent intent = new Intent();
 					intent.putExtra("ContactItems", list);
@@ -88,8 +104,25 @@ public class ChooseMemberActivity extends Activity {
 					intent.setClass(ChooseMemberActivity.this,ActivityRecommendActivity.class);
 					
 					BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, true, false);
+<<<<<<< HEAD
 				}else{
 					
+=======
+					
+				}else if(isFromActivityCreate){   //活动的创建
+					
+					Intent intent = new Intent();
+					intent.putExtra("ContactItems", list);
+					setResult(Constant.RESULT_CODE_MEMBER_SELECT, intent);
+					
+					finish();
+					
+				}else if(isFromActivityModify){    //活动的编辑
+					
+					modifyActityMembers();
+					
+				}else{
+>>>>>>> origin/master
 					
 					addMember();
 					
@@ -111,6 +144,62 @@ public class ChooseMemberActivity extends Activity {
 		
 		loadData();
 		
+	}
+	
+	private void modifyActityMembers(){
+		String [] subscriberIds=new String[list.size()];
+		for(int i=0;i<list.size();i++){
+			subscriberIds[i]=list.get(i).getId();
+		}
+		mModifyAcitivityMembersTask=new ModifyAcitivityMembersTask(activityId, subscriberIds){
+
+			@Override
+			public void before() {
+				
+				Log.e("zyf", "activity members modify start......");
+				
+				mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_activity_members_modify, ChooseMemberActivity.this);
+				mProgressDialogUtils.showDialog();
+			}
+
+			@Override
+			public void callback() {
+				
+				Log.e("zyf", "activity members modify success......");
+				
+				mProgressDialogUtils.dismissDialog();
+				
+				MyToast.makeText(ChooseMemberActivity.this, true, R.string.activity_members_modify_success, MyToast.LENGTH_LONG).show();
+				
+				Intent intent = new Intent();
+				intent.putExtra("ContactItems", list);
+				setResult(Constant.RESULT_CODE_MEMBER_SELECT, intent);
+				
+				finish();
+			}
+
+			@Override
+			public void failure() {
+				
+				Log.e("zyf", "activity members modify failed......");
+				
+				MyToast.makeText(ChooseMemberActivity.this, true, R.string.activity_members_modify_failed, MyToast.LENGTH_LONG).show();
+				
+				mProgressDialogUtils.dismissDialog();
+			}
+
+			@Override
+			public void timeout() {
+				
+				Log.e("zyf", "activity members modify time out......");
+				
+				MyToast.makeText(ChooseMemberActivity.this, true, R.string.activity_members_modify_failed, MyToast.LENGTH_LONG).show();
+				
+				mProgressDialogUtils.dismissDialog();
+			}
+		};
+		mModifyAcitivityMembersTask.setTimeOutEnabled(true, 10*1000);
+		mModifyAcitivityMembersTask.safeExecute();
 	}
 
 	private void initViews( final List<ContactItem> listContact ) {
@@ -139,9 +228,33 @@ public class ChooseMemberActivity extends Activity {
 		
 		sortListView = (ListView) findViewById(R.id.lv_chosemember_list);
 		
+		//用于判断是否处于选中状态
+		if(selectedContactItems!=null&&selectedContactItems.size()>0){
+			for(int i=0;i<listContact.size();i++){
+				
+				for(int j=0;j<selectedContactItems.size();j++){
+					
+					if(listContact.get(i).getId().equals(selectedContactItems.get(j).getId())){
+						
+						Log.e("zyf", listContact.get(i).getName()+"  default selected......");
+						listContact.get(i).setSelected(true);
+						
+						break;
+					}
+				}
+			}
+		}else{
+			Log.e("zyf", "selected members is null or size is 0......");
+		}
+		/*for(int i=0;i<selectedContactItems.size();i++){
+			Log.e("zyf", "selected member: name: "+selectedContactItems.get(i).getName()+"  id: "+selectedContactItems.get(i).getId());
+		}
 		
+		Log.e("zyf", "------------------------------------------------------------------");
 		
-		//SourceDateList = filledData(getResources().getStringArray(R.array.date));
+		for(int i=0;i<listContact.size();i++){
+			Log.e("zyf", "selected member: name: "+listContact.get(i).getName()+"  id: "+listContact.get(i).getId());
+		}*/
 		
 		// 根据a-z进行排序源数据
 		Collections.sort(listContact, pinyinComparator);
@@ -186,8 +299,6 @@ public class ChooseMemberActivity extends Activity {
 				
 			}
 		});*/
-		
-		
 	}
 
 

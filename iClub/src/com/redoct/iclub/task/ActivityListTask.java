@@ -8,8 +8,6 @@ import com.oct.ga.comm.DatetimeUtil;
 import com.oct.ga.comm.cmd.RespCommand;
 import com.oct.ga.comm.cmd.club.ActivityQuerySubscribePaginationReq;
 import com.oct.ga.comm.cmd.club.ActivityQuerySubscribePaginationResp;
-import com.oct.ga.comm.cmd.club.ActivityQuerySubscribeReq;
-import com.oct.ga.comm.cmd.club.ActivityQuerySubscribeResp;
 import com.redoct.iclub.iClubApplication;
 import com.redoct.iclub.R.string;
 import com.redoct.iclub.item.ActivityItem;

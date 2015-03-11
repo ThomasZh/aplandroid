@@ -123,12 +123,22 @@ public class MemberSortAdapter extends BaseAdapter implements SectionIndexer{
 				
 			}
 		});
+
 	
 		if(containList!=null){
 			if(containList.contains(list.get(position).getId())){
 				 viewHolder.box.setVisibility(View.INVISIBLE);
 			}
 		}
+
+		 
+		 if(mContent.isSelected()){
+			 viewHolder.box.setChecked(true);
+		 }else{
+			 viewHolder.box.setChecked(false);
+		 }
+		
+
 		return view;
 
 	}

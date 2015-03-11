@@ -2,26 +2,9 @@ package com.redoct.iclub.fragment;
 
 import java.util.ArrayList;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.oct.ga.comm.GlobalArgs;
-import com.redoct.iclub.R;
-import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
-import com.redoct.iclub.item.ActivityItem;
-import com.redoct.iclub.task.ActivityListTask;
-import com.redoct.iclub.ui.activity.ActivityDetailsActivity;
-import com.redoct.iclub.ui.activity.ThemeSelectActivity;
-import com.redoct.iclub.util.Constant;
-import com.redoct.iclub.util.MyProgressDialogUtils;
-import com.redoct.iclub.widget.MyToast;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SimpleCursorAdapter.ViewBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,9 +13,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.oct.ga.comm.GlobalArgs;
+import com.redoct.iclub.R;
+import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
+import com.redoct.iclub.item.ActivityItem;
+import com.redoct.iclub.task.ActivityListTask;
+import com.redoct.iclub.task.MyActivityTask;
+import com.redoct.iclub.ui.activity.ActivityDetailsActivity;
+import com.redoct.iclub.ui.activity.ThemeSelectActivity;
+import com.redoct.iclub.util.Constant;
+import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
+
 public class MyActivitiesFragment extends Fragment{
 	
-private PullToRefreshListView mPullToRefreshListView;
+	private PullToRefreshListView mPullToRefreshListView;
 	
 	private ArrayList<ActivityItem> activityItems=new ArrayList<ActivityItem>();
 	
@@ -41,7 +40,9 @@ private PullToRefreshListView mPullToRefreshListView;
 	short pageNum=1;
 	short pageSize=10;
 	
-	private ActivityListTask task;
+	//private ActivityListTask task;
+	
+	private MyActivityTask task;
 	
 	private int mode=-1;
 	
@@ -109,7 +110,7 @@ private PullToRefreshListView mPullToRefreshListView;
 	
 	private void loadData(){
 		
-		task=new ActivityListTask(getActivity(),pageNum,pageSize){
+		task=new MyActivityTask(getActivity(),pageNum,pageSize){
 			
 			@Override
 			public void timeout() {
@@ -138,7 +139,7 @@ private PullToRefreshListView mPullToRefreshListView;
 				// TODO Auto-generated method stub
 				super.callback();
 				
-				Log.e("zyf", "call back result: "+task.getResult());
+				//Log.e("zyf", "call back result: "+task.getResult());
 				
 				Log.e("zyf", "arraylist activity length: "+task.getActivities().size());
 				

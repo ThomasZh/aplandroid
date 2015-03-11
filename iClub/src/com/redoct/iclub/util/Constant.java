@@ -23,4 +23,5 @@ public final class Constant
     public static int RESULT_CODE_ACTIVITY_CREATE=2;
     public static int RESULT_CODE_ACTIVITY_INVITE=3;
     public static int RESULT_CODE_ACTIVITY_READ=4;
+    public static int RESULT_CODE_MEMBER_SELECT=5;
 }
