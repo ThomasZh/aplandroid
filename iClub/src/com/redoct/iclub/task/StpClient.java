@@ -17,6 +17,8 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import android.util.Log;
+
 import com.oct.ga.comm.cmd.RespCommand;
 import com.oct.ga.comm.cmd.StpCommand;
 import com.oct.ga.comm.codec.TlvPackageCodecFactory;
@@ -117,7 +119,7 @@ public class StpClient
 	public RespCommand send(StpCommand request) throws InterruptedException, UnsupportedEncodingException
 	{
         if(running){
-            logger.warn(">>>> only one request allowed!");
+        	Log.e("zyf","api return null 000000......");
             return null;
         }
 
@@ -138,7 +140,7 @@ public class StpClient
 			session.getConfig().setUseReadOperation(false);
             running = false;
             connected = false;
-            logger.warn(">>>> write message exception!");
+            Log.e("zyf","api return null 111111......");
 			return null;
 		}
 
@@ -147,14 +149,16 @@ public class StpClient
 
 		final ReadFuture readFuture = session.read();
 
-		readFuture.awaitUninterruptibly();// read response message
+		//readFuture.awaitUninterruptibly();// read response message
+		
+		readFuture.awaitUninterruptibly(10*1000);
 
         logger.info(">>>>>>>>> read message complete ...");
 		if (readFuture.getException() != null) {
 			session.getConfig().setUseReadOperation(false);
             running = false;
             connected = false;
-            logger.warn(">>>> read message exception!");
+            Log.e("zyf","api return null 222222......");
 			return null;
 		}
 
@@ -202,7 +206,9 @@ public class StpClient
 		if(wait){
 			final ReadFuture readFuture = session.read();
 	
-			readFuture.awaitUninterruptibly();// read response message
+			//readFuture.awaitUninterruptibly();// read response message
+			
+			readFuture.awaitUninterruptibly(10*1000);
 	
 	        logger.info(">>>>>>>>> read message complete ...");
 			if (readFuture.getException() != null) {

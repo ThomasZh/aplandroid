@@ -45,6 +45,7 @@ public class ModifyAcitivityMembersTask extends TemplateTask {
             }
             
 		} catch (Exception e) {
+			
 			Log.e("zyf", "ModifyAcitivityMembersTask exception: "+e.toString());
 			
 			return false;

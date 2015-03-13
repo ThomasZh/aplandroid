@@ -37,17 +37,21 @@ public class MemberSortAdapter extends BaseAdapter implements SectionIndexer{
 		this.mContext = mContext;
 		this.list = list;
 		this.id_string=id_string;
-		for(int i = 0;i<id_string.length;i++){
-			for(int j=0;j<list.size();j++){
-				if(id_string[i]!=null&&list!=null){
-					
-					if(id_string[i].equals(list.get(j).getId())){
-						containList.add(id_string[i]);
+		
+		if(id_string!=null){
+			for(int i = 0;i<id_string.length;i++){
+				for(int j=0;j<list.size();j++){
+					if(id_string[i]!=null&&list!=null){
 						
+						if(id_string[i].equals(list.get(j).getId())){
+							containList.add(id_string[i]);
+							
+						}
 					}
 				}
 			}
 		}
+		
 		mImageLoader=ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
 		.showStubImage(R.drawable.ic_launcher)
