@@ -4,7 +4,7 @@
  android:layout_height="match_parent"
  android:orientation="vertical"
  android:background="@color/bg_gray">
-  <RelativeLayout
+<!--   <RelativeLayout
         android:id="@+id/mTitleContainer"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/activity_title_height"
@@ -44,12 +44,13 @@
             android:text="朋友圈"
             android:textColor="@color/white"
             />
-    </RelativeLayout>
- <ListView
+    </RelativeLayout> -->
+    
+    <include layout="@layout/activity_title" />
+    <ListView
         android:id="@+id/list_club"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-      
         android:fadingEdge="none"
         android:layout_margin="5dp"
         android:divider="#00000000"
@@ -58,6 +59,5 @@
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:smoothScrollbar="true"
-     
         android:visibility="visible"/>
 </LinearLayout>

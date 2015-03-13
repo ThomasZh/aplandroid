@@ -104,11 +104,7 @@ public class ChooseMemberActivity extends Activity {
 					intent.setClass(ChooseMemberActivity.this,ActivityRecommendActivity.class);
 					
 					BaseActivityUtil.startActivity(ChooseMemberActivity.this, intent, true, false);
-<<<<<<< HEAD
-				}else{
-					
-=======
-					
+
 				}else if(isFromActivityCreate){   //活动的创建
 					
 					Intent intent = new Intent();
@@ -122,7 +118,6 @@ public class ChooseMemberActivity extends Activity {
 					modifyActityMembers();
 					
 				}else{
->>>>>>> origin/master
 					
 					Log.e("zyf", "add member.......");
 					

@@ -39,6 +39,7 @@
     <string name="day">日</string>
     <string name="activity_of_somebody">的活动</string>
     <string name="articipants">---参加人员---</string>
+    <string name="moments">---精彩瞬间---</string>
     <string name="connctor">联系人</string>
     <string name="friends">朋友圈</string>
      <string name="update_club">编辑圈子</string> 
@@ -130,5 +131,6 @@
     <string name="activity_members_modify_failed">活动成员修改失败.</string>
     
     <string name="contacts">通讯录</string>
+    <string name="members">成员</string>
 
 </resources>

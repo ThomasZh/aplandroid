@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -45,7 +46,7 @@ public class ClubListActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_club_list);
-		initView();
+		initTitleViews();
 		lvClubList = (ListView) findViewById(R.id.list_club);
 		adapter = new ClubListAdapter(this);
 		lvClubList.setAdapter(adapter);
@@ -132,11 +133,15 @@ public class ClubListActivity extends Activity {
 		task.safeExecute();
 	}
 
-	private void initView() {
+	private void initTitleViews() {
 
 		TextView mTitleView = (TextView) findViewById(R.id.mTitleView);
 		mTitleView.setText(getResources().getString(R.string.friends));
-		findViewById(R.id.leftBtn).setOnClickListener(new OnClickListener() {
+		
+		Button leftBtn=(Button)findViewById(R.id.leftBtn);
+		leftBtn.setVisibility(View.VISIBLE);
+		leftBtn.setBackgroundResource(R.drawable.title_back);
+		leftBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -146,7 +151,11 @@ public class ClubListActivity extends Activity {
 						R.anim.push_right_out);
 			}
 		});
-		findViewById(R.id.rightBtn).setOnClickListener(new OnClickListener() {
+		
+		Button rightBtn=(Button)findViewById(R.id.rightBtn);
+		rightBtn.setVisibility(View.VISIBLE);
+		rightBtn.setBackgroundResource(R.drawable.title_add);
+		rightBtn.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {

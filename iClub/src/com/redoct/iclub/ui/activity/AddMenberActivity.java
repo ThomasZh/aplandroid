@@ -3,14 +3,7 @@ package com.redoct.iclub.ui.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.oct.ga.comm.domain.account.AccountMasterInfo;
-import com.redoct.iclub.R;
-import com.redoct.iclub.adapter.MembersListAdapter;
-import com.redoct.iclub.item.ContactItem;
-import com.redoct.iclub.task.ClubQuerySubcribersTask;
-import com.redoct.iclub.task.ClubSubscribersRemoveTask;
-import com.redoct.iclub.util.PersistentUtil;
-import com.redoct.iclub.util.ToastUtil;
+import org.w3c.dom.Text;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,7 +11,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.oct.ga.comm.domain.account.AccountMasterInfo;
+import com.redoct.iclub.R;
+import com.redoct.iclub.adapter.MembersListAdapter;
+import com.redoct.iclub.task.ClubQuerySubcribersTask;
+import com.redoct.iclub.task.ClubSubscribersRemoveTask;
+import com.redoct.iclub.util.PersistentUtil;
+import com.redoct.iclub.util.ToastUtil;
 
 public class AddMenberActivity extends Activity {
 	private ListView lvMembersList;
@@ -56,6 +59,8 @@ public class AddMenberActivity extends Activity {
 		finish();
 		overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 	}
+	
+	private Button leftBtn,rightBtn;
 
 	private void initView() {
 		// TODO Auto-generated method stub
@@ -80,7 +85,14 @@ public class AddMenberActivity extends Activity {
 								R.anim.push_left_out);
 					}
 				});
-		findViewById(R.id.leftBtn).setOnClickListener(new OnClickListener() {
+		
+		TextView mTitleView=(TextView)findViewById(R.id.mTitleView);
+		mTitleView.setText(getString(R.string.members));
+		
+		leftBtn=(Button)findViewById(R.id.leftBtn);
+		leftBtn.setBackgroundResource(R.drawable.title_back);
+		leftBtn.setVisibility(View.VISIBLE);
+		leftBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -90,7 +102,10 @@ public class AddMenberActivity extends Activity {
 						R.anim.push_right_out);
 			}
 		});
-		findViewById(R.id.rightBtn).setOnClickListener(new OnClickListener() {
+		
+		rightBtn=(Button)findViewById(R.id.rightBtn);
+		rightBtn.setText(getString(R.string.complete));
+		rightBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -178,9 +193,9 @@ public class AddMenberActivity extends Activity {
 	public void setCompleteVisible(int size) {
 		if (size == 0) {
 
-			findViewById(R.id.rightBtn).setVisibility(View.INVISIBLE);
+			rightBtn.setVisibility(View.INVISIBLE);
 		} else {
-			findViewById(R.id.rightBtn).setVisibility(View.VISIBLE);
+			rightBtn.setVisibility(View.VISIBLE);
 		}
 
 	}

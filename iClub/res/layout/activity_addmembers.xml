@@ -5,7 +5,7 @@
     android:background="@color/gray"
     android:orientation="vertical" >
 
-    <RelativeLayout
+   <!--  <RelativeLayout
         android:id="@+id/mTitleContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_title_height"
@@ -44,7 +44,9 @@
             android:singleLine="true"
             android:text="成员"
             android:textColor="@color/white" />
-    </RelativeLayout>
+    </RelativeLayout> -->
+    
+    <include layout="@layout/activity_title"/>
 
     <ListView
         android:id="@+id/lv_addmember_memberlist"

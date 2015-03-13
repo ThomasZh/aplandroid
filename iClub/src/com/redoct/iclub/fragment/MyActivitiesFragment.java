@@ -150,9 +150,10 @@ public class MyActivitiesFragment extends Fragment{
 				ArrayList<ActivityItem> resultActivityItems=task.getActivities();
 				for(int i=0;i<resultActivityItems.size();i++){
 					
-					if(resultActivityItems.get(i).getMemberRank()==GlobalArgs.MEMBER_RANK_LEADER){
+					/*if(resultActivityItems.get(i).getMemberRank()==GlobalArgs.MEMBER_RANK_LEADER){
 						activityItems.add(resultActivityItems.get(i));
-					}
+					}*/
+					activityItems.add(resultActivityItems.get(i));
 				}
 				
 				sortData();
@@ -161,6 +162,9 @@ public class MyActivitiesFragment extends Fragment{
 				mActivitiesBaseAdapter.notifyDataSetChanged();
 				
 				if(resultActivityItems.size()<pageSize){
+					
+					Log.e("zyf", "pull from start......");
+					
 					mPullToRefreshListView.setMode(Mode.PULL_FROM_START);;
 				}else{
 					mPullToRefreshListView.setMode(Mode.BOTH);
@@ -221,7 +225,7 @@ public class MyActivitiesFragment extends Fragment{
 		mTitleView.setText(getResources().getString(R.string.title_my_activities));
 		
 		Button rightBtn=(Button) contentView.findViewById(R.id.rightBtn);
-		rightBtn.setText(getString(R.string.add));;
+		rightBtn.setBackgroundResource(R.drawable.title_add);
 		rightBtn.setVisibility(View.VISIBLE);
 		rightBtn.setOnClickListener(new OnClickListener() {
 			

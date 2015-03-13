@@ -1,10 +1,16 @@
 package com.redoct.iclub.ui.activity;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,25 +20,33 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivityDetailsGalleryAdapter;
+import com.redoct.iclub.adapter.MomentAdapter;
 import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.task.ActivityCancelTask;
 import com.redoct.iclub.task.ActivityDetailsTask;
 import com.redoct.iclub.task.ActivityJoinTask;
+import com.redoct.iclub.task.GetMomentTask;
 import com.redoct.iclub.task.MembersListTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.DateUtils;
 import com.redoct.iclub.util.DeviceUtil;
 import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyGridView;
 import com.redoct.iclub.widget.MyToast;
 
 public class ActivityDetailsActivity extends Activity implements OnClickListener{
@@ -58,7 +72,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	
 	private ImageView mLeaderAvatarView;
 	
-	private ScrollView mTotalContainer;
+	private LinearLayout mTotalContainer;
 	
 	private TextView mTitleView;
 	private TextView mLeaderNameTv,mNameTv,mDescTv,mLocDescTv,mStartDateTv,mStartTimeTv,mEndDateTv,mEndTimeTv,mRecommandNumTv;
@@ -66,13 +80,23 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 	private RelativeLayout mRecommandContainer,mLocationContainer;
 	private RelativeLayout mOptionContainer;
 	
-	private Button mCancelBtn,mJoinBtn;
+	private Button mCancelBtn,mJoinBtn,mSharedBtn;
 	
-	private LinearLayout mMemberListContainer;
+	private LinearLayout mMemberListContainer,mMomentContainer;
 	
 	private boolean isJoined;
 	
 	private MyProgressDialogUtils mProgressDialogUtils;
+	
+	private MyGridView mMomentGridView;
+	
+	short pageNum=1;
+	short pageSize=10;
+	
+	private PullToRefreshScrollView mPullToRefreshScrollView;
+	private GetMomentTask mGetMomentTask;
+	private ArrayList<String> momentList=new ArrayList<String>();
+	private MomentAdapter mMomentAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +135,8 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				mActivityDetailsItem=mMeetupDetailsTask.getDetails();
 				
 				updateUI();
+				
+				loadMoment();
 				
 				//MyToast.makeText(ActivityDetailsActivity.this, true, R.string.load_success, MyToast.LENGTH_SHORT).show();
 				
@@ -246,9 +272,11 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		leftBtn.setOnClickListener(this);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void initViews(){
 		
-		mTotalContainer=(ScrollView)findViewById(R.id.mTotalContainer);
+		mTotalContainer=(LinearLayout)findViewById(R.id.mTotalContainer);
+		//mTotalContainer.setMode(Mode.PULL_FROM_END);
 		
 		mLeaderAvatarView=(ImageView)findViewById(R.id.mLeaderAvatarView);
 		
@@ -269,12 +297,99 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		mOptionContainer=(RelativeLayout)findViewById(R.id.mOptionContainer);
 		
 		mMemberListContainer=(LinearLayout)findViewById(R.id.mMemberListContainer);
+		mMomentContainer=(LinearLayout)findViewById(R.id.mMomentContainer);
 		
 		mCancelBtn=(Button)findViewById(R.id.mCancelBtn);
 		mJoinBtn=(Button)findViewById(R.id.mJoinBtn);
+		mSharedBtn=(Button)findViewById(R.id.mSharedBtn);
 		
 		mCancelBtn.setOnClickListener(this);
 		mJoinBtn.setOnClickListener(this);
+		mSharedBtn.setOnClickListener(this);
+		
+		mMomentGridView=(MyGridView)findViewById(R.id.mMomentGridView);
+		
+		mPullToRefreshScrollView=(PullToRefreshScrollView)findViewById(R.id.mPullToRefreshScrollView);
+		mPullToRefreshScrollView.setMode(Mode.DISABLED);
+		mPullToRefreshScrollView.setOnRefreshListener(new OnRefreshListener2() {
+
+			@Override
+			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+				
+				Log.e("zyf", "scroller view pull up......");
+				
+				pageNum++;
+				
+				loadMoment();
+			}
+		});
+	}
+	
+	private void loadMoment(){
+		
+		mGetMomentTask=new GetMomentTask(pageNum, pageSize, id){
+
+			@Override
+			public void callback() {
+				
+				Log.e("zyf", "get moment call back......");
+				
+				if(mGetMomentTask.getImageUrls().size()==pageSize){
+					
+					mPullToRefreshScrollView.setMode(Mode.PULL_FROM_END);
+				}else{
+					mPullToRefreshScrollView.setMode(Mode.DISABLED);
+				}
+				
+				for(int i=0;i<mGetMomentTask.getImageUrls().size();i++){
+					
+					Log.e("zyf", "image url"+i+": "+mGetMomentTask.getImageUrls().get(i));
+					momentList.add(mGetMomentTask.getImageUrls().get(i));
+				}
+				
+				if(momentList.size()==0){
+					mMomentContainer.setVisibility(View.GONE);
+				}else{
+					mMomentContainer.setVisibility(View.VISIBLE);
+				}
+				
+				if(mMomentAdapter==null){
+					mMomentAdapter=new MomentAdapter(ActivityDetailsActivity.this, momentList);
+					mMomentGridView.setAdapter(mMomentAdapter);
+				}else{
+					mMomentAdapter.notifyDataSetChanged();
+				}
+			}
+
+			@Override
+			public void failure() {
+				
+				Log.e("zyf", "get moment failed......");
+			}
+
+			@Override
+			public void timeout() {
+				
+				Log.e("zyf", "get moment time out......");
+			}
+
+			@Override
+			public void complete() {
+				// TODO Auto-generated method stub
+				super.complete();
+				
+				mPullToRefreshScrollView.onRefreshComplete();
+			}
+			
+		};
+		mGetMomentTask.setTimeOutEnabled(true, 10*1000);
+		mGetMomentTask.safeExecute();
 	}
 	
 	private void updateUI(){
@@ -364,6 +479,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 		}
 		
 		mTotalContainer.setVisibility(View.VISIBLE);
+		//mMomentGridView.setMode(Mode.BOTH);
 	}
 
 	@Override
@@ -503,6 +619,16 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 			mActivityJoinTask.setTimeOutEnabled(true, 10*1000);
 			mActivityJoinTask.safeExecute();
 			break;
+		case R.id.mSharedBtn:
+			
+			try {
+				showShare();
+			} catch (IOException e) {
+				
+				Log.e("zyf", "share exception: "+e.toString());
+			}
+			
+			break;
 		case R.id.rightBtn:
 			
 			Intent intent=new Intent(ActivityDetailsActivity.this,ActivityCreateActivity.class);
@@ -529,5 +655,50 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				updateUI();
 			}
 		}
+	}
+	
+	private void showShare() throws IOException {
+		File pathFile = android.os.Environment.getExternalStorageDirectory();
+		
+		
+        File myCaptureFile = new File(pathFile,"test.jpg");  
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));  
+        InputStream is = getResources().openRawResource(R.drawable.ic_launcher);  
+
+        Bitmap mBitmap = BitmapFactory.decodeStream(is);
+        
+        mBitmap.compress(Bitmap.CompressFormat.JPEG, 80, bos);  
+        bos.flush();  
+        bos.close();  
+		
+		 ShareSDK.initSDK(this);
+		 OnekeyShare oks = new OnekeyShare();
+		 //关闭sso授权
+		 oks.disableSSOWhenAuthorize(); 
+
+		// 分享时Notification的图标和文字
+		// oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+		 // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+		 oks.setTitle("每天努力一点多了而已吧，关于生活的快乐你们看见都是内啊。。。。。。。");
+		 // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+		  oks.setTitleUrl("http://www.sina.com");
+		 // text是分享文本，所有平台都需要这个字段
+		  oks.setText("我是程才！！！");
+		 // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+		 
+		 
+		 
+		 oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+		 // url仅在微信（包括好友和朋友圈）中使用
+		   oks.setUrl("http://www.baidu.com");
+		 // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+		 oks.setComment("我是测试评论文本");
+		 // site是分享此内容的网站名称，仅在QQ空间使用
+		 oks.setSite(getString(R.string.app_name));
+		 // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+		 oks.setSiteUrl("http://sharesdk.cn");
+
+		// 启动分享GUI
+		 oks.show(this);
 	}
 }

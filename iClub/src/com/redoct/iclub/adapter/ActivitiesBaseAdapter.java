@@ -105,7 +105,7 @@ public class ActivitiesBaseAdapter extends BaseAdapter {
         holder.mLeaderNameTv.setText(item.getLeaderName());
         holder.mStartTimeTv.setText(item.getStartTime());
         holder.mNameTv.setText(item.getName());
-        holder.mMemberNumTv.setText(mContext.getString(R.string.invitation)+item.getMemberNum()+mContext.getString(R.string.people));
+        holder.mMemberNumTv.setText(item.getMemberNum()+mContext.getString(R.string.people));
         
         
         if(activityItems.get(position).isTitle()){

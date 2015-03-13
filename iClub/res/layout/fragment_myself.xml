@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/myself_information"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/myself_detail_height"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:paddingTop="8dip"
         android:paddingBottom="8dip"
@@ -22,24 +22,29 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/icon_register_img"
             android:layout_alignParentLeft="true"
-            />
+            android:layout_centerInParent="true"/>
+        
+        <ImageView
+            android:id="@+id/mymore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_enter" />
 
         <TextView
             android:id="@+id/myname"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/mymore"
+            android:layout_toRightOf="@id/myhead"
             android:layout_centerInParent="true"
+            android:gravity="center"
             android:text="chengxiaocai"
             android:textSize="@dimen/textsize_normal"
             android:textColor="@color/black" />
 
-        <ImageView
-            android:id="@+id/mymore"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="15dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/icon_enter" />
     </RelativeLayout>
 
     <LinearLayout

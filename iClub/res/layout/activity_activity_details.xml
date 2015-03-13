@@ -5,19 +5,25 @@
 	android:orientation="vertical"
 	android:background="#e9e9e9">
 	<include layout="@layout/activity_title"/>
-	<ScrollView
-	    android:id="@+id/mTotalContainer" 
+	
+	<!-- <ScrollView -->
+	<com.handmark.pulltorefresh.library.PullToRefreshScrollView
+	    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+	    android:id="@+id/mPullToRefreshScrollView"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:visibility="gone"
-	    android:scrollbars="@null">
+	    android:layout_height="match_parent"
+	    android:scrollbars="@null"
+	    ptr:ptrAnimationStyle="flip">
 		<LinearLayout
+		    android:id="@+id/mTotalContainer"
 		    android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
+			android:visibility="invisible"
 		    android:orientation="vertical"
 		    android:layout_marginLeft="4dip"
 			android:layout_marginRight="4dip"
-			android:layout_marginTop="4dip">
+			android:layout_marginTop="4dip"
+			android:paddingBottom="20dip">
 			<LinearLayout 
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
@@ -230,14 +236,6 @@
 			     android:textSize="@dimen/textsize_normal"
 			     android:text="@string/articipants"
 			     android:gravity="center"/>
-			<!-- <Gallery
-			    android:id="@+id/mGallery" 
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:layout_marginTop="10dip"
-			    android:layout_marginBottom="10dip"
-			    android:spacing="5dip"
-			    android:layout_gravity="center_horizontal"/> -->
 			
 			<HorizontalScrollView 
 		        android:layout_width="wrap_content"
@@ -245,7 +243,6 @@
 		        android:layout_marginLeft="2dip"
 		        android:layout_marginRight="2dip"
 		        android:layout_marginTop="10dip"
-		        android:layout_marginBottom="20dip"
 		        android:layout_gravity="center_horizontal"
 		        android:scrollbars="@null">
 		        <LinearLayout
@@ -255,6 +252,35 @@
 		            android:orientation="horizontal">
 				</LinearLayout>
 			</HorizontalScrollView>
+			
+			<LinearLayout
+			     android:id="@+id/mMomentContainer"
+			     android:layout_width="match_parent"
+			     android:layout_height="wrap_content"
+			     android:layout_marginTop="10dip"
+			     android:orientation="vertical"
+			     android:visibility="gone">
+			     <TextView
+				     android:layout_width="match_parent"
+				     android:layout_height="wrap_content"
+				     android:textColor="#000000"
+				     android:textSize="@dimen/textsize_normal"
+				     android:text="@string/moments"
+				     android:gravity="center"/>
+				<com.redoct.iclub.widget.MyGridView
+				    android:id="@+id/mMomentGridView"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_marginTop="10dip"
+				    android:layout_marginBottom="0dip"
+				    android:numColumns="auto_fit"
+				    android:horizontalSpacing="20dip"
+				    android:verticalSpacing="20dip"/>
+			</LinearLayout>
+			
+			
 		</LinearLayout>
-	</ScrollView>
+		
+	</com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+	<!-- </ScrollView> -->
 </LinearLayout>
