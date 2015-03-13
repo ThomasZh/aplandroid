@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class UpdatePasswordActivity extends Activity{
@@ -108,6 +109,18 @@ public class UpdatePasswordActivity extends Activity{
 					// login.setTimeOutEnabled(true, 100);
 					update.safeExecute();
 				
+			}
+		});
+		
+		Button leftBtn=(Button)findViewById(R.id.leftBtn);
+		leftBtn.setVisibility(View.VISIBLE);
+		leftBtn.setBackgroundResource(R.drawable.title_back);
+		leftBtn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				
+				finish();
 			}
 		});
 	}

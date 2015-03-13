@@ -5,7 +5,7 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <!-- <RelativeLayout
         android:id="@+id/mTitleContainer"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_title_height"
@@ -43,7 +43,9 @@
             android:singleLine="true"
             android:text="选择成员"
             android:textColor="@color/white" />
-    </RelativeLayout>
+    </RelativeLayout> -->
+    
+    <include layout="@layout/activity_title"/>
 
     <com.redoct.iclub.widget.ClearEditText
         android:id="@+id/filter_edit"

@@ -32,6 +32,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,8 +44,8 @@ public class ChooseMemberActivity extends Activity {
 	private MemberSortAdapter adapter;
 	private ClearEditText mClearEditText;
 	private GetContactTask task;
-	private ImageView iv_left;
-	private TextView tvRight;
+	private Button iv_left;
+	private Button tvRight;
 	private ArrayList<ContactItem> list = new ArrayList<ContactItem>();
 	private ArrayList<String> listId = new ArrayList<String>();
 	private List<String> id_list=new ArrayList<String>();
@@ -89,7 +90,12 @@ public class ChooseMemberActivity extends Activity {
 		id_string = getIntent().getStringArrayExtra("membering");
 		id = getIntent().getStringExtra("id");
 		
-		tvRight = (TextView) findViewById(R.id.rightBtn);
+		TextView mTitleView=(TextView) findViewById(R.id.mTitleView);
+		mTitleView.setText(getString(R.string.select_member));
+		
+		tvRight = (Button) findViewById(R.id.rightBtn);
+		tvRight.setVisibility(View.VISIBLE);
+		tvRight.setText(getString(R.string.complete));
 		tvRight.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -126,7 +132,9 @@ public class ChooseMemberActivity extends Activity {
 				}
 			}
 		});
-		iv_left= (ImageView) findViewById(R.id.leftBtn);
+		iv_left= (Button) findViewById(R.id.leftBtn);
+		iv_left.setVisibility(View.VISIBLE);
+		iv_left.setBackgroundResource(R.drawable.title_back);
 		iv_left.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -243,15 +251,7 @@ public class ChooseMemberActivity extends Activity {
 		}else{
 			Log.e("zyf", "selected members is null or size is 0......");
 		}
-		/*for(int i=0;i<selectedContactItems.size();i++){
-			Log.e("zyf", "selected member: name: "+selectedContactItems.get(i).getName()+"  id: "+selectedContactItems.get(i).getId());
-		}
 		
-		Log.e("zyf", "------------------------------------------------------------------");
-		
-		for(int i=0;i<listContact.size();i++){
-			Log.e("zyf", "selected member: name: "+listContact.get(i).getName()+"  id: "+listContact.get(i).getId());
-		}*/
 		
 		// 根据a-z进行排序源数据
 		Collections.sort(listContact, pinyinComparator);
