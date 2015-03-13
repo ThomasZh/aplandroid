@@ -625,7 +625,7 @@ public class ActivityDetailsActivity extends Activity implements OnClickListener
 				showShare();
 			} catch (IOException e) {
 				
-				Log.e("zyf", "share exception: "+e.toString());
+				Log.e("zyf", "share sdk exception: "+e.toString());
 			}
 			
 			break;
