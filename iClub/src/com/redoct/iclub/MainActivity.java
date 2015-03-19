@@ -1,11 +1,15 @@
 package com.redoct.iclub;
 
+import java.util.Set;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import com.redoct.iclub.fragment.ActivitiesFragment;
 import com.redoct.iclub.fragment.MessageFragment;
 import com.redoct.iclub.fragment.MyActivitiesFragment;
@@ -38,10 +42,34 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        JPushInterface.setAlias(this, "zyf", new TagAliasCallback() {
+			
+			@Override
+			public void gotResult(int code, String alias, Set<String> tags) {
+				
+	            switch (code) {
+	            case 0:
+	            	
+	                Log.e("jpush", "Set tag and alias success......");
+	                
+	                break;
+	                
+	            case 6002:
+	            	
+	                Log.e("jpush", "Failed to set alias and tags due to timeout. Try again after 60s......");
+	             
+	                break;
+	            
+	            default:
+
+	                Log.e("jpush", "Failed with errorCode = " + code);
+	            }
+			}
+		});
+        
         mTabView=(MyTabView)findViewById(R.id.mTabView);
         mTabView.setDatas(mTabviewNormalIcons, mTabviewSelectedIcons);
         mTabView.setOnTabClickListener(this);
-        Intent intent = new Intent();
         mTabView.setCurItem(0);
         
         mMessageListTask=new MessageListTask(){
