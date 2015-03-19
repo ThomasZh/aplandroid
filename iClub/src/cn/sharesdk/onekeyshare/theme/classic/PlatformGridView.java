@@ -477,6 +477,7 @@ public class PlatformGridView extends LinearLayout implements
 			if (resId > 0) {
 				return getContext().getString(resId);
 			}
+			
 			return null;
 		}
 

@@ -15,6 +15,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.util.Log;
+import cn.jpush.android.api.JPushInterface;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -59,7 +60,10 @@ public class iClubApplication extends Application implements
 
 		super.onCreate();
 		// Thread.setDefaultUncaughtExceptionHandler(this);
-
+		
+		JPushInterface.setDebugMode(true);
+		JPushInterface.init(this);
+		
 		initImageLoader(getApplicationContext());
 
 		NetworkChecker.init(this);
