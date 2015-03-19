@@ -31,7 +31,9 @@ public final class PersistentUtil {
 		SharedPreferences sp = ctx.getSharedPreferences(FILENAME,
 				Context.MODE_PRIVATE);
 		Editor editor = sp.edit();
+		
 		editor.putString(key, value);
+		
 
 		editor.commit();
 	}
@@ -44,6 +46,7 @@ public final class PersistentUtil {
 		SharedPreferences sp = ctx.getSharedPreferences(FILENAME,
 				Context.MODE_PRIVATE);
 		Editor editor = sp.edit();
+		
 		editor.putBoolean(key, value);
 		editor.commit();
 	}

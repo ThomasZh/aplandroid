@@ -1,9 +1,4 @@
 package com.redoct.iclub.fragment;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
 import cn.sharesdk.framework.ShareSDK;
@@ -18,16 +13,15 @@ import com.redoct.iclub.ui.activity.AccountActivity;
 import com.redoct.iclub.ui.activity.ClubListActivity;
 import com.redoct.iclub.ui.activity.ContactActivity;
 import com.redoct.iclub.ui.activity.LoginActivity;
-import com.redoct.iclub.ui.activity.RegisterActivity;
 import com.redoct.iclub.ui.activity.UpdatePasswordActivity;
-import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.CircleBitmapDisplayer;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -48,6 +42,7 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 	private ImageView ivMyhead;
 	private DisplayImageOptions options; // ?????????????????  
 	private TextView tAlterPwd;
+	private final String FILENAME = "iclub";
 	
 
 	@Override
@@ -110,7 +105,10 @@ public class MySelfFragment extends Fragment implements OnClickListener{
 
 			break;
 		case R.id.quit:
-			
+			SharedPreferences sp = getActivity().getSharedPreferences(FILENAME,
+					Context.MODE_PRIVATE);
+			Editor editor = sp.edit();
+			editor.clear().commit();
 			Intent intent = new Intent(getActivity(),LoginActivity.class);
 			startActivity(intent);
 			BaseActivityUtil.setUpTransition(getActivity());

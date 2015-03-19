@@ -29,8 +29,8 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer{
 		this.list = list;
 		mImageLoader=ImageLoader.getInstance();
 		options = new DisplayImageOptions.Builder()
-		.showStubImage(R.drawable.ic_launcher)
-		.showImageForEmptyUri(R.drawable.ic_launcher)
+		.showStubImage(R.drawable.name)
+		.showImageForEmptyUri(R.drawable.name)
 		.cacheInMemory(true)
 		.cacheOnDisc(true)
 		.bitmapConfig(Bitmap.Config.RGB_565)

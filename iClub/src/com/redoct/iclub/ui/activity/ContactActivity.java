@@ -72,21 +72,7 @@ public class ContactActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contact);
-		/*
-		 * iv_right = (ImageView) findViewById(R.id.rightBtn);
-		 * iv_right.setOnClickListener(new OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) { // TODO Auto-generated method
-		 * stub BaseActivityUtil.startActivity(ContactActivity.this,
-		 * AddContactActivity.class, false); } }); iv_left= (ImageView)
-		 * findViewById(R.id.leftBtn); iv_left.setOnClickListener(new
-		 * OnClickListener() {
-		 * 
-		 * @Override public void onClick(View v) { // TODO Auto-generated method
-		 * stub finish(); overridePendingTransition(R.anim.push_right_in,
-		 * R.anim.push_right_out); } }); rbFriends = (RadioButton)
-		 * findViewById(R.id.rb_contact_friends); rbFriends.setChecked(true);
-		 */
+		
 
 		initTitleViews();
 
@@ -224,7 +210,8 @@ public class ContactActivity extends Activity {
 	/**
 	 * 根据输入框中的值来过滤数据并更新ListView
 	 * 
-	 * @param filterStr
+
+
 	 */
 	private void filterData(String filterStr, List<ContactItem> listContact) {
 		List<ContactItem> filterDateList = new ArrayList<ContactItem>();
@@ -429,12 +416,15 @@ public class ContactActivity extends Activity {
 					paramsToShare.setText("嗨,我推荐一个《A计划》上的活动，希望你能加入！活动 :众筹旅行      发起人: kevin    开始时间: 04-05 09:00      结束时间:04-06 10:30     在手机上打开邮件，几步就可以开始使用了！    1), 还没有安装点击安装http://www.tripc2c.com/m/index.php?action=signup&ekey="+key+", 已经在使用了就 点击开启aplan://fm?ekey="+key);
 					paramsToShare.setTitle("我在这里建立了一个朋友圈");
 					paramsToShare.setImagePath(null);
+					
 
 					return;
 				}
 			}
 		});
-
+ // P@ssword01!!!
+  //C#checai12@@@
+  //Cheng@cai1234
 		// 启动分享GUI
 		oks.show(this);
 
