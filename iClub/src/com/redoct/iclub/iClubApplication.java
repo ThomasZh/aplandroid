@@ -41,7 +41,11 @@ public class iClubApplication extends Application implements
 		Thread.UncaughtExceptionHandler {
 	private GetAccountTask getTask;
 	private static Activity activity; // ������ƽӿڻص�
-
+    //sdfqwfj
+	
+	
+	
+	
 	public static Activity getActivity() {
 		return activity;
 	}
