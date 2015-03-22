@@ -36,9 +36,11 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.oct.ga.comm.GlobalArgs;
+import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivityDetailsGalleryAdapter;
 import com.redoct.iclub.adapter.MomentAdapter;
+import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.task.ActivityCancelTask;
@@ -53,6 +55,7 @@ import com.redoct.iclub.util.DateUtils;
 import com.redoct.iclub.util.DeviceUtil;
 import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.util.ToastUtil;
+import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.widget.MyGridView;
 import com.redoct.iclub.widget.MyToast;
 
@@ -89,7 +92,7 @@ public class ActivityDetailsActivity extends Activity implements
 	private RelativeLayout mRecommandContainer, mLocationContainer;
 	private RelativeLayout mOptionContainer;
 
-	private Button mCancelBtn, mJoinBtn, mSharedBtn;
+	private Button mCancelBtn, mJoinBtn, mSharedBtn,mConsultBtn;
 
 	private LinearLayout mMemberListContainer, mMomentContainer;
 
@@ -194,7 +197,7 @@ public class ActivityDetailsActivity extends Activity implements
 				mProgressDialogUtils.dismissDialog();
 			}
 		};
-		mMeetupDetailsTask.setTimeOutEnabled(true, 10 * 1000);
+		mMeetupDetailsTask.setTimeOutEnabled(true, 20 * 1000);
 		mMeetupDetailsTask.safeExecute();
 
 		mMeetupDetailsTask.then(new MemberList());
@@ -327,10 +330,12 @@ public class ActivityDetailsActivity extends Activity implements
 		mCancelBtn = (Button) findViewById(R.id.mCancelBtn);
 		mJoinBtn = (Button) findViewById(R.id.mJoinBtn);
 		mSharedBtn = (Button) findViewById(R.id.mSharedBtn);
+		mConsultBtn = (Button) findViewById(R.id.mConsultBtn);
 
 		mCancelBtn.setOnClickListener(this);
 		mJoinBtn.setOnClickListener(this);
 		mSharedBtn.setOnClickListener(this);
+		mConsultBtn.setOnClickListener(this);
 
 		mMomentGridView = (MyGridView) findViewById(R.id.mMomentGridView);
 
@@ -690,6 +695,33 @@ public class ActivityDetailsActivity extends Activity implements
 			intent.putExtra("ActivityDetailsItem", mActivityDetailsItem);
 			startActivityForResult(intent, Constant.RESULT_CODE_ACTIVITY_UPDATE);
 
+			break;
+		case R.id.mConsultBtn:
+			
+			Intent chatIntent=new Intent(ActivityDetailsActivity.this,ChatActivity.class);
+			chatIntent.putExtra("ActivityDetails", mActivityDetailsItem);
+			
+			if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){   //未参加活动
+				ArrayList<MemberItem> tempMemberItems=new ArrayList<MemberItem>();
+				tempMemberItems.add(mMemberItems.get(0));
+				
+				AccountDetailInfo accountDetailInfo=new UserInformationLocalManagerUtil(ActivityDetailsActivity.this).ReadUserInformation();
+				MemberItem memberItem=new MemberItem();
+				memberItem.setUserId(AppConfig.account.getAccountId());
+				memberItem.setImageUrl(accountDetailInfo.getImageUrl());
+				memberItem.setUserName(accountDetailInfo.getName());
+				tempMemberItems.add(memberItem);
+				
+				chatIntent.putExtra("Members", tempMemberItems);
+			}else{
+				chatIntent.putExtra("Members", mMemberItems);
+			}
+			
+			
+			startActivity(chatIntent);
+			
+			Log.e("zyf", "user id: "+AppConfig.account.getAccountId());
+			
 			break;
 		default:
 			break;

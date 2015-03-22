@@ -2,6 +2,7 @@ package com.redoct.iclub;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.mina.core.session.IoSession;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -9,6 +10,7 @@ import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -26,6 +28,8 @@ import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.task.ServerConfigTask;
 import com.redoct.iclub.task.StpClient;
+import com.redoct.iclub.task.StpHandler;
+import com.redoct.iclub.task.UpdateAccountTask;
 import com.redoct.iclub.task.UserLoginTask;
 import com.redoct.iclub.util.DeviceUtil;
 import com.redoct.iclub.util.NetworkChecker;
@@ -37,11 +41,7 @@ public class iClubApplication extends Application implements
 		Thread.UncaughtExceptionHandler {
 	private GetAccountTask getTask;
 	private static Activity activity; // ������ƽӿڻص�
-    //sdfqwfj
-	
-	
-	
-	
+
 	public static Activity getActivity() {
 		return activity;
 	}

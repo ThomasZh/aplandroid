@@ -27,8 +27,8 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
 	private MessageFragment mMessageFragment;
 	private MySelfFragment mMySelfFragment;
 	
-	private int mTabviewNormalIcons[]={R.drawable.myplan_normal,R.drawable.activity_normal,R.drawable.message_normal,R.drawable.me_normal};
-    private int mTabviewSelectedIcons[]={R.drawable.myplan_selected,R.drawable.activity_selected,R.drawable.message_selected,R.drawable.me_selected};
+	private int mTabviewNormalIcons[]={R.drawable.myplan_normal_old,R.drawable.activity_normal,R.drawable.message_normal,R.drawable.me_normal};
+    private int mTabviewSelectedIcons[]={R.drawable.myplan_selected_old,R.drawable.activity_selected,R.drawable.message_selected,R.drawable.me_selected};
     
     private int preSelectedIndex=-1;
     

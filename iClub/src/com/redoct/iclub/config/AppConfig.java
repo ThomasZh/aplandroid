@@ -21,7 +21,7 @@ public class AppConfig {
     public static String APP_ID = "8ed18148-5d33-43f1-90f1-98b8bcf323d7";
 
 
-    public static String APP_VERSION = "Romania_v2.0.23";
+    public static String APP_VERSION = "Romania_v2.1.01";
 
     /**
      * logged on user, initialized in UserLoginTask;

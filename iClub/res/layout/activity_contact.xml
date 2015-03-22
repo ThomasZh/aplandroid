@@ -44,7 +44,7 @@
             android:layout_marginRight="50dp"
             android:background="@drawable/share"
             android:textColor="#ffffff"
-         
+            android:visibility="gone"
             android:textSize="@dimen/textsize_smaller"
              />
 

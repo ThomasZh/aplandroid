@@ -17,7 +17,14 @@ public class MessageItem implements Serializable{
 	private int timestamp;
 	private String toUserSemiId;
 	private boolean isAccept;   //是否接受请求
+	private String content;
 	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public boolean isFeedback() {
 		return isFeedback;
 	}

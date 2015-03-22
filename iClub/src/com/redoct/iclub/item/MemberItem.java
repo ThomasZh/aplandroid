@@ -1,12 +1,14 @@
 package com.redoct.iclub.item;
 
+import java.io.Serializable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by liwenzhi on 14-10-14.
  */
-public class MemberItem {
+public class MemberItem implements Serializable{
 
     private String groupId;
     private String userId;

@@ -1,11 +1,12 @@
 package com.redoct.iclub.item;
 
+import java.io.Serializable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-import java.util.List;
+import android.util.Log;
 
 /**
  * Created by liwenzhi on 14-10-14.
@@ -46,7 +47,10 @@ public class ActivityDetailsItem implements Serializable{
         md.setClubTitleBkImage(json.getString("titleBkImage"));
         md.setDesc(json.getString("desc"));
         md.setLocDesc(json.getString("locDesc"));
-        md.setId(json.getString("id"));//meetup id
+        
+        Log.e("zyf","activity id: "+json.getString("id"));
+        
+        md.setId(json.getString("id"));
         md.setLocX(json.getString("locX"));
         md.setLocY(json.getString("locY"));
         md.setMemberNum(json.getInt("memberNum"));

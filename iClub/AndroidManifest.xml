@@ -140,6 +140,10 @@
         <activity android:name="com.redoct.iclub.ui.activity.ChooseMemberActivity" />
         <activity android:name="com.redoct.iclub.ui.activity.ActivityRecommendActivity" />
         <activity android:name="com.redoct.iclub.ui.activity.RegisterActivity" />
+        <activity android:name="com.redoct.iclub.ui.activity.ChatActivity" 
+            android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name="com.redoct.iclub.ui.activity.ChatMembersActivity" />
 
         <!-- sharesdk fenxiang -->
         <activity

@@ -20,6 +20,7 @@ import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MessageBaseAdapter;
 import com.redoct.iclub.item.MessageItem;
+import com.redoct.iclub.task.ChatRoomListTask;
 import com.redoct.iclub.task.InviteFeedbackTask;
 import com.redoct.iclub.task.MessageCommitTask;
 import com.redoct.iclub.task.MessageListTask;
@@ -43,6 +44,8 @@ public class MessageFragment extends Fragment{
 	private String [] inviteFeedbackIds;
 	
 	private MyProgressDialogUtils mProgressDialogUtils;
+	
+	private int lastTryTime=0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,7 +53,7 @@ public class MessageFragment extends Fragment{
 		
 		View contentView=inflater.inflate(R.layout.fragment_message, container, false);
 		
-		messageItems=FileUtils.readMessageHistory();
+		//messageItems=FileUtils.readMessageHistory();
 		
 		initViews(contentView);
 		
@@ -178,9 +181,11 @@ public class MessageFragment extends Fragment{
 		
 	};
 	
+	private ChatRoomListTask mChatRoomListTask;
+	
 	private void load(){
 		
-		mMessageListTask=new MessageListTask(){
+		/*mMessageListTask=new MessageListTask(){
 
 			@Override
 			public void before() {
@@ -250,7 +255,59 @@ public class MessageFragment extends Fragment{
 		mMessageListTask.setTimeOutEnabled(true, 10*1000);
 		mMessageListTask.safeExecute();
 		
-		mMessageListTask.then(messageCommitRunnable);
+		mMessageListTask.then(messageCommitRunnable);*/
+		
+		mChatRoomListTask=new ChatRoomListTask(lastTryTime){
+
+			@Override
+			public void before() {
+				super.before();
+				
+				mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_loading, getActivity());
+				mProgressDialogUtils.showDialog();
+			}
+
+			@Override
+			public void callback() {
+				// TODO Auto-generated method stub
+				super.callback();
+				
+				Log.e("zyf", "message list size: "+mChatRoomListTask.getMessageList().size());
+				
+				for(int i=0;i<mChatRoomListTask.getMessageList().size();i++){
+					messageItems.add(mChatRoomListTask.getMessageList().get(i));
+				}
+				
+				mPullToRefreshListView.onRefreshComplete();
+				mBaseAdapter.notifyDataSetChanged();
+			}
+
+			@Override
+			public void failure() {
+				// TODO Auto-generated method stub
+				super.failure();
+			}
+
+			@Override
+			public void complete() {
+				// TODO Auto-generated method stub
+				super.complete();
+				
+				mPullToRefreshListView.onRefreshComplete();
+				mProgressDialogUtils.dismissDialog();
+			}
+
+			@Override
+			public void timeout() {
+				// TODO Auto-generated method stub
+				super.timeout();
+				
+				mPullToRefreshListView.onRefreshComplete();
+				mProgressDialogUtils.dismissDialog();
+			}
+		};
+		mChatRoomListTask.setTimeOutEnabled(true, 10*1000);
+		mChatRoomListTask.safeExecute();
 	}
 	
 	Runnable messageCommitRunnable=new Runnable() {

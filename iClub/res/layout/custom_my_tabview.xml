@@ -77,7 +77,7 @@
 			        android:layout_marginTop="@dimen/tabview_margin_top_title"
 			        android:gravity="center_horizontal"
 			        android:textColor="@color/tabview_color_normal"
-			        android:text="@string/invitation"
+			        android:text="@string/message"
 			        android:textSize="@dimen/textsize_smaller"/>
 			</LinearLayout>
 			<LinearLayout

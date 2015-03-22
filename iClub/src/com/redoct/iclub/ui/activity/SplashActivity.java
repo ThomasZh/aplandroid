@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
 
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.MainActivity;
@@ -202,4 +203,19 @@ public class SplashActivity extends Activity{
 		};
 		getTask.safeExecute();
 	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		
+		JPushInterface.onPause(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		JPushInterface.onResume(this);
+	}
+	
 }

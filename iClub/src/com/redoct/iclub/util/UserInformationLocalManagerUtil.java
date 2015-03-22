@@ -16,7 +16,7 @@ public class UserInformationLocalManagerUtil {
           PersistentUtil.getInstance().write(context,"telephone", act.getTelephone());
           PersistentUtil.getInstance().write(context,"imageurl", act.getImageUrl());
           PersistentUtil.getInstance().write(context,"desc", act.getDesc());
-       
+          PersistentUtil.getInstance().write(context,"id", act.getId());
          
 	}
 	public  AccountDetailInfo ReadUserInformation(){
@@ -31,6 +31,8 @@ public class UserInformationLocalManagerUtil {
 		act.setDesc(PersistentUtil.getInstance().readString(context, "desc",
 				""));
 		act.setImageUrl(PersistentUtil.getInstance().readString(context, "imageurl",
+				""));
+		act.setId(PersistentUtil.getInstance().readString(context, "id",
 				""));
 		
 		return act;
