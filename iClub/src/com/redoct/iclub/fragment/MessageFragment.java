@@ -2,6 +2,7 @@ package com.redoct.iclub.fragment;
 
 import java.util.ArrayList;
 
+import android.R.integer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,7 +18,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.GlobalArgs;
+import com.redoct.iclub.MainActivity;
 import com.redoct.iclub.R;
+import com.redoct.iclub.iClubApplication;
 import com.redoct.iclub.adapter.MessageBaseAdapter;
 import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.item.MessageItem;
@@ -62,6 +65,8 @@ public class MessageFragment extends Fragment{
 		
 		messageItems=mDatabaseHelperUtil.getMessages(AppConfig.account.getAccountId());
 		
+		updateUnreadMessageNum(messageItems);
+		
 		Log.e("zyf", "db saved message size: "+messageItems.size());
 		
 		initViews(contentView);
@@ -80,8 +85,16 @@ public class MessageFragment extends Fragment{
 		return contentView;
 	}
 	
-	public void updateUnreadMessageNum(){
+	public void updateUnreadMessageNum(ArrayList<MessageItem> messageItems){
 		
+		int count=0;
+		for(int i=0;i<messageItems.size();i++){
+			count+=messageItems.get(i).getUnReadNum();
+		}
+		
+		iClubApplication.badgeNumber=count;
+		
+		MainActivity.handleUnReadMessage(iClubApplication.badgeNumber);
 	}
 	
 	private void initViews(View convertView){
@@ -235,6 +248,8 @@ public class MessageFragment extends Fragment{
 					mDatabaseHelperUtil.addNewMessage(mMessageListTask.getMessageList().get(i));
 				}
 				
+				updateUnreadMessageNum(messageItems);
+				
 				inviteIds=mMessageListTask.getInviteIds();
 				inviteFeedbackIds=mMessageListTask.getInviteFeedIds();
 				
@@ -249,7 +264,7 @@ public class MessageFragment extends Fragment{
 				//mPullToRefreshListView.onRefreshComplete();
 				mBaseAdapter.notifyDataSetChanged();
 				
-				updateUnreadMessageNum();
+				//updateUnreadMessageNum();
 				
 			}
 
@@ -333,6 +348,8 @@ public class MessageFragment extends Fragment{
 					}
 				}
 				
+				updateUnreadMessageNum(messageItems);
+				
 				mPullToRefreshListView.onRefreshComplete();
 				mBaseAdapter.notifyDataSetChanged();
 				
@@ -380,14 +397,14 @@ public class MessageFragment extends Fragment{
 				public void callback() {
 					Log.e("zyf", "invite message commit success......");
 					
-					if(AppConfig.badgeNumber>0){
+					if(iClubApplication.badgeNumber>0){
 						
 						if(inviteIds!=null){
-							AppConfig.badgeNumber-=inviteIds.length;
+							iClubApplication.badgeNumber-=inviteIds.length;
 						}
 						
 						if(inviteFeedbackIds!=null){
-							AppConfig.badgeNumber-=inviteFeedbackIds.length;
+							iClubApplication.badgeNumber-=inviteFeedbackIds.length;
 						}
 					}
 				}

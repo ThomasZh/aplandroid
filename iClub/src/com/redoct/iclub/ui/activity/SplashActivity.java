@@ -105,7 +105,7 @@ public class SplashActivity extends BaseActivity{
 		server.safeExecute();
 		
 	}
-	
+
 	private void updateShowInfo(){
 	//	mProgressBar.setVisibility(View.GONE);
 		mShowInfoTv.setText("服务不可用，请稍后重试......");
@@ -115,13 +115,16 @@ public class SplashActivity extends BaseActivity{
 		String pass = PersistentUtil.getInstance().readString(this,"passWord", "");
 		String name = PersistentUtil.getInstance().readString(this,"loginName", "");
 		
+		iClubApplication.userName=name;
+		iClubApplication.psw=pass;
+		
 		UserLoginTask login = new UserLoginTask(name,pass) {
 			
 			public void callback() {
 				
 				Log.e("zyf", "auto login call back......");
 				
-				fetchAccountInfo();
+				//fetchAccountInfo();
 				
 				Intent intent=new Intent(SplashActivity.this,MainActivity.class);
 				SplashActivity.this.startActivity(intent);
@@ -217,6 +220,16 @@ public class SplashActivity extends BaseActivity{
 		super.onResume();
 		
 		JPushInterface.onResume(this);
+	}
+
+	@Override
+	public void goBack() {
+		
+	}
+
+	@Override
+	public void goForward() {
+		
 	}
 	
 }

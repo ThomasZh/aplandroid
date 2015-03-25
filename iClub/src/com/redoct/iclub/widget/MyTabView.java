@@ -143,7 +143,7 @@ public class MyTabView extends LinearLayout{
 	public void setUnreadMessageNum(int num){
 		if(num>0){
 			mUnreadMessageNumTv.setVisibility(View.VISIBLE);
-			mUnreadMessageNumTv.setText(num+"");
+			//mUnreadMessageNumTv.setText(num+"");
 		}else{
 			mUnreadMessageNumTv.setVisibility(View.GONE);
 		}

@@ -10,18 +10,21 @@ import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
+import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.fragment.ActivitiesFragment;
 import com.redoct.iclub.fragment.MessageFragment;
 import com.redoct.iclub.fragment.MyActivitiesFragment;
 import com.redoct.iclub.fragment.MySelfFragment;
+import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.task.MessageListTask;
+import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.widget.MyTabView;
 import com.redoct.iclub.widget.MyTabView.MyOnTabClickLister;
 
 public class MainActivity extends BaseActivity implements MyOnTabClickLister,TagAliasCallback{
 	
-	private MyTabView mTabView;
+	private static MyTabView mTabView;
 	
 	private MyActivitiesFragment mPlansFragment;
 	private ActivitiesFragment mActivitiesFragment;
@@ -50,58 +53,61 @@ public class MainActivity extends BaseActivity implements MyOnTabClickLister,Tag
         mTabView.setOnTabClickListener(this);
         mTabView.setCurItem(0);
         
-        mMessageListTask=new MessageListTask(){
+        getBadgeNumber();
+        
+        fetchAccountInfo();
+    }
+    
+    private GetAccountTask mGetAccountTask;
+    
+    private void fetchAccountInfo() {
+		if (!AppConfig.isLoggedIn())
+			return;
 
-			@Override
-			public void before() {
-				// TODO Auto-generated method stub
-				super.before();
-			}
-
+		mGetAccountTask= new GetAccountTask() {
+			
 			@Override
 			public void callback() {
-				// TODO Auto-generated method stub
-				super.callback();
 				
-				Log.e("zyf", "message list size: "+mMessageListTask.getMessageList().size());
+				Log.e("zyf", "get account call back......");
 				
-				if(mMessageListTask.getMessageList().size()>0){
-					
-					mTabView.setUnreadMessageNum(mMessageListTask.getMessageList().size());
+				AccountDetailInfo act = mGetAccountTask.getAccount();
+				
+				if (act != null) {
+                    Log.e("zyf","get accout success......");
+					new UserInformationLocalManagerUtil(getApplicationContext()).WriteUserInformation(act);
 				}
 			}
 
 			@Override
 			public void failure() {
-				// TODO Auto-generated method stub
-				super.failure();
+				Log.e("zyf","get accout  failure.....");
+
 			}
 
 			@Override
 			public void complete() {
-				// TODO Auto-generated method stub
-				super.complete();
+				mGetAccountTask = null;
 			}
 
 			@Override
-			public void timeout() {
-				// TODO Auto-generated method stub
-				super.timeout();
+			public void pullback() {
+				mGetAccountTask = null;
 			}
-			
+
+			@Override
+			public void before() {
+			}
 		};
-		mMessageListTask.setTimeOutEnabled(true, 10*1000);
-		mMessageListTask.safeExecute();
-    }
-    
-    
+		mGetAccountTask.safeExecute();
+	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		
-		mTabView.setUnreadMessageNum(AppConfig.badgeNumber);
+		mTabView.setUnreadMessageNum(iClubApplication.badgeNumber);
 	}
 
 	@Override
@@ -141,7 +147,7 @@ public class MainActivity extends BaseActivity implements MyOnTabClickLister,Tag
 			if(mMessageFragment==null){
 				mMessageFragment=new MessageFragment(){
 
-					@Override
+					/*@Override
 					public void updateUnreadMessageNum() {
 						// TODO Auto-generated method stub
 						super.updateUnreadMessageNum();
@@ -149,7 +155,7 @@ public class MainActivity extends BaseActivity implements MyOnTabClickLister,Tag
 						Log.e("zyf", "make unread message num gone......");
 						
 						//mTabView.setUnreadMessageNumGone();
-					}
+					}*/
 				};
 				
 				transaction.add(R.id.contentLayout, mMessageFragment);  
@@ -223,6 +229,11 @@ public class MainActivity extends BaseActivity implements MyOnTabClickLister,Tag
             Log.e("jpush", "register jpush id: "+accoutId);
             JPushInterface.setAlias(this, accoutId,this);
         }
+	}
+	
+	public static void handleUnReadMessage(int num){
+		
+		mTabView.setUnreadMessageNum(num);
 	}
     
 }

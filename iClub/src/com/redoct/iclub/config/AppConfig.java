@@ -34,7 +34,5 @@ public class AppConfig {
 
         return (account == null)?false:true;
     }
-    
-    public static int badgeNumber;
 
 }

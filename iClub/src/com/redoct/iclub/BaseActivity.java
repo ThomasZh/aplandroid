@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.config.AppConfig;
+import com.redoct.iclub.task.BadgeNumberQueryTask;
 import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.task.ServerConfigTask;
 import com.redoct.iclub.task.UserLoginTask;
@@ -150,49 +151,64 @@ public class BaseActivity extends FragmentActivity{
     }
     
     private void autoLogin(){
-		String pass = PersistentUtil.getInstance().readString(this,"passWord", "");
-		String name = PersistentUtil.getInstance().readString(this,"loginName", "");
+		/*String pass = PersistentUtil.getInstance().readString(this,"passWord", "");
+		String name = PersistentUtil.getInstance().readString(this,"loginName", "");*/
 		
-		UserLoginTask login = new UserLoginTask(name,pass) {
+		String name = iClubApplication.userName;
+		String pass = iClubApplication.psw;
+		
+		if(name!=null&&name.length()>0&&pass!=null&&pass.length()>0){
+		
+			UserLoginTask login = new UserLoginTask(name,pass) {
+				
+				public void callback() {
+					
+					Log.e("app", "auto login call back......");
+					
+					getBadgeNumber();
+					
+					fetchAccountInfo();
+					
+					mLoginProgressDialogUtils.dismissDialog();
+					MyToast.makeText(BaseActivity.this, true, R.string.load_success, MyToast.LENGTH_LONG).show();
+				}
+	
+				public void failure() {
+					
+					Log.e("app", "auto login failed......");
+					
+					mLoginProgressDialogUtils.dismissDialog();
+					MyToast.makeText(BaseActivity.this, true, R.string.load_failed, MyToast.LENGTH_LONG).show();
+				}
+	
+				public void before() {
+					
+					Log.e("app", "start auto login......");
+				}
+	
+				@Override
+				public void timeout() {
+	
+					Log.e("app", "auto login time out.......");
+	
+					this.cancel(true);
+					
+					mLoginProgressDialogUtils.dismissDialog();
+					MyToast.makeText(BaseActivity.this, true, R.string.load_failed, MyToast.LENGTH_LONG).show();
+				}
+	
+			};
+	
+			login.setTimeOutEnabled(true, 10*1000);
+			login.safeExecute();
 			
-			public void callback() {
-				
-				Log.e("app", "auto login call back......");
-				
-				fetchAccountInfo();
-				
-				mLoginProgressDialogUtils.dismissDialog();
-				MyToast.makeText(BaseActivity.this, true, R.string.load_success, MyToast.LENGTH_LONG).show();
-			}
-
-			public void failure() {
-				
-				Log.e("zyf", "auto login failed......");
-				
-				mLoginProgressDialogUtils.dismissDialog();
-				MyToast.makeText(BaseActivity.this, true, R.string.load_failed, MyToast.LENGTH_LONG).show();
-			}
-
-			public void before() {
-				
-				Log.e("zyf", "start auto login......");
-			}
-
-			@Override
-			public void timeout() {
-
-				Log.e("zyf", "auto login time out.......");
-
-				this.cancel(true);
-				
-				mLoginProgressDialogUtils.dismissDialog();
-				MyToast.makeText(BaseActivity.this, true, R.string.load_failed, MyToast.LENGTH_LONG).show();
-			}
-
-		};
-
-		login.setTimeOutEnabled(true, 10*1000);
-		login.safeExecute();
+		}else {
+			
+			Log.e("app", "用户尚未登录......");
+			
+			mLoginProgressDialogUtils.dismissDialog();
+			MyToast.makeText(BaseActivity.this, true, R.string.load_success, MyToast.LENGTH_LONG).show();
+		}
 	}
 	
 	private GetAccountTask getTask;
@@ -237,5 +253,20 @@ public class BaseActivity extends FragmentActivity{
 			}
 		};
 		getTask.safeExecute();
+	}
+	
+	public void getBadgeNumber(){
+		
+		BadgeNumberQueryTask mBadgeNumberQueryTask=new BadgeNumberQueryTask(){
+
+			@Override
+			public void callback() {
+				super.callback();
+				
+				MainActivity.handleUnReadMessage(iClubApplication.badgeNumber);
+			}
+			
+		};
+		mBadgeNumberQueryTask.safeExecute();
 	}
 }
