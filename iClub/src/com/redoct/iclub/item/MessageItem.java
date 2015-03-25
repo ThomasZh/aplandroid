@@ -24,7 +24,14 @@ public class MessageItem implements Serializable{
 	private int timestamp;
 	private String toUserSemiId;
 	private int isAccept;   //是否接受请求  0:已接受  1：未接受
+	private Boolean isSend;
 	
+	public Boolean getIsSend() {
+		return isSend;
+	}
+	public void setIsSend(Boolean isSend) {
+		this.isSend = isSend;
+	}
 	//记录所有的聊天会话
 	private String chatId;
 	private String lastContent;

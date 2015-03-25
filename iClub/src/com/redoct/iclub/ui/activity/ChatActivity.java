@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,23 +18,27 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import cn.jpush.android.data.l;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMessageAdapter;
+import com.redoct.iclub.adapter.MembersListAdapter;
 import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatMessageSendTask;
+import com.redoct.iclub.util.ToastUtil;
 
 public class ChatActivity extends Activity implements OnClickListener {
 
 	private ActivityDetailsItem mActivityDetailsItem;
 	private ArrayList<MemberItem> mMemberItems;
-
+	BroadcastReceiver mReceiver = null;
 	private Handler mHandler;
 
 	private final int cycleTime = 2 * 1000;
@@ -47,7 +53,6 @@ public class ChatActivity extends Activity implements OnClickListener {
 			Log.e("zyf", "get message from server......");
 		}
 	};
-
 
 	private EditText mContentEt;
 
@@ -101,11 +106,27 @@ public class ChatActivity extends Activity implements OnClickListener {
 		rightBtn.setText(getResources().getString(R.string.members));
 		rightBtn.setVisibility(View.VISIBLE);
 		rightBtn.setOnClickListener(this);
+
+		IntentFilter mFilter = new IntentFilter(); // 代码注册广播
+		mFilter.addAction("com.cc.msg");
+		
+
+		mReceiver = new BroadcastReceiver() {
+
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				
+			 	MessageItem item = (MessageItem) intent.getSerializableExtra("msgItem");
+				mMessageItems.add(item);
+				mChatMessageAdapter.notifyDataSetChanged();
+				
+			}
+		};
+	    registerReceiver(mReceiver, mFilter);
+
 	}
 
 	private void initViews() {
-
-		
 
 		mContentEt = (EditText) findViewById(R.id.mContentEt);
 
@@ -168,6 +189,54 @@ public class ChatActivity extends Activity implements OnClickListener {
 						UUID.randomUUID().toString(), toId, mContentEt
 								.getText().toString(),
 						mActivityDetailsItem.getId(), channelType) {
+					@Override
+					public void timeout() {
+						// TODO Auto-generated method stub
+						super.timeout();
+
+						Log.e("zyf", "get data time out....");
+					}
+
+					@Override
+					public void before() {
+						// TODO Auto-generated method stub
+						super.before();
+
+						Log.e("zyf", "start get data....");
+					}
+
+					@Override
+					public void callback() {
+						// TODO Auto-generated method stub
+						super.callback();
+						MessageItem item = new MessageItem();
+						item.setLastContent(mContentEt.getText().toString());
+						item.setIsSend(true);
+						mMessageItems.add(item);
+						mChatMessageAdapter.notifyDataSetChanged();
+						mContentEt.setText("");
+
+					}
+
+					@Override
+					public void failure() {
+						// TODO Auto-generated method stub
+						super.failure();
+
+						// loadData();
+						Log.e("zyf", "get data failure....");
+
+					}
+
+					@Override
+					public void complete() {
+						// TODO Auto-generated method stub
+						super.complete();
+
+						Log.e("zyf", "get data complete....");
+
+						// mPullToRefreshListView.onRefreshComplete();
+					}
 
 				};
 				mChatMessageSendTask.setTimeOutEnabled(true, 10 * 1000);
