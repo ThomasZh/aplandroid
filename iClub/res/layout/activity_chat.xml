@@ -2,51 +2,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="#ebebeb">
-    
+    android:background="#ebebeb"
+    android:orientation="vertical" >
+
     <LinearLayout
-        android:id="@+id/mTopContainer" 
+        android:id="@+id/mTopContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true">
-        <include layout="@layout/activity_title"/>
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
+
+        <include layout="@layout/activity_title" />
     </LinearLayout>
-    
+
     <RelativeLayout
         android:id="@+id/mBottomContainer"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true">
-        <Button
-            android:id="@+id/mSendBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="send"
-            android:layout_alignParentRight="true"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+       
+
         <EditText
             android:id="@+id/mContentEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:background="@drawable/bg_radio_color_red"
             android:hint="input your content"
-            android:layout_toLeftOf="@id/mSendBtn"/>
+            android:imeActionLabel="发送"
+            android:imeOptions="actionSend"
+             android:inputType="textPostalAddress"
+            android:padding="8dp" />
     </RelativeLayout>
-    
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/mContentListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/mBottomContainer"
+        android:layout_below="@id/mTopContainer"
         android:divider="@null"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:smoothScrollbar="true"
-        ptr:ptrAnimationStyle="flip"
         android:visibility="visible"
-        android:layout_above="@id/mBottomContainer"
-        android:layout_below="@id/mTopContainer"/>
+        ptr:ptrAnimationStyle="flip" />
 
 </RelativeLayout>
