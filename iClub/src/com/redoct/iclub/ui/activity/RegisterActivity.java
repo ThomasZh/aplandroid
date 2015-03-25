@@ -114,8 +114,11 @@ public class RegisterActivity extends BaseActivity implements ReturnBitmap {
 						"loginName", firstName);
 				PersistentUtil.getInstance().write(RegisterActivity.this,
 						"passWord", md5pwd);
+				
+				iClubApplication.userName=firstName;
+				iClubApplication.psw=md5pwd;
 
-				fetchAccountInfo();
+				//fetchAccountInfo();
 
 			}
 

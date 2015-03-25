@@ -154,7 +154,7 @@ public class MessageBaseAdapter extends BaseAdapter {
         		holder.mUnReadNumTv.setVisibility(View.GONE);
         	}else {
         		holder.mUnReadNumTv.setVisibility(View.VISIBLE);
-        		holder.mUnReadNumTv.setText(item.getUnReadNum()+"");
+        		//holder.mUnReadNumTv.setText(item.getUnReadNum()+"");
 			}
         	
         	holder.mContainer.setOnClickListener(new OnClickListener() {

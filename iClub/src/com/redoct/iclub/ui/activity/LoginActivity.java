@@ -14,6 +14,7 @@ import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.MainActivity;
 import com.redoct.iclub.R;
+import com.redoct.iclub.iClubApplication;
 import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.task.UserLoginTask;
@@ -134,7 +135,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		}
 		UserLoginTask login = new UserLoginTask(name, pwd) {
 			public void callback() {
-				Log.i("zyf", "成功》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》");
+				
 				BaseActivityUtil.startActivity(LoginActivity.this,
 						MainActivity.class, true);
 				if (isCheck) {
@@ -144,8 +145,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 				}
 				PersistentUtil.getInstance().write(LoginActivity.this,
 						"loginName", name);
+				
+				iClubApplication.userName=name;
+				iClubApplication.psw=pwd;
 
-				fetchAccountInfo();
+				//fetchAccountInfo();
 			}
 
 			public void failure() {
