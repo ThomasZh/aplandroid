@@ -1,6 +1,5 @@
 package com.redoct.iclub.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -15,14 +14,13 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
-import com.oct.ga.comm.domain.club.ClubMasterInfo;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.MainActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.iClubApplication;
 import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.task.RegisterTask;
-import com.redoct.iclub.task.UpdateClubTask;
 import com.redoct.iclub.ui.activity.SelectPictureDialogAcitvity.ReturnBitmap;
 import com.redoct.iclub.util.EncryptUtil;
 import com.redoct.iclub.util.PersistentUtil;
@@ -30,7 +28,7 @@ import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 
-public class RegisterActivity extends Activity implements ReturnBitmap {
+public class RegisterActivity extends BaseActivity implements ReturnBitmap {
 	private ImageLoader mImageLoader;
 	private DisplayImageOptions options;
 	private String avatarImgPath;

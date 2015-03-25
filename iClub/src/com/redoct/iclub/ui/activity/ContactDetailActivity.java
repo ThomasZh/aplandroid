@@ -1,15 +1,7 @@
 package com.redoct.iclub.ui.activity;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.redoct.iclub.R;
-import com.redoct.iclub.util.activity.BaseActivityUtil;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,7 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ContactDetailActivity extends Activity {
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+
+public class ContactDetailActivity extends BaseActivity {
 	private Button tvTitleLeftBtn;
 	private TextView tvTitle, tvName, tvEmail;
 	private EditText etPhone;

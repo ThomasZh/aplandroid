@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.oct.ga.comm.LogErrorMessage;
 import com.oct.ga.comm.domain.club.ActivityCreateInfo;
 import com.oct.ga.comm.domain.club.ActivityDetailInfo;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.ContactItem;
@@ -39,7 +40,7 @@ import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.widget.DateTimeSelectorDialog;
 import com.redoct.iclub.widget.MyToast;
 
-public class ActivityCreateActivity extends Activity implements OnClickListener{
+public class ActivityCreateActivity extends BaseActivity implements OnClickListener{
 	
 	private RelativeLayout mLocationContainer,mStartDateTimeConatiner,mMembersContainer;
 	

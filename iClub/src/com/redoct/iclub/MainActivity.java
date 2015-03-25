@@ -19,7 +19,7 @@ import com.redoct.iclub.task.MessageListTask;
 import com.redoct.iclub.widget.MyTabView;
 import com.redoct.iclub.widget.MyTabView.MyOnTabClickLister;
 
-public class MainActivity extends FragmentActivity implements MyOnTabClickLister{
+public class MainActivity extends BaseActivity implements MyOnTabClickLister,TagAliasCallback{
 	
 	private MyTabView mTabView;
 	
@@ -43,30 +43,7 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
         String accoutId=AppConfig.account.getAccountId().replace("-", "");
         
         Log.e("jpush", "register jpush id: "+accoutId);
-        JPushInterface.setAlias(this, accoutId, new TagAliasCallback() {
-			
-			@Override
-			public void gotResult(int code, String alias, Set<String> tags) {
-				
-	            switch (code) {
-	            case 0:
-	            	
-	                Log.e("jpush", "Set tag and alias success......");
-	                
-	                break;
-	                
-	            case 6002:
-	            	
-	                Log.e("jpush", "Failed to set alias and tags due to timeout. Try again after 60s......");
-	             
-	                break;
-	            
-	            default:
-
-	                Log.e("jpush", "Failed with errorCode = " + code);
-	            }
-			}
-		});
+        JPushInterface.setAlias(this, accoutId,this);
 
         mTabView=(MyTabView)findViewById(R.id.mTabView);
         mTabView.setDatas(mTabviewNormalIcons, mTabviewSelectedIcons);
@@ -116,6 +93,16 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
 		mMessageListTask.setTimeOutEnabled(true, 10*1000);
 		mMessageListTask.safeExecute();
     }
+    
+    
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		mTabView.setUnreadMessageNum(AppConfig.badgeNumber);
+	}
 
 	@Override
 	public void OnTabClick(int choice) {
@@ -161,7 +148,7 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
 						
 						Log.e("zyf", "make unread message num gone......");
 						
-						mTabView.setUnreadMessageNumGone();
+						//mTabView.setUnreadMessageNumGone();
 					}
 				};
 				
@@ -203,6 +190,39 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
 		if(mMySelfFragment!=null){
 			transaction.hide(mMySelfFragment);
 		}
+	}
+
+	@Override
+	public void gotResult(int code, String alias, Set<String> tags) {
+		
+		boolean setSuccess=false;
+		
+        switch (code) {
+        case 0:
+        	
+            Log.e("jpush", "Set tag and alias success......");
+            
+            setSuccess=true;
+            
+            break;
+            
+        case 6002:
+        	
+            Log.e("jpush", "Failed to set alias and tags due to timeout. Try again after 60s......");
+         
+            break;
+        
+        default:
+
+            Log.e("jpush", "Failed with errorCode = " + code);
+        }
+        
+        if(!setSuccess){
+        	
+        	String accoutId=AppConfig.account.getAccountId().replace("-", "");
+            Log.e("jpush", "register jpush id: "+accoutId);
+            JPushInterface.setAlias(this, accoutId,this);
+        }
 	}
     
 }

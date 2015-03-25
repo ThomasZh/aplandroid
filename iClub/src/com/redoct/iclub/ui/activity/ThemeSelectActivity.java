@@ -1,6 +1,5 @@
 package com.redoct.iclub.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,11 +18,12 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ThemeSelectBaseAdapter;
 import com.redoct.iclub.util.Constant;
 
-public class ThemeSelectActivity extends Activity implements OnClickListener{
+public class ThemeSelectActivity extends BaseActivity implements OnClickListener{
 	
 	private RelativeLayout mTitleContainer;
 	

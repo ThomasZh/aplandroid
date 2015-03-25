@@ -96,9 +96,9 @@ public class MessageFragment extends Fragment{
 			@Override
 			public void accept(String id,int position) {
 				
-				short feedbackState=GlobalArgs.INVITE_STATE_ACCPET;
-				
 				Log.e("zyf", "accept pos: "+position);
+				
+				short feedbackState=GlobalArgs.INVITE_STATE_ACCPET;
 				
 				final int pos=position;
 				
@@ -160,6 +160,13 @@ public class MessageFragment extends Fragment{
 				mInviteFeedbackTask.setTimeOutEnabled(true, 10*1000);
 				mInviteFeedbackTask.safeExecute();
 			}
+
+			@Override
+			public void gotoChat(int position) {
+				
+				Log.e("zyf", "go to chat pos: "+position);
+			}
+			
 		};
 		mPullToRefreshListView.setAdapter(mBaseAdapter);
 		mPullToRefreshListView.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener<ListView>() {
@@ -367,7 +374,24 @@ public class MessageFragment extends Fragment{
 		@Override
 		public void run() {
 			
-			MessageCommitTask messageCommitTask=new MessageCommitTask(inviteIds, inviteFeedbackIds);
+			MessageCommitTask messageCommitTask=new MessageCommitTask(inviteIds, inviteFeedbackIds){
+
+				@Override
+				public void callback() {
+					Log.e("zyf", "invite message commit success......");
+					
+					if(AppConfig.badgeNumber>0){
+						
+						if(inviteIds!=null){
+							AppConfig.badgeNumber-=inviteIds.length;
+						}
+						
+						if(inviteFeedbackIds!=null){
+							AppConfig.badgeNumber-=inviteFeedbackIds.length;
+						}
+					}
+				}
+			};
 			messageCommitTask.setTimeOutEnabled(true, 10*1000);
 			messageCommitTask.safeExecute();
 		}

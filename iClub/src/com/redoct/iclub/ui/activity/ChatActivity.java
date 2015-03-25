@@ -3,7 +3,6 @@ package com.redoct.iclub.ui.activity;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +20,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.GlobalArgs;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMessageAdapter;
 import com.redoct.iclub.item.ActivityDetailsItem;
@@ -28,7 +28,7 @@ import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatMessageSendTask;
 
-public class ChatActivity extends Activity implements OnClickListener {
+public class ChatActivity extends BaseActivity implements OnClickListener {
 
 	private ActivityDetailsItem mActivityDetailsItem;
 	private ArrayList<MemberItem> mMemberItems;

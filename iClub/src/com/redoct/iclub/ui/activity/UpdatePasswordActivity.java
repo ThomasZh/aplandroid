@@ -1,19 +1,5 @@
 package com.redoct.iclub.ui.activity;
 
-import com.redoct.iclub.MainActivity;
-import com.redoct.iclub.R;
-import com.redoct.iclub.task.ChangePasswordTask;
-import com.redoct.iclub.task.UserLoginTask;
-import com.redoct.iclub.util.EncryptUtil;
-import com.redoct.iclub.util.PersistentUtil;
-import com.redoct.iclub.util.ToastUtil;
-import com.redoct.iclub.util.activity.BaseActivityUtil;
-import com.redoct.iclub.widget.DeleteEditText;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,7 +8,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class UpdatePasswordActivity extends Activity{
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.task.ChangePasswordTask;
+import com.redoct.iclub.util.EncryptUtil;
+import com.redoct.iclub.util.PersistentUtil;
+import com.redoct.iclub.util.ToastUtil;
+import com.redoct.iclub.widget.DeleteEditText;
+
+public class UpdatePasswordActivity extends BaseActivity{
 	private TextView tvCenterTitle;
 	private DeleteEditText etOldPassword,etNewPassword,etSecondNewPassword;
 	private String oldPassword,secondNewPassword,newPassword,mail;

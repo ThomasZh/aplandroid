@@ -4,12 +4,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.oct.ga.comm.domain.account.AccountMasterInfo;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MemberSortAdapter;
 import com.redoct.iclub.item.ContactItem;
 import com.redoct.iclub.task.ClubSubscribersAddTask;
-import com.redoct.iclub.task.ClubSubscribersRemoveTask;
 import com.redoct.iclub.task.GetContactTask;
 import com.redoct.iclub.task.ModifyAcitivityMembersTask;
 import com.redoct.iclub.util.CharacterParser;
@@ -23,21 +34,7 @@ import com.redoct.iclub.widget.MyToast;
 import com.redoct.iclub.widget.SideBar;
 import com.redoct.iclub.widget.SideBar.OnTouchingLetterChangedListener;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-public class ChooseMemberActivity extends Activity {
+public class ChooseMemberActivity extends BaseActivity {
 	private ListView sortListView;
 	private SideBar sideBar;
 	private TextView dialog;

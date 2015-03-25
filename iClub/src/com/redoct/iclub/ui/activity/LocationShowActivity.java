@@ -1,47 +1,27 @@
 package com.redoct.iclub.ui.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.app.Activity;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.Interpolator;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.amap.api.maps.AMap;
-import com.amap.api.maps.AMap.InfoWindowAdapter;
-import com.amap.api.maps.AMap.OnInfoWindowClickListener;
 import com.amap.api.maps.AMap.OnMapLoadedListener;
-import com.amap.api.maps.AMap.OnMarkerClickListener;
-import com.amap.api.maps.AMap.OnMarkerDragListener;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.Projection;
-import com.amap.api.maps.model.BitmapDescriptor;
 import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.LatLngBounds;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 
 /**
  * AMapV2地图中简单介绍一些Marker的用法.
  */
-public class LocationShowActivity extends Activity implements
+public class LocationShowActivity extends BaseActivity implements
 		OnMapLoadedListener,OnClickListener{
 	private AMap aMap;
 	private MapView mapView;

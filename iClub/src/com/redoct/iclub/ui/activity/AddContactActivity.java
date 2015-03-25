@@ -5,14 +5,6 @@ package com.redoct.iclub.ui.activity;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.oct.ga.comm.domain.account.AccountDetailInfo;
-import com.redoct.iclub.R;
-import com.redoct.iclub.item.ContactItem;
-import com.redoct.iclub.task.FoundFriendsTask;
-import com.redoct.iclub.util.ToastUtil;
-import com.redoct.iclub.util.activity.BaseActivityUtil;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,7 +14,14 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-public class AddContactActivity extends Activity{
+import com.oct.ga.comm.domain.account.AccountDetailInfo;
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.task.FoundFriendsTask;
+import com.redoct.iclub.util.ToastUtil;
+import com.redoct.iclub.util.activity.BaseActivityUtil;
+
+public class AddContactActivity extends BaseActivity{
 	ImageView ivLeftBtn ;
 	private FoundFriendsTask task;
 	private EditText etMail;

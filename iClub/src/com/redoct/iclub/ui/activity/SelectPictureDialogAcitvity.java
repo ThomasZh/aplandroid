@@ -3,11 +3,6 @@ package com.redoct.iclub.ui.activity;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import com.redoct.iclub.R;
-import com.redoct.iclub.iClubApplication;
-import com.redoct.iclub.config.AppConfig;
-import com.redoct.iclub.util.activity.BaseActivityUtil;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,11 +16,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.iClubApplication;
+import com.redoct.iclub.util.activity.BaseActivityUtil;
+
 /**
  * @author chengcai
  * @date 2015-01-31
  */
-public class SelectPictureDialogAcitvity extends Activity {
+public class SelectPictureDialogAcitvity extends BaseActivity {
 	private Bitmap mBitmap;  //裁剪后的bitmap
 	private TextView tv_quit, tv_photo, tv_camera;
 	public static final int OPTION_CANCEL = 0; // 用户选择了“取消”按钮

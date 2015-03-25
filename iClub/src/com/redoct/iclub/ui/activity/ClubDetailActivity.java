@@ -3,22 +3,19 @@ package com.redoct.iclub.ui.activity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.task.GetClubDetailTask;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
@@ -27,7 +24,7 @@ import com.redoct.iclub.util.activity.BaseActivityUtil;
  * @author created by chengcai 15-02-05
  *
  */
-public class ClubDetailActivity extends Activity {
+public class ClubDetailActivity extends BaseActivity {
 
 	private ImageLoader mImageLoader;
 	private DisplayImageOptions options;
