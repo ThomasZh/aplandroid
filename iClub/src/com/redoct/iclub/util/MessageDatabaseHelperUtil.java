@@ -89,6 +89,38 @@ public class MessageDatabaseHelperUtil {
 		}
 	}
 	
+	public int getUnReadNumWithChatId(String accoutId,String chatId){
+		
+		SQLiteDatabase db=mDatabaseHelper.getWritableDatabase();
+		Cursor cursor = db.query(TABLE_NAME_MESSAGE, null, "accoutId=? and chatId=?", new String[]{accoutId,chatId}, null, null, null);
+		
+		if(cursor==null){
+			
+			db.close();
+			return 0;
+		}
+		
+		if(cursor.getCount()>0)
+    	{
+			while(cursor.moveToNext())
+        	{
+				Log.e("zyf","get unread num: "+cursor.getInt(cursor.getColumnIndex("unReadNum")));
+				
+				return cursor.getInt(cursor.getColumnIndex("unReadNum"));
+        	}
+    		
+    	}else{
+    		Log.e("zyf","no un read num info ...");
+    		
+    		return -1;   //没有该项
+    	}
+     
+		cursor.close();
+		db.close();
+		
+		return 0;
+	}
+	
 	public ArrayList<MessageItem> getMessages(String accoutId){
 		
 		ArrayList<MessageItem> messageItems=new ArrayList<MessageItem>();

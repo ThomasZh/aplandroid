@@ -73,6 +73,8 @@ public class ChatRoomListTask extends TemplateTask {
 				messageItem.setLastContent(list.get(i).getContent());
 				messageItem.setTimestamp(list.get(i).getTimestamp());
 				messageItem.setUserAvatarUrl(list.get(i).getFromAccountAvatarUrl());
+				messageItem.setChannelId(list.get(i).getChannelId());
+				messageItem.setChannelType(list.get(i).getChannelType());
 				messageItem.setUnReadNum(list2.get(i).getBadgeNum());
 				
 				messageItems.add(messageItem);

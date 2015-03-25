@@ -1,11 +1,16 @@
 package com.redoct.iclub.receiver;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.JsonObject;
+import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.item.MessageItem;
+import com.redoct.iclub.util.Constant;
+import com.redoct.iclub.util.MessageDatabaseHelperUtil;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -21,9 +26,14 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class JpushReceiver extends BroadcastReceiver {
 	private static final String TAG = "JPush";
+	
+	private MessageDatabaseHelperUtil mMessageDatabaseHelperUtil;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		
+		mMessageDatabaseHelperUtil=new MessageDatabaseHelperUtil(context);
+		
 		Bundle bundle = intent.getExtras();
 		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction()
 				+ ", extras: " + printBundle(bundle));
@@ -100,11 +110,33 @@ public class JpushReceiver extends BroadcastReceiver {
 		bundle.getString(JPushInterface.EXTRA_TITLE);
 		String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 		try {
+			
+			Log.e("zyf", "message: "+message);
+			
 			JSONObject json = new JSONObject(message);
 			MessageItem item = new MessageItem();
+			item.setAccoutId(AppConfig.account.getAccountId());
+			item.setMessageType(Constant.MESSAGE_TYPE_CHAT);
+			item.setChatId(json.optString("chatId"));
+			item.setTimestamp(json.optInt("timestamp"));
+			item.setUserName(json.optString("channelName"));
 			item.setLastContent(json.optString("content"));
-			item.setUserAvatarUrl("attachUrl");
+			item.setUserAvatarUrl(json.optString("fromAccountAvatarUrl"));
+			item.setChannelId(json.optString("channelId"));
+			item.setChannelType(json.optInt("channelType"));
 			item.setIsSend(false);
+			
+			int originalUnReadNum=mMessageDatabaseHelperUtil.getUnReadNumWithChatId(AppConfig.account.getAccountId(), item.getChatId());
+			if(originalUnReadNum==-1){   //尚无该条记录
+				Log.e("zyf", "收到推送消息,数据库中之前无该会话记录.......");
+				item.setUnReadNum(1);
+				mMessageDatabaseHelperUtil.addNewMessage(item);
+			}else{
+				Log.e("zyf", "收到推送消息,数据库中之前保存有该会话记录.......originalUnReadNum: "+originalUnReadNum);
+				item.setUnReadNum(originalUnReadNum+1);
+				mMessageDatabaseHelperUtil.updateChatMessage(item);
+			}
+			
 			Intent in = new Intent("com.cc.msg");
 			in.putExtra("msgItem", item);
 			context.sendBroadcast(in);
