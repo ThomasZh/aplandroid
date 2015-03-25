@@ -1,23 +1,26 @@
 package com.redoct.iclub.receiver;
 
-import java.util.ArrayList;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.gson.JsonObject;
-import com.redoct.iclub.config.AppConfig;
-import com.redoct.iclub.item.MemberItem;
-import com.redoct.iclub.item.MessageItem;
-import com.redoct.iclub.util.Constant;
-import com.redoct.iclub.util.MessageDatabaseHelperUtil;
-
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
+
+import com.redoct.iclub.MainActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.iClubApplication;
+import com.redoct.iclub.config.AppConfig;
+import com.redoct.iclub.item.MessageItem;
+import com.redoct.iclub.util.Constant;
+import com.redoct.iclub.util.MessageDatabaseHelperUtil;
 
 /**
  * 自定义接收器
@@ -29,11 +32,19 @@ public class JpushReceiver extends BroadcastReceiver {
 	
 	private MessageDatabaseHelperUtil mMessageDatabaseHelperUtil;
 
+	/** Notification构造器 */
+	NotificationCompat.Builder mBuilder;
+	/** Notification管理 */
+	public NotificationManager mNotificationManager;
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		
 		mMessageDatabaseHelperUtil=new MessageDatabaseHelperUtil(context);
 		
+		mNotificationManager = (NotificationManager) context
+				.getSystemService("notification");
+
 		Bundle bundle = intent.getExtras();
 		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction()
 				+ ", extras: " + printBundle(bundle));
@@ -124,6 +135,8 @@ public class JpushReceiver extends BroadcastReceiver {
 			item.setUserAvatarUrl(json.optString("fromAccountAvatarUrl"));
 			item.setChannelId(json.optString("channelId"));
 			item.setChannelType(json.optInt("channelType"));
+			item.setUserName(json.optString("channelName"));
+			item.setUserAvatarUrl("attachUrl");
 			item.setIsSend(false);
 			
 			int originalUnReadNum=mMessageDatabaseHelperUtil.getUnReadNumWithChatId(AppConfig.account.getAccountId(), item.getChatId());
@@ -140,10 +153,44 @@ public class JpushReceiver extends BroadcastReceiver {
 			Intent in = new Intent("com.cc.msg");
 			in.putExtra("msgItem", item);
 			context.sendBroadcast(in);
+			if (!iClubApplication.isAlive) {
+				initNotify(json.optString("content"),
+						json.optString("channelName"), context);
+			}
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
+
+	private void initNotify(String content, String title, Context context) {
+		mBuilder = new NotificationCompat.Builder(context);
+		mBuilder.setContentTitle(title)
+				.setContentText(content)
+				.setContentIntent(
+						getDefalutIntent(Notification.FLAG_AUTO_CANCEL, context))
+				// .setNumber(number)//显示数量
+				.setTicker("iclub 消息！")// 通知首次出现在通知栏，带上升动画效果的
+				.setWhen(System.currentTimeMillis())// 通知产生的时间，会在通知信息里显示
+				.setPriority(Notification.PRIORITY_DEFAULT)// 设置该通知优先级
+				.setAutoCancel(true)// 设置这个标志当用户单击面板就可以让通知将自动取消
+				.setOngoing(false)// ture，设置他为一个正在进行的通知。他们通常是用来表示一个后台任务,用户积极参与(如播放音乐)或以某种方式正在等待,因此占用设备(如一个文件下载,同步操作,主动网络连接)
+				.setDefaults(Notification.DEFAULT_VIBRATE)// 向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
+				// Notification.DEFAULT_ALL Notification.DEFAULT_SOUND 添加声音 //
+				// requires VIBRATE permission
+				.setSmallIcon(R.drawable.ic_launcher);
+		mNotificationManager.notify(100, mBuilder.build());
+	}
+
+	public PendingIntent getDefalutIntent(int flags, Context context) {
+		Intent in = new Intent();
+		in.setClass(context, MainActivity.class);
+		in.putExtra("isFromNotification", true);
+		PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, in,
+				flags);
+		return pendingIntent;
+	}
+
 }
