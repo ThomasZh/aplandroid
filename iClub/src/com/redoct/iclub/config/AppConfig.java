@@ -1,5 +1,6 @@
 package com.redoct.iclub.config;
 
+import com.oct.ga.comm.domain.BadgeNumberJsonBean;
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.param.AccountParams;
 
@@ -27,16 +28,13 @@ public class AppConfig {
      * logged on user, initialized in UserLoginTask;
      */
     public static AccountParams account;
-     public static AccountDetailInfo act; 
-
-
+    public static AccountDetailInfo act; 
 
     public static boolean isLoggedIn() {
-//        TODO, used in production environment
-//        SharedPreferences sp = mContext.getSharedPreferences("SP", Activity.MODE_PRIVATE);
-//        LOGGED_ON = sp.getBoolean("LOGGED_ON", false);
 
         return (account == null)?false:true;
     }
+    
+    public static int badgeNumber;
 
 }

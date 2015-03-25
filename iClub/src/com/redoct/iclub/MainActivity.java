@@ -40,8 +40,10 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String accoutId=AppConfig.account.getAccountId().replace("-", "");
         
-        JPushInterface.setAlias(this, AppConfig.account.getAccountId(), new TagAliasCallback() {
+        Log.e("jpush", "register jpush id: "+accoutId);
+        JPushInterface.setAlias(this, accoutId, new TagAliasCallback() {
 			
 			@Override
 			public void gotResult(int code, String alias, Set<String> tags) {
