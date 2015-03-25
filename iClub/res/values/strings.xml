@@ -132,10 +132,7 @@
     
     <string name="contacts">好友</string>
     <string name="members">成员</string>
-
- 
-
     <string name="select_member">选择成员</string>
-
+    <string name="muti_chat">群聊</string>
 
 </resources>

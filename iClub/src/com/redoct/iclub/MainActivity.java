@@ -10,6 +10,7 @@ import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
+import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.fragment.ActivitiesFragment;
 import com.redoct.iclub.fragment.MessageFragment;
 import com.redoct.iclub.fragment.MyActivitiesFragment;
@@ -40,7 +41,7 @@ public class MainActivity extends FragmentActivity implements MyOnTabClickLister
         setContentView(R.layout.activity_main);
 
         
-        JPushInterface.setAlias(this, "zyf", new TagAliasCallback() {
+        JPushInterface.setAlias(this, AppConfig.account.getAccountId(), new TagAliasCallback() {
 			
 			@Override
 			public void gotResult(int code, String alias, Set<String> tags) {

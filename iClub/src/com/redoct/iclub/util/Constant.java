@@ -1,5 +1,7 @@
 package com.redoct.iclub.util;
 
+import android.R.integer;
+
 public final class Constant
 {
     private Constant()
@@ -24,4 +26,9 @@ public final class Constant
     public static int RESULT_CODE_ACTIVITY_INVITE=3;
     public static int RESULT_CODE_ACTIVITY_READ=4;
     public static int RESULT_CODE_MEMBER_SELECT=5;
+    
+    public static int MESSAGE_TYPE_INVITE=0;
+    public static int MESSAGE_TYPE_CHAT=1;
+    public static int INVITE_NOT_ACCEPT=2;
+    public static int INVITE_ACCEPTTED=3;
 }

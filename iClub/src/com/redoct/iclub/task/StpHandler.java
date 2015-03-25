@@ -67,7 +67,7 @@ public class StpHandler extends IoHandlerAdapter {
 	@Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		
-		Log.e("zyf","handler message received......");
+		//Log.e("zyf","handler message received......");
 
 		if (message == null) return;
 		
@@ -80,7 +80,7 @@ public class StpHandler extends IoHandlerAdapter {
 
         if (tlv.getTag() == expectTag){//if the package is wanted of request, then decode it!
         	
-            Log.e("zyf","start decode tlv: "+tlv.getTag());
+            //Log.e("zyf","start decode tlv: "+tlv.getTag());
             response = (RespCommand) CommandParser.decode(tlv);//save the decode message to response
 
             responses.add(response);//save the response;
@@ -92,7 +92,7 @@ public class StpHandler extends IoHandlerAdapter {
 
         // decode all the message to response command
 		if (response == null) {
-			Log.e("zyf","current pkg decode has no implementation in StpCommandParser.decode()!");
+			//Log.e("zyf","current pkg decode has no implementation in StpCommandParser.decode()!");
             //FIXME,暂时不关闭会话否则不能进行后续操作
             //lwz7512@2014/10/27
 //			session.close(true);

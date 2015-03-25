@@ -133,7 +133,7 @@ public class ChatActivity extends Activity implements OnClickListener{
 			Short channelType;
 			String toId;
 			if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){   //单聊
-				channelType=GlobalArgs.CHANNEL_TYPE_PERSONAL;
+				channelType=GlobalArgs.CHANNEL_TYPE_CREATE_QUESTION;
 				toId=EcryptUtil.md5ChatId(mMemberItems.get(0).getUserId(), mMemberItems.get(1).getUserId());
 			}else{
 				channelType=GlobalArgs.CHANNEL_TYPE_TASK;

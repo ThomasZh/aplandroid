@@ -19,12 +19,15 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MessageBaseAdapter;
+import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatRoomListTask;
 import com.redoct.iclub.task.InviteFeedbackTask;
 import com.redoct.iclub.task.MessageCommitTask;
 import com.redoct.iclub.task.MessageListTask;
+import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.FileUtils;
+import com.redoct.iclub.util.MessageDatabaseHelperUtil;
 import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.widget.MyToast;
@@ -46,6 +49,8 @@ public class MessageFragment extends Fragment{
 	private MyProgressDialogUtils mProgressDialogUtils;
 	
 	private int lastTryTime=0;
+	
+	MessageDatabaseHelperUtil mDatabaseHelperUtil;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,11 +58,22 @@ public class MessageFragment extends Fragment{
 		
 		View contentView=inflater.inflate(R.layout.fragment_message, container, false);
 		
-		//messageItems=FileUtils.readMessageHistory();
+		mDatabaseHelperUtil=new MessageDatabaseHelperUtil(getActivity());
+		
+		messageItems=mDatabaseHelperUtil.getMessages(AppConfig.account.getAccountId());
+		
+		Log.e("zyf", "db saved message size: "+messageItems.size());
 		
 		initViews(contentView);
 		
-		Log.e("zyf:", "account id: "+new UserInformationLocalManagerUtil(getActivity()).ReadUserInformation().getId());
+		//Log.e("zyf:", "account id: "+new UserInformationLocalManagerUtil(getActivity()).ReadUserInformation().getId());
+		
+		lastTryTime=mDatabaseHelperUtil.getLastTryTime(AppConfig.account.getAccountId());
+		if(lastTryTime==-1){
+			lastTryTime=0;
+			
+			mDatabaseHelperUtil.addChatLastTryTime(AppConfig.account.getAccountId(), 0);
+		}
 		
 		load();
 		
@@ -104,9 +120,9 @@ public class MessageFragment extends Fragment{
 						
 						//接受好友成功，更新界面
 						MessageItem item=messageItems.get(pos);
-						item.setAccept(true);
+						item.setIsAccept(Constant.INVITE_ACCEPTTED);   //0:已接受
 						
-						FileUtils.updateMessageHistory(messageItems);
+						mDatabaseHelperUtil.updateChatMessage(item);
 						
 						notifyDataSetChanged();
 						
@@ -185,15 +201,16 @@ public class MessageFragment extends Fragment{
 	
 	private void load(){
 		
-		/*mMessageListTask=new MessageListTask(){
+		//获取邀请信息
+		mMessageListTask=new MessageListTask(){
 
 			@Override
 			public void before() {
 				// TODO Auto-generated method stub
 				super.before();
 				
-				mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_loading, getActivity());
-				mProgressDialogUtils.showDialog();
+				/*mProgressDialogUtils=new MyProgressDialogUtils(R.string.progress_dialog_loading, getActivity());
+				mProgressDialogUtils.showDialog();*/
 			}
 
 			@Override
@@ -207,6 +224,8 @@ public class MessageFragment extends Fragment{
 				
 				for(int i=0;i<mMessageListTask.getMessageList().size();i++){
 					messageItems.add(mMessageListTask.getMessageList().get(i));
+					
+					mDatabaseHelperUtil.addNewMessage(mMessageListTask.getMessageList().get(i));
 				}
 				
 				inviteIds=mMessageListTask.getInviteIds();
@@ -218,9 +237,9 @@ public class MessageFragment extends Fragment{
 				if(inviteFeedbackIds!=null)
 					Log.e("zyf", "call back inviteFeedbackIds length: "+inviteFeedbackIds.length);
 				
-				FileUtils.updateMessageHistory(messageItems);
+				//FileUtils.updateMessageHistory(messageItems);
 				
-				mPullToRefreshListView.onRefreshComplete();
+				//mPullToRefreshListView.onRefreshComplete();
 				mBaseAdapter.notifyDataSetChanged();
 				
 				updateUnreadMessageNum();
@@ -239,7 +258,7 @@ public class MessageFragment extends Fragment{
 				super.complete();
 				
 				mPullToRefreshListView.onRefreshComplete();
-				mProgressDialogUtils.dismissDialog();
+				//mProgressDialogUtils.dismissDialog();
 			}
 
 			@Override
@@ -248,15 +267,16 @@ public class MessageFragment extends Fragment{
 				super.timeout();
 				
 				mPullToRefreshListView.onRefreshComplete();
-				mProgressDialogUtils.dismissDialog();
+				//mProgressDialogUtils.dismissDialog();
 			}
 			
 		};
 		mMessageListTask.setTimeOutEnabled(true, 10*1000);
 		mMessageListTask.safeExecute();
+		mMessageListTask.then(messageCommitRunnable);
 		
-		mMessageListTask.then(messageCommitRunnable);*/
 		
+		//获取聊天信息
 		mChatRoomListTask=new ChatRoomListTask(lastTryTime){
 
 			@Override
@@ -274,12 +294,44 @@ public class MessageFragment extends Fragment{
 				
 				Log.e("zyf", "message list size: "+mChatRoomListTask.getMessageList().size());
 				
-				for(int i=0;i<mChatRoomListTask.getMessageList().size();i++){
-					messageItems.add(mChatRoomListTask.getMessageList().get(i));
+				ArrayList<MessageItem> tempMessageItems=mChatRoomListTask.getMessageList();
+				
+				for(int i=0;i<tempMessageItems.size();i++){
+					
+					boolean isFound=false;
+					
+					for(int j=0;j<messageItems.size();j++){
+						
+						if(tempMessageItems.get(i).getChatId().equals(messageItems.get(j).getChatId())){
+							
+							Log.e("zyf", "found found found....update...update...update...");
+							
+							//messageItems.add(j, tempMessageItems.get(i));
+							messageItems.set(j, tempMessageItems.get(i));
+							isFound=true;
+							
+							mDatabaseHelperUtil.updateChatMessage(messageItems.get(j));
+							
+							break;
+						}
+					}
+					
+					if(!isFound){   //插入操作
+						
+						Log.e("zyf", "no no no found....insert...insert...insert...");
+						
+						messageItems.add(tempMessageItems.get(i));
+						
+						mDatabaseHelperUtil.addNewMessage(tempMessageItems.get(i));
+					}
 				}
 				
 				mPullToRefreshListView.onRefreshComplete();
 				mBaseAdapter.notifyDataSetChanged();
+				
+				lastTryTime=mChatRoomListTask.getLastTryTime();
+				
+				mDatabaseHelperUtil.updateChatLastTryTime(AppConfig.account.getAccountId(),lastTryTime);
 			}
 
 			@Override

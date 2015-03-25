@@ -11,6 +11,7 @@ import com.redoct.iclub.adapter.ActivitiesBaseAdapter.ViewHolder;
 import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.ui.activity.ActivityDetailsActivity;
+import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.DateUtils;
 
 import android.content.Context;
@@ -93,6 +94,7 @@ public class MessageBaseAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.mNameTv = (TextView) convertView.findViewById(R.id.mNameTv);
             holder.mTimeTv= (TextView) convertView.findViewById(R.id.mTimeTv);
+            holder.mUnReadNumTv= (TextView) convertView.findViewById(R.id.mUnReadNumTv);
             holder.mAcceptBtn= (Button) convertView.findViewById(R.id.mAcceptBtn);
             holder.mInfoTv= (TextView) convertView.findViewById(R.id.mInfoTv);
             
@@ -103,37 +105,56 @@ public class MessageBaseAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         
-        if(!item.isFeedback()){ //别人对自己的邀请
+        if(item.getMessageType()==Constant.MESSAGE_TYPE_INVITE){    //邀请消息
         	
-        	holder.mAcceptBtn.setVisibility(View.VISIBLE);
+        	holder.mUnReadNumTv.setVisibility(View.GONE);
         	
-        	holder.mInfoTv.setText(item.getUserName()+"希望成为您的好友");
-        	
-        	if(!item.isAccept()){   //尚未同意请求
-        		
-        		holder.mAcceptBtn.setText("接受");
-        		holder.mAcceptBtn.setClickable(true);
-        		holder.mAcceptBtn.setOnClickListener(new OnClickListener() {
-        			
-        			@Override
-        			public void onClick(View v) {
-        				
-        				Log.e("zyf", "accept name: "+item.getUserName());
-        				accept(item.getInviteId(),pos);
-        			}
-        		});
-        	}else{
-        		
-        		holder.mAcceptBtn.setClickable(false);
-        		holder.mAcceptBtn.setText("已接受");
-        	}
-        	
-        }else{  //别人对自己邀请的回复
+        	if(item.getIsFeedback()==0){ //别人发给自己的邀请
+            	
+            	holder.mAcceptBtn.setVisibility(View.VISIBLE);
+            	
+            	holder.mInfoTv.setText(item.getUserName()+"希望成为您的好友");
+            	
+            	if(item.getIsAccept()==Constant.INVITE_NOT_ACCEPT){   //尚未同意请求
+            		
+            		holder.mAcceptBtn.setText("接受");
+            		holder.mAcceptBtn.setClickable(true);
+            		holder.mAcceptBtn.setOnClickListener(new OnClickListener() {
+            			
+            			@Override
+            			public void onClick(View v) {
+            				
+            				Log.e("zyf", "accept name: "+item.getUserName());
+            				accept(item.getInviteId(),pos);
+            			}
+            		});
+            	}else{
+            		
+            		holder.mAcceptBtn.setClickable(false);
+            		holder.mAcceptBtn.setText("已接受");
+            	}
+            	
+            }else{  //别人对自己邀请的回复
+            	
+            	holder.mAcceptBtn.setVisibility(View.GONE);
+            	
+            	holder.mInfoTv.setText(item.getUserName()+"接受了您的邀请");
+            }
+        }else if(item.getMessageType()==Constant.MESSAGE_TYPE_CHAT){
         	
         	holder.mAcceptBtn.setVisibility(View.GONE);
         	
-        	holder.mInfoTv.setText(item.getUserName()+"接受了您的邀请");
+        	holder.mInfoTv.setText(item.getLastContent());
+        	
+        	if(item.getUnReadNum()==0){
+        		
+        		holder.mUnReadNumTv.setVisibility(View.GONE);
+        	}else {
+        		holder.mUnReadNumTv.setVisibility(View.VISIBLE);
+        		holder.mUnReadNumTv.setText(item.getUnReadNum()+"");
+			}
         }
+        
         
         mImageLoader.displayImage(item.getUserAvatarUrl(), holder.mLeaderAvatarView, options);
         
@@ -152,10 +173,21 @@ public class MessageBaseAdapter extends BaseAdapter {
         TextView mTimeTv;
         TextView mNameTv;
         TextView mInfoTv;
+        TextView mUnReadNumTv;
         
         Button mAcceptBtn;
         
         ImageView mLeaderAvatarView;
     }
+	
+	@Override
+	public boolean areAllItemsEnabled() {
+		return false;
+	}
+	
+	@Override
+	public boolean isEnabled(int position) {
+		return false;
+	}
 
 }

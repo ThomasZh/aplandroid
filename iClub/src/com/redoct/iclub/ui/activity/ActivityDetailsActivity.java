@@ -359,6 +359,7 @@ public class ActivityDetailsActivity extends Activity implements
 				loadMoment();
 			}
 		});
+		
 	}
 
 	private void loadMoment() {
@@ -517,7 +518,13 @@ public class ActivityDetailsActivity extends Activity implements
 		}
 
 		mTotalContainer.setVisibility(View.VISIBLE);
-		// mMomentGridView.setMode(Mode.BOTH);
+		
+		if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){ //咨询
+			
+			mConsultBtn.setText(getString(R.string.consult));
+		}else{  //群聊
+			mConsultBtn.setText(getString(R.string.muti_chat));
+		}
 	}
 
 	@Override

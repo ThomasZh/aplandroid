@@ -119,7 +119,7 @@ public class StpClient
 	public RespCommand send(StpCommand request) throws InterruptedException, UnsupportedEncodingException
 	{
         if(running){
-        	Log.e("zyf","api return null 000000......");
+        	//Log.e("zyf","api return null 000000......");
             return null;
         }
 
@@ -140,7 +140,7 @@ public class StpClient
 			session.getConfig().setUseReadOperation(false);
             running = false;
             connected = false;
-            Log.e("zyf","api return null 111111......");
+            //Log.e("zyf","api return null 111111......");
 			return null;
 		}
 
@@ -158,7 +158,7 @@ public class StpClient
 			session.getConfig().setUseReadOperation(false);
             running = false;
             connected = false;
-            Log.e("zyf","api return null 222222......");
+            //Log.e("zyf","api return null 222222......");
 			return null;
 		}
 

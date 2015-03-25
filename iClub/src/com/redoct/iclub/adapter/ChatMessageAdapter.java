@@ -66,7 +66,7 @@ public class ChatMessageAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         
-        holder.mContentTv.setText(item.getContent());
+        holder.mContentTv.setText(item.getLastContent());
         
 		return convertView;
 	}

@@ -11,8 +11,11 @@ import com.oct.ga.comm.cmd.msg.QueryMessageBadgeNumberResp;
 import com.oct.ga.comm.domain.MessageBadgeNumberJsonBean;
 import com.oct.ga.comm.domain.msg.MessageInlinecast;
 import com.oct.ga.comm.domain.msg.MsgExtend;
+import com.oct.ga.comm.domain.msg.MsgLastCacheJsonBean;
 import com.redoct.iclub.iClubApplication;
+import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.item.MessageItem;
+import com.redoct.iclub.util.Constant;
 
 public class ChatRoomListTask extends TemplateTask {
 	
@@ -40,6 +43,8 @@ public class ChatRoomListTask extends TemplateTask {
 	@Override
 	protected boolean justTodo() {
 		
+		Log.e("zyf", "last try time: "+lastTryTime);
+		
 		QueryMessageBadgeNumberReq req=new QueryMessageBadgeNumberReq(DatetimeUtil.currentTimestamp(), lastTryTime);
 		
 		try {
@@ -56,11 +61,19 @@ public class ChatRoomListTask extends TemplateTask {
 			
 			MessageBadgeNumberJsonBean data=resp.getMessageBadge();
 			List<MsgExtend> list=data.getMessageList();
+			List<MsgLastCacheJsonBean> list2=data.getChatNumber();
 			MessageItem messageItem;
 			for(int i=0;i<list.size();i++){
 				
 				messageItem=new MessageItem();
-				messageItem.setUserName(list.get(i).getContent());
+				messageItem.setAccoutId(AppConfig.account.getAccountId());
+				messageItem.setMessageType(Constant.MESSAGE_TYPE_CHAT);
+				messageItem.setChatId(list.get(i).getChatId());
+				messageItem.setUserName(list.get(i).getChannelName());
+				messageItem.setLastContent(list.get(i).getContent());
+				messageItem.setTimestamp(list.get(i).getTimestamp());
+				messageItem.setUserAvatarUrl(list.get(i).getFromAccountAvatarUrl());
+				messageItem.setUnReadNum(list2.get(i).getBadgeNum());
 				
 				messageItems.add(messageItem);
 			}

@@ -2,33 +2,58 @@ package com.redoct.iclub.item;
 
 import java.io.Serializable;
 
+import android.R.integer;
+
 public class MessageItem implements Serializable{
 	
-	private boolean isFeedback;  //用于标识  别人发给自己的邀请  or 自己发出的邀请后别人的反馈
+	private int id;  //数据库中的id
+	private String accoutId;   //登陆的用户id，一个软件可能登陆过多个用户
+	
+	private int messageType;   //0:邀请信息   1：会话信息
+	
+	private int isFeedback;  //用于标识  0:别人发给自己的邀请   1:自己发出的邀请后别人的反馈
 	private String channelId;
 	private String channelName;
-	private short channelType;
+	private int channelType;
 	private int expiry;
 	private String userAvatarUrl;
 	private String userId;
 	private String userName;
 	private String inviteId;
-	private short inviteType;
+	private int inviteType;
 	private int timestamp;
 	private String toUserSemiId;
-	private boolean isAccept;   //是否接受请求
-	private String content;
+	private int isAccept;   //是否接受请求  0:已接受  1：未接受
 	
-	public String getContent() {
-		return content;
+	//记录所有的聊天会话
+	private String chatId;
+	private String lastContent;
+	private int unReadNum;
+	
+	
+	
+	public String getAccoutId() {
+		return accoutId;
 	}
-	public void setContent(String content) {
-		this.content = content;
+	public void setAccoutId(String accoutId) {
+		this.accoutId = accoutId;
 	}
-	public boolean isFeedback() {
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getLastContent() {
+		return lastContent;
+	}
+	public void setLastContent(String lastContent) {
+		this.lastContent = lastContent;
+	}
+	public int getIsFeedback() {
 		return isFeedback;
 	}
-	public void setFeedback(boolean isFeedback) {
+	public void setIsFeedback(int isFeedback) {
 		this.isFeedback = isFeedback;
 	}
 	public String getChannelId() {
@@ -43,10 +68,10 @@ public class MessageItem implements Serializable{
 	public void setChannelName(String channelName) {
 		this.channelName = channelName;
 	}
-	public short getChannelType() {
+	public int getChannelType() {
 		return channelType;
 	}
-	public void setChannelType(short channelType) {
+	public void setChannelType(int channelType) {
 		this.channelType = channelType;
 	}
 	public int getExpiry() {
@@ -79,10 +104,10 @@ public class MessageItem implements Serializable{
 	public void setInviteId(String inviteId) {
 		this.inviteId = inviteId;
 	}
-	public short getInviteType() {
+	public int getInviteType() {
 		return inviteType;
 	}
-	public void setInviteType(short inviteType) {
+	public void setInviteType(int inviteType) {
 		this.inviteType = inviteType;
 	}
 	public int getTimestamp() {
@@ -97,10 +122,28 @@ public class MessageItem implements Serializable{
 	public void setToUserSemiId(String toUserSemiId) {
 		this.toUserSemiId = toUserSemiId;
 	}
-	public boolean isAccept() {
+	public int getIsAccept() {
 		return isAccept;
 	}
-	public void setAccept(boolean isAccept) {
+	public void setIsAccept(int isAccept) {
 		this.isAccept = isAccept;
+	}
+	public int getMessageType() {
+		return messageType;
+	}
+	public void setMessageType(int messageType) {
+		this.messageType = messageType;
+	}
+	public String getChatId() {
+		return chatId;
+	}
+	public void setChatId(String chatId) {
+		this.chatId = chatId;
+	}
+	public int getUnReadNum() {
+		return unReadNum;
+	}
+	public void setUnReadNum(int unReadNum) {
+		this.unReadNum = unReadNum;
 	}
 }

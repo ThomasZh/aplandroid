@@ -11,7 +11,9 @@ import com.oct.ga.comm.cmd.invite.SyncInviteResp;
 import com.oct.ga.comm.domain.msg.GaInvite;
 import com.oct.ga.comm.domain.msg.GaInviteFeedback;
 import com.redoct.iclub.iClubApplication;
+import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.item.MessageItem;
+import com.redoct.iclub.util.Constant;
 
 public class MessageListTask extends TemplateTask {
 	
@@ -83,8 +85,11 @@ public class MessageListTask extends TemplateTask {
 					inviteIds[i]=gaInvite.getInviteId();
 					
 					messageItem=new MessageItem();
+					messageItem.setAccoutId(AppConfig.account.getAccountId());
+					messageItem.setMessageType(Constant.MESSAGE_TYPE_INVITE);
+					messageItem.setIsFeedback(0);//别人发给自己的邀请
+					messageItem.setIsAccept(Constant.INVITE_NOT_ACCEPT);
 					
-					messageItem.setFeedback(false);
 					messageItem.setChannelId(gaInvite.getChannelId());
 					messageItem.setChannelName(gaInvite.getChannelName());
 					messageItem.setChannelType(gaInvite.getChannelType());
@@ -120,8 +125,10 @@ public class MessageListTask extends TemplateTask {
 					inviteFeedbackIds[i]=gaInviteFeedback.getInviteId();
 					
 					messageItem=new MessageItem();
-					
-					messageItem.setFeedback(true);
+					messageItem.setAccoutId(AppConfig.account.getAccountId());
+					messageItem.setMessageType(Constant.MESSAGE_TYPE_INVITE);
+					messageItem.setIsFeedback(1);  //自己发给别人的邀请
+					messageItem.setIsAccept(Constant.INVITE_ACCEPTTED);
 					
 					messageItem.setChannelId(gaInviteFeedback.getFeedbackChannelId());
 					messageItem.setChannelName(gaInviteFeedback.getFeedbackChannelName());
