@@ -75,7 +75,7 @@ public class ChatRoomListTask extends TemplateTask {
 				messageItem.setUserAvatarUrl(list.get(i).getFromAccountAvatarUrl());
 				messageItem.setChannelId(list.get(i).getChannelId());
 				messageItem.setChannelType(list.get(i).getChannelType());
-				messageItem.setUnReadNum(list2.get(i).getBadgeNum());
+				messageItem.setUnReadNum(list2.get(i).getBadgeNum()); //
 				
 				messageItems.add(messageItem);
 			}
