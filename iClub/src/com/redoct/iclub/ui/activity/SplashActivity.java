@@ -14,6 +14,7 @@ import android.widget.TextView;
 import cn.jpush.android.api.JPushInterface;
 
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.MainActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.iClubApplication;
@@ -26,7 +27,7 @@ import com.redoct.iclub.task.UserLoginTask;
 import com.redoct.iclub.util.PersistentUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 
-public class SplashActivity extends Activity{
+public class SplashActivity extends BaseActivity{
 	
 	private TextView mShowInfoTv;
 	

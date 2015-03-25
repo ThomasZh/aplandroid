@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -25,6 +26,7 @@ import cn.jpush.android.data.l;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.GlobalArgs;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMessageAdapter;
 import com.redoct.iclub.adapter.MembersListAdapter;
@@ -34,7 +36,7 @@ import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatMessageSendTask;
 import com.redoct.iclub.util.ToastUtil;
 
-public class ChatActivity extends Activity implements OnClickListener {
+public class ChatActivity extends BaseActivity implements OnClickListener {
 
 	private ActivityDetailsItem mActivityDetailsItem;
 	private ArrayList<MemberItem> mMemberItems;
@@ -109,20 +111,20 @@ public class ChatActivity extends Activity implements OnClickListener {
 
 		IntentFilter mFilter = new IntentFilter(); // 代码注册广播
 		mFilter.addAction("com.cc.msg");
-		
 
 		mReceiver = new BroadcastReceiver() {
 
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				
-			 	MessageItem item = (MessageItem) intent.getSerializableExtra("msgItem");
+
+				MessageItem item = (MessageItem) intent
+						.getSerializableExtra("msgItem");
 				mMessageItems.add(item);
 				mChatMessageAdapter.notifyDataSetChanged();
-				
+
 			}
 		};
-	    registerReceiver(mReceiver, mFilter);
+		registerReceiver(mReceiver, mFilter);
 
 	}
 

@@ -2,7 +2,6 @@ package com.redoct.iclub.ui.activity;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,11 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMemberAdapter;
 import com.redoct.iclub.item.MemberItem;
 
-public class ChatMembersActivity extends Activity {
+public class ChatMembersActivity extends BaseActivity {
 	
 	private ArrayList<MemberItem> mMemberItems;
 	

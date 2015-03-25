@@ -2,21 +2,6 @@ package com.redoct.iclub.ui.activity;
 
 import java.util.ArrayList;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.redoct.iclub.R;
-import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
-import com.redoct.iclub.adapter.ClubActivitiesBaseAdapter;
-import com.redoct.iclub.item.ActivityItem;
-import com.redoct.iclub.task.GetActivitiesInClubTask;
-import com.redoct.iclub.task.ActivityListTask;
-import com.redoct.iclub.util.Constant;
-import com.redoct.iclub.util.MyProgressDialogUtils;
-import com.redoct.iclub.widget.MyToast;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +10,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ClubActivityListActivity extends Activity implements OnClickListener{
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.adapter.ClubActivitiesBaseAdapter;
+import com.redoct.iclub.item.ActivityItem;
+import com.redoct.iclub.task.GetActivitiesInClubTask;
+import com.redoct.iclub.util.Constant;
+import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
+
+public class ClubActivityListActivity extends BaseActivity implements OnClickListener{
 	
 	private PullToRefreshListView mPullToRefreshListView;
 	

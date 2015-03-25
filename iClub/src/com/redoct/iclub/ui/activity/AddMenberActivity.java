@@ -3,9 +3,6 @@ package com.redoct.iclub.ui.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.w3c.dom.Text;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.oct.ga.comm.domain.account.AccountMasterInfo;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.MembersListAdapter;
 import com.redoct.iclub.task.ClubQuerySubcribersTask;
@@ -23,7 +21,7 @@ import com.redoct.iclub.task.ClubSubscribersRemoveTask;
 import com.redoct.iclub.util.PersistentUtil;
 import com.redoct.iclub.util.ToastUtil;
 
-public class AddMenberActivity extends Activity {
+public class AddMenberActivity extends BaseActivity {
 	private ListView lvMembersList;
 	private MembersListAdapter adapter;
 	private List<AccountMasterInfo> list, temp_list;

@@ -27,6 +27,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MessageBaseAdapter extends BaseAdapter {
@@ -99,6 +100,8 @@ public class MessageBaseAdapter extends BaseAdapter {
             holder.mInfoTv= (TextView) convertView.findViewById(R.id.mInfoTv);
             
             holder.mLeaderAvatarView= (ImageView) convertView.findViewById(R.id.mLeaderAvatarView);
+            
+            holder.mContainer=(RelativeLayout) convertView.findViewById(R.id.mContainer);
 
             convertView.setTag(holder);
         } else {
@@ -153,6 +156,15 @@ public class MessageBaseAdapter extends BaseAdapter {
         		holder.mUnReadNumTv.setVisibility(View.VISIBLE);
         		holder.mUnReadNumTv.setText(item.getUnReadNum()+"");
 			}
+        	
+        	holder.mContainer.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					
+					gotoChat(pos);
+				}
+			});
         }
         
         
@@ -168,6 +180,10 @@ public class MessageBaseAdapter extends BaseAdapter {
 		
 	}
 	
+	public void gotoChat(int position){
+		
+	}
+	
 	class ViewHolder {
 		
         TextView mTimeTv;
@@ -178,6 +194,8 @@ public class MessageBaseAdapter extends BaseAdapter {
         Button mAcceptBtn;
         
         ImageView mLeaderAvatarView;
+        
+        RelativeLayout mContainer;
     }
 	
 	@Override

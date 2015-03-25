@@ -3,7 +3,6 @@ package com.redoct.iclub.ui.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,19 +15,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
-import com.redoct.iclub.adapter.ActivitiesBaseAdapter;
 import com.redoct.iclub.adapter.ClubListAdapter;
-import com.redoct.iclub.item.ActivityItem;
 import com.redoct.iclub.item.ClubItem;
 import com.redoct.iclub.task.GetClubListTask;
 import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 
-public class ClubListActivity extends Activity {
+public class ClubListActivity extends BaseActivity {
 
 	private ListView lvClubList;
 

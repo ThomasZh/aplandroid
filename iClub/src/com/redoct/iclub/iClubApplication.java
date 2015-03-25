@@ -39,6 +39,9 @@ import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 
 public class iClubApplication extends Application implements
 		Thread.UncaughtExceptionHandler {
+	
+	public static boolean isAlive=true;
+	
 	private GetAccountTask getTask;
 	private static Activity activity; // ������ƽӿڻص�
 

@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.iClubApplication;
 import com.redoct.iclub.config.AppConfig;
@@ -26,7 +27,7 @@ import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.CircleBitmapDisplayer;
 
-public class AccountActivity extends Activity implements ReturnBitmap {
+public class AccountActivity extends BaseActivity implements ReturnBitmap {
 
 	private GetAccountTask getTask;
 	private UpdateAccountTask postTask;

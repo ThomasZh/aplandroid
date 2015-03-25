@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,10 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.framework.Platform.ShareParams;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
@@ -37,6 +35,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.oct.ga.comm.GlobalArgs;
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ActivityDetailsGalleryAdapter;
 import com.redoct.iclub.adapter.MomentAdapter;
@@ -46,7 +45,6 @@ import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.task.ActivityCancelTask;
 import com.redoct.iclub.task.ActivityDetailsTask;
 import com.redoct.iclub.task.ActivityJoinTask;
-import com.redoct.iclub.task.GetContactTask;
 import com.redoct.iclub.task.GetMomentTask;
 import com.redoct.iclub.task.Invite2Task;
 import com.redoct.iclub.task.MembersListTask;
@@ -59,7 +57,7 @@ import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.widget.MyGridView;
 import com.redoct.iclub.widget.MyToast;
 
-public class ActivityDetailsActivity extends Activity implements
+public class ActivityDetailsActivity extends BaseActivity implements
 		OnClickListener {
 
 	private ActivityDetailsTask mMeetupDetailsTask;

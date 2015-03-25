@@ -1,21 +1,8 @@
 package com.redoct.iclub.ui.activity;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.oct.ga.comm.domain.account.AccountDetailInfo;
-import com.redoct.iclub.R;
-import com.redoct.iclub.task.FoundFriendsTask;
-import com.redoct.iclub.task.InviteTask;
-import com.redoct.iclub.util.ToastUtil;
-import com.redoct.iclub.util.activity.BaseActivityUtil;
-
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,12 +11,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.task.InviteTask;
+import com.redoct.iclub.util.ToastUtil;
+
 /**
  * @author Administrator
  *163  //系统外
  *147 系统内的
  */
-public class ContactQueryResultActivity extends Activity {
+public class ContactQueryResultActivity extends BaseActivity {
 	
 	private Button tvTitleLeftBtn;
 	private TextView tvTitle, tvName, tvEmail;

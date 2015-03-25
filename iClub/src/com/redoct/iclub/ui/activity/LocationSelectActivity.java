@@ -4,7 +4,6 @@ package com.redoct.iclub.ui.activity;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
-import com.amap.api.mapcore.util.v;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.AMap.OnMapLongClickListener;
 import com.amap.api.maps.CameraUpdateFactory;
@@ -32,14 +30,15 @@ import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.geocoder.GeocodeResult;
 import com.amap.api.services.geocoder.GeocodeSearch;
-import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener;
+import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.util.Constant;
 
 
-public class LocationSelectActivity extends Activity implements LocationSource,
+public class LocationSelectActivity extends BaseActivity implements LocationSource,
 		AMapLocationListener,OnGeocodeSearchListener,OnClickListener  {
 	private AMap aMap;
 	private MapView mapView;

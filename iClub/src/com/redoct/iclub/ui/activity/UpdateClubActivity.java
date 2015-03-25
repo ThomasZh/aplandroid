@@ -1,16 +1,5 @@
 package com.redoct.iclub.ui.activity;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.oct.ga.comm.domain.club.ClubMasterInfo;
-import com.redoct.iclub.R;
-import com.redoct.iclub.iClubApplication;
-import com.redoct.iclub.task.UpdateClubTask;
-import com.redoct.iclub.ui.activity.SelectPictureDialogAcitvity.ReturnBitmap;
-import com.redoct.iclub.util.ToastUtil;
-import com.redoct.iclub.util.activity.BaseActivityUtil;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -21,7 +10,18 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class UpdateClubActivity extends Activity implements ReturnBitmap {
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.oct.ga.comm.domain.club.ClubMasterInfo;
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.iClubApplication;
+import com.redoct.iclub.task.UpdateClubTask;
+import com.redoct.iclub.ui.activity.SelectPictureDialogAcitvity.ReturnBitmap;
+import com.redoct.iclub.util.ToastUtil;
+import com.redoct.iclub.util.activity.BaseActivityUtil;
+
+public class UpdateClubActivity extends BaseActivity implements ReturnBitmap {
 	private EditText et_clubname;
 	private EditText et_clubdesc;
 	private ImageView iv_clubimg;

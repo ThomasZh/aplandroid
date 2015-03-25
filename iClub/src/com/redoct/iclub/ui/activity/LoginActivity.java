@@ -1,6 +1,17 @@
 package com.redoct.iclub.ui.activity;
 
+import android.app.Dialog;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
+
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
+import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.MainActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.config.AppConfig;
@@ -13,22 +24,7 @@ import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 import com.redoct.iclub.util.activity.BaseActivityUtil;
 import com.redoct.iclub.widget.DeleteEditText;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.TextView;
-import android.widget.Toast;
-
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends BaseActivity implements OnClickListener {
 	private TextView tvForgetPWD;
 
 	private Button btnRegister;

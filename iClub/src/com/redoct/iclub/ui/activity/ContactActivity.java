@@ -9,26 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.framework.Platform.ShareParams;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
-
-import com.redoct.iclub.R;
-import com.redoct.iclub.adapter.SortAdapter;
-import com.redoct.iclub.item.ContactItem;
-import com.redoct.iclub.task.GetContactTask;
-import com.redoct.iclub.task.Invite2Task;
-import com.redoct.iclub.util.CharacterParser;
-import com.redoct.iclub.util.PinyinComparator;
-import com.redoct.iclub.util.ToastUtil;
-import com.redoct.iclub.util.activity.BaseActivityUtil;
-import com.redoct.iclub.widget.ClearEditText;
-import com.redoct.iclub.widget.SideBar;
-import com.redoct.iclub.widget.SideBar.OnTouchingLetterChangedListener;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -46,9 +26,27 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.Platform.ShareParams;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
-public class ContactActivity extends Activity {
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.adapter.SortAdapter;
+import com.redoct.iclub.item.ContactItem;
+import com.redoct.iclub.task.GetContactTask;
+import com.redoct.iclub.task.Invite2Task;
+import com.redoct.iclub.util.CharacterParser;
+import com.redoct.iclub.util.PinyinComparator;
+import com.redoct.iclub.util.ToastUtil;
+import com.redoct.iclub.util.activity.BaseActivityUtil;
+import com.redoct.iclub.widget.ClearEditText;
+import com.redoct.iclub.widget.SideBar;
+import com.redoct.iclub.widget.SideBar.OnTouchingLetterChangedListener;
+
+public class ContactActivity extends BaseActivity {
 	private ListView sortListView;
 	private SideBar sideBar;
 	private TextView dialog;

@@ -2,16 +2,7 @@ package com.redoct.iclub.ui.activity;
 
 import java.util.ArrayList;
 
-import com.redoct.iclub.R;
-import com.redoct.iclub.adapter.ActivityRecommendAdapter;
-import com.redoct.iclub.item.ContactItem;
-import com.redoct.iclub.task.ActivityRecommendTask;
-import com.redoct.iclub.util.MyProgressDialogUtils;
-import com.redoct.iclub.widget.MyToast;
-
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,7 +10,15 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ActivityRecommendActivity extends Activity implements OnClickListener{
+import com.redoct.iclub.BaseActivity;
+import com.redoct.iclub.R;
+import com.redoct.iclub.adapter.ActivityRecommendAdapter;
+import com.redoct.iclub.item.ContactItem;
+import com.redoct.iclub.task.ActivityRecommendTask;
+import com.redoct.iclub.util.MyProgressDialogUtils;
+import com.redoct.iclub.widget.MyToast;
+
+public class ActivityRecommendActivity extends BaseActivity implements OnClickListener{
 	
 	private EditText mEditText;
 	

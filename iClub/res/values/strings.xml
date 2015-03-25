@@ -114,7 +114,7 @@
     <string name="progress_dialog_activity_members_modify">正在修改活动成员...</string>
     
     <string name="load_success">加载成功.</string>
-    <string name="load_failed">加载失败.</string>
+    <string name="load_failed">加载失败,请检查手机的网络状况.</string>
     <string name="activity_cancel_success">活动取消成功.</string>
     <string name="activity_cancel_failed">活动取消失败.</string>
     <string name="activity_add_success">活动加入成功.</string>
