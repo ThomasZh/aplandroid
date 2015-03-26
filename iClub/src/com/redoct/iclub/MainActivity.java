@@ -230,18 +230,14 @@ public class MainActivity extends BaseActivity implements MyOnTabClickLister,Tag
             JPushInterface.setAlias(this, accoutId,this);
         }
 	}
-<<<<<<< HEAD
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		iClubApplication.isAlive = false;
-=======
+
+	
+		
+
 	
 	public static void handleUnReadMessage(int num){
 		
 		mTabView.setUnreadMessageNum(num);
->>>>>>> c313c0118c4a6c9c09af8267574cd4cba5a04974
+
 	}
-    
 }
