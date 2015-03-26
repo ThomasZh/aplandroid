@@ -3,6 +3,10 @@ package com.redoct.iclub.fragment;
 import java.util.ArrayList;
 
 import android.R.integer;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -80,7 +84,11 @@ public class MessageFragment extends Fragment{
 			mDatabaseHelperUtil.addChatLastTryTime(AppConfig.account.getAccountId(), 0);
 		}
 		
-		load();
+		//load();
+		
+		IntentFilter mFilter = new IntentFilter(); // 代码注册广播
+		mFilter.addAction("com.cc.msg");
+		getActivity().registerReceiver(mReceiver, mFilter);
 		
 		return contentView;
 	}
@@ -178,6 +186,13 @@ public class MessageFragment extends Fragment{
 			public void gotoChat(int position) {
 				
 				Log.e("zyf", "go to chat pos: "+position);
+				
+				Intent intent=new Intent();
+				intent.putExtra("channelType", messageItems.get(position).getChannelType());
+				intent.putExtra("channelId", messageItems.get(position).getChannelId());
+			    intent.putExtra("toId", messageItems.get(position).getChatId());
+				
+				getActivity().startActivity(intent);
 			}
 			
 		};
@@ -203,6 +218,12 @@ public class MessageFragment extends Fragment{
 			case 1:
 				
 				mPullToRefreshListView.onRefreshComplete();
+				
+				messageItems=mDatabaseHelperUtil.getMessages(AppConfig.account.getAccountId());
+				
+				Log.e("zyf", "message UI is coming,update it...messageItems size: "+messageItems.size());
+				
+				//mBaseAdapter.notifyDataSetChanged();
 				
 				if(mBaseAdapter!=null){
 					mBaseAdapter.notifyDataSetChanged();
@@ -413,4 +434,54 @@ public class MessageFragment extends Fragment{
 			messageCommitTask.safeExecute();
 		}
 	};
+	
+	BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			Log.e("zyf", "message fragment receive a msg from jpush......");
+			
+			messageItems.clear();
+			
+			ArrayList<MessageItem> tempMessageItems=new MessageDatabaseHelperUtil(getActivity()).getMessages(AppConfig.account.getAccountId());
+			for(int i=0;i<tempMessageItems.size();i++){
+				
+				Log.e("zyf", "message last content: "+tempMessageItems.get(i).getLastContent());
+				
+				messageItems.add(tempMessageItems.get(i));
+			}
+			
+			mBaseAdapter.notifyDataSetChanged();
+
+		}
+	};
+
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		// TODO Auto-generated method stub
+		super.onHiddenChanged(hidden);
+		
+		if(!hidden){
+			
+			
+			
+			Log.e("zyf", "message UI is coming,update it...messageItems size: "+messageItems.size());
+			
+			messageItems.clear();
+			
+			ArrayList<MessageItem> tempMessageItems=new MessageDatabaseHelperUtil(getActivity()).getMessages(AppConfig.account.getAccountId());
+			for(int i=0;i<tempMessageItems.size();i++){
+				
+				Log.e("zyf", "message last content: "+tempMessageItems.get(i).getLastContent());
+				
+				messageItems.add(tempMessageItems.get(i));
+			}
+			
+			mBaseAdapter.notifyDataSetChanged();
+			
+		}else{
+			//getActivity().unregisterReceiver(mReceiver);
+		}
+	}
 }

@@ -231,8 +231,6 @@ public class MainActivity extends BaseActivity implements MyOnTabClickLister,Tag
         }
 	}
 
-	
-		
 
 	
 	public static void handleUnReadMessage(int num){
