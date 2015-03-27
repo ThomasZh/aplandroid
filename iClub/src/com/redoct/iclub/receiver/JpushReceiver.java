@@ -149,13 +149,14 @@ public class JpushReceiver extends BroadcastReceiver {
 				item.setUnReadNum(originalUnReadNum+1);
 				mMessageDatabaseHelperUtil.updateChatMessage(item);
 			}
+			iClubApplication.badgeNumber+=1;
 			
 			Intent in = new Intent("com.cc.msg");
 			in.putExtra("msgItem", item);
 			context.sendBroadcast(in);
 			if (!iClubApplication.isAlive) {
 				initNotify(json.optString("content"),
-						json.optString("channelName"), context);
+					json.optString("channelName"), context);
 			}
 
 		} catch (JSONException e) {

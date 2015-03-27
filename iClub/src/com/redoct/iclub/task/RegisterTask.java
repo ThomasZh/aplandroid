@@ -14,6 +14,7 @@ import com.redoct.iclub.iClubApplication;
 import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.config.NetworkConfig;
 import com.redoct.iclub.config.ServiceConfig;
+import com.redoct.iclub.param.AccountParams;
 import com.redoct.iclub.util.UploadUtil;
 
 import java.io.UnsupportedEncodingException;
@@ -89,7 +90,7 @@ public class RegisterTask extends TemplateTask {
 				RegisterLoginResp resp = (RegisterLoginResp) iClubApplication
 						.send(req);
 				if (resp == null)
-					return false;// log in failure!
+					return false;
 
 				int state = resp.getRespState();
 				// invalid account
@@ -98,6 +99,16 @@ public class RegisterTask extends TemplateTask {
 				if (state == ErrorCode.REGISTER_EMAIL_EXIST)
 					return false;
 				
+				String accountId = resp.getAccountId();
+	            String sessionId = resp.getSessionToken();
+	            Log.e("zyf", "register account_id: " + accountId);
+	            Log.e("zyf", "register session id: "+sessionId);
+
+	            AccountParams account = new AccountParams();
+	            account.setAccountId(accountId);
+	            account.setSessionId(sessionId);
+
+	            AppConfig.account = account;
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();

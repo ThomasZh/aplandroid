@@ -21,10 +21,12 @@ import java.util.ArrayList;
 public class MembersListTask extends TemplateTask {
 
     private String meetupId;
+    private Short channelType;
     private ArrayList<MemberItem> members;
 
-    public MembersListTask(String meetupId){
+    public MembersListTask(String meetupId,Short channelType){
         this.meetupId = meetupId;
+        this.channelType=channelType;
         members = new ArrayList<MemberItem>();
     }
 
@@ -41,7 +43,7 @@ public class MembersListTask extends TemplateTask {
 
         QueryMemberListReq req = new QueryMemberListReq();
         req.setSequence(DatetimeUtil.currentTimestamp());
-        req.setChannelType(GlobalArgs.CHANNEL_TYPE_ACTIVITY);
+        req.setChannelType(channelType);
         req.setChannelId(this.meetupId);
 
         try {

@@ -3,13 +3,14 @@ package com.redoct.iclub;
 
 import java.util.Set;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
+import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.fragment.ActivitiesFragment;
@@ -43,15 +44,25 @@ public class MainActivity extends BaseActivity implements MyOnTabClickLister,Tag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String accoutId=AppConfig.account.getAccountId().replace("-", "");
+        //String accoutId=AppConfig.account.getAccountId().replace("-", "");
         
-        Log.e("jpush", "register jpush id: "+accoutId);
-        JPushInterface.setAlias(this, accoutId,this);
+        //device id; accountId
+        String jpushRegisterId=EcryptUtil.md5ChatId(AppConfig.DEVICE_ID,AppConfig.account.getAccountId());
+        
+        Log.e("jpush", "jpush device id: "+AppConfig.DEVICE_ID);
+        Log.e("jpush", "register jpush id: "+jpushRegisterId);
+        JPushInterface.setAlias(this, jpushRegisterId,this);
 
         mTabView=(MyTabView)findViewById(R.id.mTabView);
         mTabView.setDatas(mTabviewNormalIcons, mTabviewSelectedIcons);
         mTabView.setOnTabClickListener(this);
-        mTabView.setCurItem(0);
+        
+        Intent receivedIntent=getIntent();
+        if(receivedIntent.getBooleanExtra("isFromNotification", false)){
+        	mTabView.setCurItem(2);
+        }else{
+        	mTabView.setCurItem(0);
+        }
         
         getBadgeNumber();
         

@@ -207,7 +207,7 @@ public class ActivityDetailsActivity extends BaseActivity implements
 		@Override
 		public void run() {
 
-			MembersListTask mMembersListTask = new MembersListTask(id) {
+			MembersListTask mMembersListTask = new MembersListTask(id,GlobalArgs.CHANNEL_TYPE_ACTIVITY) {
 				public void callback() {
 
 					mMemberItems = getMembers();

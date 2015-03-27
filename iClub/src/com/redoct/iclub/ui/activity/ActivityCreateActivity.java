@@ -75,7 +75,7 @@ public class ActivityCreateActivity extends BaseActivity implements OnClickListe
 	
 	private MyProgressDialogUtils mProgressDialogUtils;
 	
-	private ArrayList<ContactItem> selectedContactItems;
+	private ArrayList<ContactItem> selectedContactItems=new ArrayList<ContactItem>();
 	
 	private GetActivityInviteMembersTask getActivityInviteMembersTask;
 

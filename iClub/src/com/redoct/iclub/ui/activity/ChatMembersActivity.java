@@ -3,6 +3,7 @@ package com.redoct.iclub.ui.activity;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,13 +14,20 @@ import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMemberAdapter;
 import com.redoct.iclub.item.MemberItem;
+import com.redoct.iclub.task.MembersListTask;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 
 public class ChatMembersActivity extends BaseActivity {
 	
 	private ArrayList<MemberItem> mMemberItems;
 	
+	private String channelId;
+	private Short channelType;
+	
 	private PullToRefreshListView mContentListView;
 	private ChatMemberAdapter mChatMemberAdapter;
+	
+	private MembersListTask mMembersListTask;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +37,39 @@ public class ChatMembersActivity extends BaseActivity {
 		
 		initTitleViews();
 		
-		mMemberItems=(ArrayList<MemberItem>)getIntent().getSerializableExtra("Members");		
+		mMemberItems=(ArrayList<MemberItem>)getIntent().getSerializableExtra("Members");
+		channelId=getIntent().getStringExtra("channelId");
+		channelType=getIntent().getShortExtra("channelType",Short.parseShort("0"));
 		
 		mContentListView=(PullToRefreshListView)findViewById(R.id.mContentListView);
-		mContentListView.setMode(com.handmark.pulltorefresh.library.PullToRefreshBase.Mode.DISABLED);
-		mChatMemberAdapter=new ChatMemberAdapter(mMemberItems, this);
-		mContentListView.setAdapter(mChatMemberAdapter);
+		mContentListView.setMode(Mode.DISABLED);
+		
+		
+		if(mMemberItems!=null){
+			
+			Log.e("zyf", "get members directly.....");
+			
+			mChatMemberAdapter=new ChatMemberAdapter(mMemberItems, this);
+			mContentListView.setAdapter(mChatMemberAdapter);
+			
+		}else{
+			
+			Log.e("zyf", "get members from server.....");
+			
+			mMembersListTask=new MembersListTask(channelId,channelType){
+
+				@Override
+				public void callback() {
+					super.callback();
+					
+					mMemberItems=mMembersListTask.getMembers();
+					mChatMemberAdapter=new ChatMemberAdapter(mMemberItems, ChatMembersActivity.this);
+					mContentListView.setAdapter(mChatMemberAdapter);
+				}
+				
+			};
+			mMembersListTask.safeExecute();
+		}
 	}
 	
 	private void initTitleViews(){

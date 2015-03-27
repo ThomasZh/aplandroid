@@ -3,7 +3,6 @@ package com.redoct.iclub.ui.activity;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,9 +21,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
-import cn.jpush.android.data.l;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.EcryptUtil;
@@ -32,12 +29,10 @@ import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMessageAdapter;
-import com.redoct.iclub.adapter.MembersListAdapter;
 import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatMessageSendTask;
-import com.redoct.iclub.util.ToastUtil;
 
 public class ChatActivity extends BaseActivity implements OnClickListener {
 	public NotificationManager mNotificationManager;
@@ -66,6 +61,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
 	private PullToRefreshListView mContentListView;
 	private ChatMessageAdapter mChatMessageAdapter;
+	
+	private String channelId;
+	private Short channelType;
+	private String toId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,15 +83,34 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 				.getSerializableExtra("ActivityDetails");
 		mMemberItems = (ArrayList<MemberItem>) getIntent()
 				.getSerializableExtra("Members");
+		
+		channelId=getIntent().getStringExtra("channelId");
+		channelType=getIntent().getShortExtra("channelType", Short.parseShort("0"));
+		toId=getIntent().getStringExtra("toId");
+		
+		if(mActivityDetailsItem!=null){
 
-		Log.e("zyf", "memberlist size: " + mMemberItems.size());
-
-		if (mActivityDetailsItem.getMemberRank() == GlobalArgs.MEMBER_RANK_NONE) { // 单聊
-
-			Log.e("zyf", "single chat......");
-		} else {
-
-			Log.e("zyf", "muiti chat......");
+			Log.e("zyf", "memberlist size: " + mMemberItems.size());
+	
+			if (mActivityDetailsItem.getMemberRank() == GlobalArgs.MEMBER_RANK_NONE) { // 单聊
+	
+				Log.e("zyf", "single chat......");
+				
+				channelType = GlobalArgs.CHANNEL_TYPE_QUESTION;
+				/*toId = EcryptUtil.md5ChatId(
+						mMemberItems.get(0).getUserId(), 
+						mMemberItems.get(1).getUserId());*/
+				toId=mMemberItems.get(0).getUserId();
+			} else {
+	
+				Log.e("zyf", "muiti chat......");
+				
+				channelType = GlobalArgs.CHANNEL_TYPE_TASK;
+				toId = mActivityDetailsItem.getClubId();
+			}
+			
+			channelId=mActivityDetailsItem.getId();
+			
 		}
 
 		// mHandler.postDelayed(getMessageRunnable, cycleTime);
@@ -156,9 +174,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
 		case R.id.rightBtn:
 
-			Intent intent = new Intent(ChatActivity.this,
-					ChatMembersActivity.class);
-			intent.putExtra("Members", mMemberItems);
+			Intent intent = new Intent(ChatActivity.this,ChatMembersActivity.class);
+			if(mMemberItems!=null){
+				intent.putExtra("Members", mMemberItems);
+			}else{
+				intent.putExtra("channelId", channelId);
+				intent.putExtra("channelType", channelType);
+			}
 			startActivity(intent);
 
 			break;
@@ -181,9 +203,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 				}
 				Log.i("cc", "send succuful");
 
-				Short channelType;
-				String toId;
-				if (mActivityDetailsItem.getMemberRank() == GlobalArgs.MEMBER_RANK_NONE) { // 单聊
+				/*if (mActivityDetailsItem.getMemberRank() == GlobalArgs.MEMBER_RANK_NONE) { // 单聊
 					channelType = GlobalArgs.CHANNEL_TYPE_QUESTION;
 					toId = EcryptUtil.md5ChatId(
 							mMemberItems.get(0).getUserId(), mMemberItems
@@ -191,11 +211,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 				} else {
 					channelType = GlobalArgs.CHANNEL_TYPE_TASK;
 					toId = mActivityDetailsItem.getClubId();
-				}
+				}*/
 				ChatMessageSendTask mChatMessageSendTask = new ChatMessageSendTask(
-						UUID.randomUUID().toString(), toId, mContentEt
-								.getText().toString(),
-						mActivityDetailsItem.getId(), channelType) {
+						UUID.randomUUID().toString(), toId, 
+						mContentEt.getText().toString(),
+						channelId, channelType) {
 					@Override
 					public void timeout() {
 						// TODO Auto-generated method stub
