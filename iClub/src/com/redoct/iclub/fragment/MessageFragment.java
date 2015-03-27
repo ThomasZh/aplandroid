@@ -32,6 +32,7 @@ import com.redoct.iclub.task.ChatRoomListTask;
 import com.redoct.iclub.task.InviteFeedbackTask;
 import com.redoct.iclub.task.MessageCommitTask;
 import com.redoct.iclub.task.MessageListTask;
+import com.redoct.iclub.ui.activity.ChatActivity;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.FileUtils;
 import com.redoct.iclub.util.MessageDatabaseHelperUtil;
@@ -187,8 +188,12 @@ public class MessageFragment extends Fragment{
 				
 				Log.e("zyf", "go to chat pos: "+position);
 				
-				Intent intent=new Intent();
-				intent.putExtra("channelType", messageItems.get(position).getChannelType());
+				/*Log.e("zyf", "channelType: "+ messageItems.get(position).getChannelType());
+				Log.e("zyf", "channelId: "+messageItems.get(position).getChannelId());
+				Log.e("zyf", "toId: "+messageItems.get(position).getChatId());*/
+				
+				Intent intent=new Intent(getActivity(),ChatActivity.class);
+				intent.putExtra("channelType", GlobalArgs.CHANNEL_TYPE_QUESTION);
 				intent.putExtra("channelId", messageItems.get(position).getChannelId());
 			    intent.putExtra("toId", messageItems.get(position).getChatId());
 				
@@ -426,6 +431,10 @@ public class MessageFragment extends Fragment{
 						
 						if(inviteFeedbackIds!=null){
 							iClubApplication.badgeNumber-=inviteFeedbackIds.length;
+						}
+						
+						if(iClubApplication.badgeNumber<0){
+							iClubApplication.badgeNumber=0;
 						}
 					}
 				}

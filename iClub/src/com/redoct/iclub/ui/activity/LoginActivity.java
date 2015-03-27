@@ -236,4 +236,18 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		Log.d("sima", "get account...");
 	}
 
+	@Override
+	public void goBack() {
+		// TODO Auto-generated method stub
+		//super.goBack();
+	}
+
+	@Override
+	public void goForward() {
+		// TODO Auto-generated method stub
+		//super.goForward();
+	}
+	
+	
+
 }
