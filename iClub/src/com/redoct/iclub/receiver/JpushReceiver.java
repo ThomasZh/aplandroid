@@ -29,7 +29,7 @@ import com.redoct.iclub.util.MessageDatabaseHelperUtil;
  */
 public class JpushReceiver extends BroadcastReceiver {
 	private static final String TAG = "JPush";
-	
+
 	private MessageDatabaseHelperUtil mMessageDatabaseHelperUtil;
 
 	/** Notification构造器 */
@@ -39,9 +39,9 @@ public class JpushReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		
-		mMessageDatabaseHelperUtil=new MessageDatabaseHelperUtil(context);
-		
+
+		mMessageDatabaseHelperUtil = new MessageDatabaseHelperUtil(context);
+
 		mNotificationManager = (NotificationManager) context
 				.getSystemService("notification");
 
@@ -121,47 +121,47 @@ public class JpushReceiver extends BroadcastReceiver {
 		bundle.getString(JPushInterface.EXTRA_TITLE);
 		String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
 		try {
-			
-			Log.e("zyf", "message: "+message);
-			
+
+			Log.e("zyf", "message: " + message);
 			JSONObject json = new JSONObject(message);
 			MessageItem item = new MessageItem();
+
+			item.setLastContent(json.optString("content"));
+			item.setFromName(json.optString("fromAccountName"));
+			item.setUserAvatarUrl(json.optString("fromAccountAvatarUrl"));
 			item.setAccoutId(AppConfig.account.getAccountId());
-			item.setMessageType(Constant.MESSAGE_TYPE_CHAT);
+		    new MessageDatabaseHelperUtil(context).addChatMessage(item);     //保存到消息表
+			
+		    
+		    item.setMessageType(Constant.MESSAGE_TYPE_CHAT);
 			item.setChatId(json.optString("chatId"));
 			item.setTimestamp(json.optInt("timestamp"));
 			item.setUserName(json.optString("channelName"));
-			item.setLastContent(json.optString("content"));
-			item.setUserAvatarUrl(json.optString("fromAccountAvatarUrl"));
 			item.setChannelId(json.optString("channelId"));
 			item.setChannelType(json.optInt("channelType"));
 			item.setUserName(json.optString("channelName"));
 			item.setUserAvatarUrl("attachUrl");
 			item.setIsSend(false);
-			
-			int originalUnReadNum=mMessageDatabaseHelperUtil.getUnReadNumWithChatId(AppConfig.account.getAccountId(), item.getChatId());
-			if(originalUnReadNum==-1){   //尚无该条记录
+
+			int originalUnReadNum = mMessageDatabaseHelperUtil
+					.getUnReadNumWithChatId(AppConfig.account.getAccountId(),
+							item.getChatId());
+			if (originalUnReadNum == -1) { // 尚无该条记录
 				Log.e("zyf", "收到推送消息,数据库中之前无该会话记录.......");
 				item.setUnReadNum(1);
 				mMessageDatabaseHelperUtil.addNewMessage(item);
-			}else{
-				Log.e("zyf", "收到推送消息,数据库中之前保存有该会话记录.......originalUnReadNum: "+originalUnReadNum);
-				item.setUnReadNum(originalUnReadNum+1);
+			} else {
+				Log.e("zyf", "收到推送消息,数据库中之前保存有该会话记录.......originalUnReadNum: "
+						+ originalUnReadNum);
+				item.setUnReadNum(originalUnReadNum + 1);
 				mMessageDatabaseHelperUtil.updateChatMessage(item);
 			}
-			iClubApplication.badgeNumber+=1;
-			
+			iClubApplication.badgeNumber += 1;
+
 			Intent in = new Intent("com.cc.msg");
 			in.putExtra("msgItem", item);
 			context.sendBroadcast(in);
-			if (!iClubApplication.isAlive) {
-
-				Log.i("cccc",iClubApplication.isAlive+"");
-				initNotify(json.optString("content"),json.optString("channelName"), context);
-
-				
-
-			}
+			
 
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
