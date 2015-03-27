@@ -192,10 +192,25 @@ public class MessageFragment extends Fragment{
 				Log.e("zyf", "channelId: "+messageItems.get(position).getChannelId());
 				Log.e("zyf", "toId: "+messageItems.get(position).getChatId());*/
 				
+				MessageItem item=messageItems.get(position);
+				item.setUnReadNum(0);
+				mDatabaseHelperUtil.updateChatMessage(item);
+				
+				iClubApplication.badgeNumber-=1;
+				if(iClubApplication.badgeNumber<0){
+					iClubApplication.badgeNumber=0;
+				}
+				
 				Intent intent=new Intent(getActivity(),ChatActivity.class);
-				intent.putExtra("channelType", GlobalArgs.CHANNEL_TYPE_QUESTION);
-				intent.putExtra("channelId", messageItems.get(position).getChannelId());
-			    intent.putExtra("toId", messageItems.get(position).getChatId());
+				
+				if(item.getChannelType()==GlobalArgs.CHANNEL_TYPE_CREATE_QUESTION){
+					item.setChannelType(GlobalArgs.CHANNEL_TYPE_QUESTION);
+				}
+				
+				intent.putExtra("channelType", (short)(item.getChannelType()));
+				intent.putExtra("channelId", item.getChannelId());
+				intent.putExtra("chatId", item.getChatId());
+			    intent.putExtra("toId", item.getChatId());
 				
 				getActivity().startActivity(intent);
 			}
@@ -462,6 +477,7 @@ public class MessageFragment extends Fragment{
 			}
 			
 			mBaseAdapter.notifyDataSetChanged();
+			
 
 		}
 	};
@@ -473,24 +489,39 @@ public class MessageFragment extends Fragment{
 		
 		if(!hidden){
 			
+			Log.e("zyf", "message fragment is visible......");
 			
-			
-			Log.e("zyf", "message UI is coming,update it...messageItems size: "+messageItems.size());
-			
-			messageItems.clear();
-			
-			ArrayList<MessageItem> tempMessageItems=new MessageDatabaseHelperUtil(getActivity()).getMessages(AppConfig.account.getAccountId());
-			for(int i=0;i<tempMessageItems.size();i++){
-				
-				Log.e("zyf", "message last content: "+tempMessageItems.get(i).getLastContent());
-				
-				messageItems.add(tempMessageItems.get(i));
-			}
-			
-			mBaseAdapter.notifyDataSetChanged();
+			updateUI();
 			
 		}else{
 			//getActivity().unregisterReceiver(mReceiver);
 		}
+	}
+
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		Log.e("zyf", "message fragment on resume......");
+		
+		updateUI();
+	}
+	
+	private void updateUI(){
+		
+		Log.e("zyf", "message UI is coming,update it...messageItems size: "+messageItems.size());
+		
+		messageItems.clear();
+		
+		ArrayList<MessageItem> tempMessageItems=new MessageDatabaseHelperUtil(getActivity()).getMessages(AppConfig.account.getAccountId());
+		for(int i=0;i<tempMessageItems.size();i++){
+			
+			Log.e("zyf", "message last content: "+tempMessageItems.get(i).getLastContent());
+			
+			messageItems.add(tempMessageItems.get(i));
+		}
+		
+		mBaseAdapter.notifyDataSetChanged();
 	}
 }

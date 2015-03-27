@@ -65,6 +65,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 	private String channelId;
 	private Short channelType;
 	private String toId;
+	private String chatId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,10 +73,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_chat);
-
-		initTitleViews();
-
-		initViews();
 
 		mHandler = new Handler();
 
@@ -87,6 +84,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 		channelId=getIntent().getStringExtra("channelId");
 		channelType=getIntent().getShortExtra("channelType", Short.parseShort("0"));
 		toId=getIntent().getStringExtra("toId");
+		chatId=getIntent().getStringExtra("chatId");
 		
 		if(mActivityDetailsItem!=null){
 
@@ -96,10 +94,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 	
 				Log.e("zyf", "single chat......");
 				
-				channelType = GlobalArgs.CHANNEL_TYPE_QUESTION;
-				/*toId = EcryptUtil.md5ChatId(
-						mMemberItems.get(0).getUserId(), 
-						mMemberItems.get(1).getUserId());*/
+				channelType = GlobalArgs.CHANNEL_TYPE_CREATE_QUESTION;  //第一次进来时需要创建
 				toId=mMemberItems.get(0).getUserId();
 			} else {
 	
@@ -114,12 +109,19 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 		}
 
 		// mHandler.postDelayed(getMessageRunnable, cycleTime);
+		initTitleViews();
+		initViews();
 	}
 
 	private void initTitleViews() {
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		TextView mTitleView = (TextView) findViewById(R.id.mTitleView);
-		mTitleView.setText(getResources().getString(R.string.consult));
+		
+		if(channelType==GlobalArgs.CHANNEL_TYPE_TASK){
+			mTitleView.setText(getResources().getString(R.string.muti_chat));
+		}else{
+			mTitleView.setText(getResources().getString(R.string.consult));
+		}
 
 		Button leftBtn = (Button) findViewById(R.id.leftBtn);
 		leftBtn.setBackgroundResource(R.drawable.title_back);
@@ -178,7 +180,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 			if(mMemberItems!=null){
 				intent.putExtra("Members", mMemberItems);
 			}else{
-				intent.putExtra("channelId", channelId);
+				intent.putExtra("channelId", chatId);
 				intent.putExtra("channelType", channelType);
 			}
 			startActivity(intent);

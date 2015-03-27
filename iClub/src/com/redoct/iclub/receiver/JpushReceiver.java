@@ -151,6 +151,8 @@ public class JpushReceiver extends BroadcastReceiver {
 			}
 			iClubApplication.badgeNumber+=1;
 			
+			MainActivity.handleUnReadMessage(iClubApplication.badgeNumber);
+			
 			Intent in = new Intent("com.cc.msg");
 			in.putExtra("msgItem", item);
 			context.sendBroadcast(in);
