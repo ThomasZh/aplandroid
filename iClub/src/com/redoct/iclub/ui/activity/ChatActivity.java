@@ -29,10 +29,12 @@ import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMessageAdapter;
+import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatMessageSendTask;
+import com.redoct.iclub.util.MessageDatabaseHelperUtil;
 
 public class ChatActivity extends BaseActivity implements OnClickListener {
 	public NotificationManager mNotificationManager;
@@ -152,7 +154,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initViews() {
-
+		mMessageItems = new MessageDatabaseHelperUtil(this).getChatMessages(AppConfig.account.getAccountId());
 		mContentEt = (EditText) findViewById(R.id.mContentEt);
 
 		mContentListView = (PullToRefreshListView) findViewById(R.id.mContentListView);
@@ -239,6 +241,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 						MessageItem item = new MessageItem();
 						item.setLastContent(mContentEt.getText().toString());
 						item.setIsSend(true);
+						new MessageDatabaseHelperUtil(ChatActivity.this).addChatMessage(item);
 						mMessageItems.add(item);
 						mChatMessageAdapter.notifyDataSetChanged();
 						mContentEt.setText("");

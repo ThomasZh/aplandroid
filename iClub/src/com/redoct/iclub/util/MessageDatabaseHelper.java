@@ -35,6 +35,13 @@ public class MessageDatabaseHelper extends SQLiteOpenHelper{
 												            +"id integer primary key autoincrement,"
 												            +"accoutId String,"
 															+"lastTryTime integer);";
+	private static final String CREATE_CHAT_MESSAGE__TABLE = "create table message_chat_table ("
+			+"id integer primary key autoincrement,"
+			+"accoutId String,"
+			+"userAvatarUrl String,"
+			+"lastContent String,"
+			+"fomeName String);";
+			
 	
 	
 	public MessageDatabaseHelper(Context context) {
@@ -47,6 +54,8 @@ public class MessageDatabaseHelper extends SQLiteOpenHelper{
 		db.execSQL(CREATE_MESSAGE_TABLE);
 		
 		db.execSQL(CREATE_MESSAGE_CONFIG_TABLE);
+		
+		db.execSQL(CREATE_CHAT_MESSAGE__TABLE);
 		
 		/*ContentValues values=new ContentValues();
 		values.put("lastTryTime",0);
@@ -63,6 +72,9 @@ public class MessageDatabaseHelper extends SQLiteOpenHelper{
 		
 		db.execSQL("drop table message_config_table if exists");	
 		db.execSQL(CREATE_MESSAGE_CONFIG_TABLE);
+		
+		db.execSQL("drop message_chat_table if exists");	
+		db.execSQL(CREATE_CHAT_MESSAGE__TABLE);
 		
 		/*ContentValues values=new ContentValues();
 		values.put("lastTryTime",0);

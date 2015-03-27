@@ -25,7 +25,13 @@ public class MessageItem implements Serializable{
 	private String toUserSemiId;
 	private int isAccept;   //是否接受请求  0:已接受  1：未接受
 	private Boolean isSend;
-	
+	private String fromName;
+	public String getFromName() {
+		return fromName;
+	}
+	public void setFromName(String fromName) {
+		this.fromName = fromName;
+	}
 	public Boolean getIsSend() {
 		return isSend;
 	}
