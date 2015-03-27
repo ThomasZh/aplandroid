@@ -154,8 +154,8 @@ public class JpushReceiver extends BroadcastReceiver {
 			in.putExtra("msgItem", item);
 			context.sendBroadcast(in);
 			if (!iClubApplication.isAlive) {
-				initNotify(json.optString("content"),
-						json.optString("channelName"), context);
+				Log.i("cccc",iClubApplication.isAlive+"");
+				initNotify(json.optString("content"),json.optString("channelName"), context);
 			}
 
 		} catch (JSONException e) {
