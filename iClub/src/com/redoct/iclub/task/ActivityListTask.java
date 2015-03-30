@@ -80,6 +80,8 @@ public class ActivityListTask extends TemplateTask {
 
             String meetups = resp.getJson();
             
+            Log.e("zyf", "json: "+meetups);
+            
             result=meetups;
             
             JSONArray activityJsonArray=new JSONArray(meetups);
@@ -90,17 +92,17 @@ public class ActivityListTask extends TemplateTask {
             	item=new ActivityItem();
             	jsonObject=activityJsonArray.getJSONObject(i);
             	
-            	item.setClubName(jsonObject.getString("clubName"));
-            	item.setId(jsonObject.getString("id"));
-            	item.setLeaderAvatarUrl(jsonObject.getString("leaderAvatarUrl"));
-            	item.setLeaderName(jsonObject.getString("leaderName"));
-            	item.setLocDesc(jsonObject.getString("locDesc"));
-            	item.setMemberNum(jsonObject.getString("memberNum"));
-            	item.setMemberRank(Short.parseShort(jsonObject.getString("memberRank")));
-            	item.setName(jsonObject.getString("name"));
-            	item.setPid(jsonObject.getString("pid"));
-            	item.setRecommendNum(jsonObject.getString("recommendNum"));
-            	item.setState(jsonObject.getString("state"));
+            	item.setClubName(jsonObject.optString("clubName"));
+            	item.setId(jsonObject.optString("id"));
+            	item.setLeaderAvatarUrl(jsonObject.optString("leaderAvatarUrl"));
+            	item.setLeaderName(jsonObject.optString("leaderName"));
+            	item.setLocDesc(jsonObject.optString("locDesc"));
+            	item.setMemberNum(jsonObject.optString("memberNum"));
+            	item.setMemberRank(Short.parseShort(jsonObject.optString("memberRank")));
+            	item.setName(jsonObject.optString("name"));
+            	item.setPid(jsonObject.optString("pid"));
+            	item.setRecommendNum(jsonObject.optString("recommendNum"));
+            	item.setState(jsonObject.optString("state"));
             	
             	totalTime=mDateUtils.getFormatDate(jsonObject.getInt("startTime"));
             	
@@ -118,7 +120,7 @@ public class ActivityListTask extends TemplateTask {
             Log.e("zyf", "UnsupportedEncodingException");
             return false;
         } catch (JSONException e) {
-            Log.e("zyf", "JSONException");
+            Log.e("zyf", "JSONException: "+e.toString());
             return false;
         }
 

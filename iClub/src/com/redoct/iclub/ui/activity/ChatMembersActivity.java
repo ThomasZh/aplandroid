@@ -39,7 +39,7 @@ public class ChatMembersActivity extends BaseActivity {
 		
 		mMemberItems=(ArrayList<MemberItem>)getIntent().getSerializableExtra("Members");
 		channelId=getIntent().getStringExtra("channelId");
-		channelType=getIntent().getShortExtra("channelType",Short.parseShort("0"));
+		channelType=getIntent().getShortExtra("channelType",(short)0);
 		
 		mContentListView=(PullToRefreshListView)findViewById(R.id.mContentListView);
 		mContentListView.setMode(Mode.DISABLED);
