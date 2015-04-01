@@ -128,8 +128,6 @@ public class JpushReceiver extends BroadcastReceiver {
 			JSONObject json = new JSONObject(message);
 			MessageItem item = new MessageItem();
 			item.setAccoutId(AppConfig.account.getAccountId());
-
-			item.setIsSend("1");
 			
 			int contentType=json.optInt("contentType");
 			if(contentType==GlobalArgs.INVITE_TYPE_FOLLOW_ME){   //别人希望加我为好友
@@ -164,6 +162,10 @@ public class JpushReceiver extends BroadcastReceiver {
 			item.setChannelId(json.optString("channelId"));
 			item.setChannelName(json.optString("channelName"));
 			item.setChannelType(json.optInt("channelType"));
+			
+			//具体的聊天信息
+			item.setFromName(json.optString("fromAccountName"));
+			item.setIsSend("1");
 
 			int originalUnReadNum = mMessageDatabaseHelperUtil
 					.getUnReadNumWithChatId(AppConfig.account.getAccountId(),
@@ -180,7 +182,7 @@ public class JpushReceiver extends BroadcastReceiver {
 			}
 			iClubApplication.badgeNumber+=1;
 			
-			//插入聊天消息
+			//cc插入聊天消息
 			mMessageDatabaseHelperUtil.addChatMessage(item);     //保存到消息表
 			
 			MainActivity.handleUnReadMessage(iClubApplication.badgeNumber);
