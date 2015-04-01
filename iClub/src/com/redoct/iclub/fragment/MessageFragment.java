@@ -85,7 +85,7 @@ public class MessageFragment extends Fragment{
 			mDatabaseHelperUtil.addChatLastTryTime(AppConfig.account.getAccountId(), 0);
 		}
 		
-		//load();
+		load();
 		
 		IntentFilter mFilter = new IntentFilter(); // 代码注册广播
 		mFilter.addAction("com.cc.msg");
@@ -279,15 +279,46 @@ public class MessageFragment extends Fragment{
 				// TODO Auto-generated method stub
 				super.callback();
 				
-				Log.e("zyf", "message list size: "+mMessageListTask.getMessageList().size());
+				Log.e("zyf", "invite message list size: "+mMessageListTask.getMessageList().size());
 				
-				//messageItems.clear();
-				
-				for(int i=0;i<mMessageListTask.getMessageList().size();i++){
+				/*for(int i=0;i<mMessageListTask.getMessageList().size();i++){
 					messageItems.add(mMessageListTask.getMessageList().get(i));
 					
 					mDatabaseHelperUtil.addNewMessage(mMessageListTask.getMessageList().get(i));
+				}*/
+				
+				//-----------------------------------------
+				ArrayList<MessageItem> tempMessageItems=mMessageListTask.getMessageList();
+				
+				for(int i=0;i<tempMessageItems.size();i++){
+					
+					boolean isFound=false;
+					
+					for(int j=0;j<messageItems.size();j++){
+						
+						if(tempMessageItems.get(i).getInviteId().equals(messageItems.get(j).getInviteId())){
+							
+							Log.e("zyf", "invite message found found found....update...update...update...");
+							
+							messageItems.set(j, tempMessageItems.get(i));
+							isFound=true;
+							
+							mDatabaseHelperUtil.updateChatMessage(messageItems.get(j));
+							
+							break;
+						}
+					}
+					
+					if(!isFound){   //插入操作
+						
+						Log.e("zyf", "invite message no no no found....insert...insert...insert...");
+						
+						messageItems.add(tempMessageItems.get(i));
+						
+						mDatabaseHelperUtil.addNewMessage(tempMessageItems.get(i));
+					}
 				}
+				//----------------------------------------------------------------------
 				
 				updateUnreadMessageNum(messageItems);
 				
@@ -352,7 +383,7 @@ public class MessageFragment extends Fragment{
 
 			@Override
 			public void callback() {
-				// TODO Auto-generated method stub
+				
 				super.callback();
 				
 				Log.e("zyf", "message list size: "+mChatRoomListTask.getMessageList().size());
@@ -369,7 +400,6 @@ public class MessageFragment extends Fragment{
 							
 							Log.e("zyf", "found found found....update...update...update...");
 							
-							//messageItems.add(j, tempMessageItems.get(i));
 							messageItems.set(j, tempMessageItems.get(i));
 							isFound=true;
 							
@@ -401,13 +431,11 @@ public class MessageFragment extends Fragment{
 
 			@Override
 			public void failure() {
-				// TODO Auto-generated method stub
 				super.failure();
 			}
 
 			@Override
 			public void complete() {
-				// TODO Auto-generated method stub
 				super.complete();
 				
 				mPullToRefreshListView.onRefreshComplete();
@@ -416,7 +444,6 @@ public class MessageFragment extends Fragment{
 
 			@Override
 			public void timeout() {
-				// TODO Auto-generated method stub
 				super.timeout();
 				
 				mPullToRefreshListView.onRefreshComplete();

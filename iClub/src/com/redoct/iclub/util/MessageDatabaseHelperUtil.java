@@ -48,6 +48,7 @@ public class MessageDatabaseHelperUtil {
 		values.put("chatId", item.getChatId());
 		values.put("lastContent", item.getLastContent());
 		values.put("unReadNum", item.getUnReadNum());
+		values.put("userName", item.getUserName());
 
 		db.insert(TABLE_NAME_MESSAGE, null, values);
 
@@ -136,8 +137,9 @@ public class MessageDatabaseHelperUtil {
 		values.put("timestamp", item.getTimestamp());
 		values.put("unReadNum", item.getUnReadNum());
 		values.put("userName", item.getUserName());
-		values.put("inviteId", item.getInviteId());
+		//values.put("inviteId", item.getInviteId());
 		values.put("isAccept", item.getIsAccept());
+		values.put("isFeedback", item.getIsFeedback());
 
 		if (item.getMessageType() == Constant.MESSAGE_TYPE_CHAT) {
 
@@ -165,6 +167,54 @@ public class MessageDatabaseHelperUtil {
 		Cursor cursor = db.query(TABLE_NAME_MESSAGE, null,
 				"accoutId=? and chatId=?", new String[] { accoutId, chatId },
 				null, null, null);
+
+		if (cursor == null) {
+
+			db.close();
+			return 0;
+		}
+
+		if (cursor.getCount() > 0) {
+			while (cursor.moveToNext()) {
+				Log.e("zyf",
+						"get unread num: "
+								+ cursor.getInt(cursor
+										.getColumnIndex("unReadNum")));
+
+				return cursor.getInt(cursor.getColumnIndex("unReadNum"));
+			}
+
+		} else {
+			Log.e("zyf", "no un read num info ...");
+
+			return -1; // 没有该项
+		}
+
+		cursor.close();
+		db.close();
+
+		return 0;
+	}
+	
+	public int getUnReadNumWithChatId(MessageItem item) {
+
+		SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
+		Cursor cursor;
+		if(item.getMessageType()==Constant.MESSAGE_TYPE_CHAT){
+			
+			Log.e("zyf", "查询会话信息是否存在......");
+			
+			cursor=db.query(TABLE_NAME_MESSAGE, null,
+					"accoutId=? and chatId=?", new String[] { item.getAccoutId(), item.getChatId() },
+					null, null, null);
+		}else{
+			
+			Log.e("zyf", "查询邀请信息是否存在......");
+			
+			cursor=db.query(TABLE_NAME_MESSAGE, null,
+					"accoutId=? and inviteId=?", new String[] { item.getAccoutId(), item.getInviteId() },
+					null, null, null);
+		}
 
 		if (cursor == null) {
 

@@ -69,7 +69,10 @@ public class ChatRoomListTask extends TemplateTask {
 				messageItem.setAccoutId(AppConfig.account.getAccountId());
 				messageItem.setMessageType(Constant.MESSAGE_TYPE_CHAT);
 				messageItem.setChatId(list.get(i).getChatId());
-				messageItem.setUserName(list.get(i).getChannelName());
+				
+				Log.e("zyf", "msg"+i+" channelName： "+list.get(i).getChannelName());
+				
+				messageItem.setChannelName(list.get(i).getChannelName());
 				messageItem.setLastContent(list.get(i).getContent());
 				messageItem.setTimestamp(list.get(i).getTimestamp());
 				messageItem.setUserAvatarUrl(list.get(i).getFromAccountAvatarUrl());

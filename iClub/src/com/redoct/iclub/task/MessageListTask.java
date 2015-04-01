@@ -94,12 +94,12 @@ public class MessageListTask extends TemplateTask {
 					messageItem.setChannelName(gaInvite.getChannelName());
 					messageItem.setChannelType(gaInvite.getChannelType());
 					messageItem.setExpiry(gaInvite.getExpiry());
-					messageItem.setInviteId(gaInvite.getInviteId());
+					messageItem.setInviteId(gaInvite.getInviteId());   //msgId
 					messageItem.setInviteType(gaInvite.getInviteType());
 					messageItem.setTimestamp(gaInvite.getTimestamp());
 					messageItem.setToUserSemiId(gaInvite.getToUserSemiId());
 					messageItem.setUserId(gaInvite.getFromUserId());
-					messageItem.setUserName(gaInvite.getFromUserName());
+					messageItem.setUserName(gaInvite.getFromUserName());  //
 					messageItem.setUserAvatarUrl(gaInvite.getFromUserAvatarUrl());
 					
 					messageItems.add(messageItem);

@@ -143,6 +143,9 @@ public class MessageBaseAdapter extends BaseAdapter {
             	
             	holder.mInfoTv.setText(item.getUserName()+"接受了您的邀请");
             }
+        	
+        	holder.mNameTv.setText(item.getUserName());
+        	
         }else if(item.getMessageType()==Constant.MESSAGE_TYPE_CHAT){
         	
         	holder.mAcceptBtn.setVisibility(View.GONE);
@@ -165,12 +168,13 @@ public class MessageBaseAdapter extends BaseAdapter {
 					gotoChat(pos);
 				}
 			});
+        	
+        	holder.mNameTv.setText(item.getChannelName());
         }
         
         
         mImageLoader.displayImage(item.getUserAvatarUrl(), holder.mLeaderAvatarView, options);
         
-        holder.mNameTv.setText(item.getUserName());
         holder.mTimeTv.setText(DateUtils.getMessageFormatDate(item.getTimestamp()));
   
 		return convertView;
