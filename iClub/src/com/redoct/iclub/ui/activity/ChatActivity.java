@@ -164,7 +164,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 		mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, this);
 		mContentListView.setAdapter(mChatMessageAdapter);
 		
-		//mContentListView.getRefreshableView().setSelection(mChatMessageAdapter.getCount()-1);
+		mContentListView.getRefreshableView().setSelection(mChatMessageAdapter.getCount()-1);
 	}
 
 	@Override
