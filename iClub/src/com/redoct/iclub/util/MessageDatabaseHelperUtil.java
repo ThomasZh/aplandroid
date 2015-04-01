@@ -64,6 +64,7 @@ public class MessageDatabaseHelperUtil {
 		ContentValues values = new ContentValues();
 
 		values.put("accoutId", item.getAccoutId());
+		values.put("isSend", item.getIsSend());
         values.put("userAvatarUrl", item.getUserAvatarUrl());
         values.put("lastContent", item.getLastContent());
         values.put("fomeName", item.getFromName());
@@ -110,6 +111,8 @@ public class MessageDatabaseHelperUtil {
 				
 				messageItem.setFromName(cursor.getString(cursor
 						.getColumnIndex("fomeName")));
+				messageItem.setIsSend(cursor.getString(cursor
+						.getColumnIndex("isSend")));
 
 				messageItems.add(messageItem);
 			}

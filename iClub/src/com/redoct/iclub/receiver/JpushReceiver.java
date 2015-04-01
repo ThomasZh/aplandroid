@@ -130,6 +130,7 @@ public class JpushReceiver extends BroadcastReceiver {
 			item.setFromName(json.optString("fromAccountName"));
 			item.setUserAvatarUrl(json.optString("fromAccountAvatarUrl"));
 			item.setAccoutId(AppConfig.account.getAccountId());
+			item.setIsSend("1");
 		    new MessageDatabaseHelperUtil(context).addChatMessage(item);     //保存到消息表
 			
 		    
@@ -141,7 +142,7 @@ public class JpushReceiver extends BroadcastReceiver {
 			item.setChannelType(json.optInt("channelType"));
 			item.setUserName(json.optString("channelName"));
 			item.setUserAvatarUrl("attachUrl");
-			item.setIsSend(false);
+			
 
 			int originalUnReadNum = mMessageDatabaseHelperUtil
 					.getUnReadNumWithChatId(AppConfig.account.getAccountId(),

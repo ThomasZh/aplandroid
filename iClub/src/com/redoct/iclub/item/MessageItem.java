@@ -24,7 +24,7 @@ public class MessageItem implements Serializable{
 	private int timestamp;
 	private String toUserSemiId;
 	private int isAccept;   //是否接受请求  0:已接受  1：未接受
-	private Boolean isSend;
+	private String isSend;
 	private String fromName;
 	public String getFromName() {
 		return fromName;
@@ -32,10 +32,10 @@ public class MessageItem implements Serializable{
 	public void setFromName(String fromName) {
 		this.fromName = fromName;
 	}
-	public Boolean getIsSend() {
+	public String getIsSend() {
 		return isSend;
 	}
-	public void setIsSend(Boolean isSend) {
+	public void setIsSend(String isSend) {
 		this.isSend = isSend;
 	}
 	//记录所有的聊天会话
