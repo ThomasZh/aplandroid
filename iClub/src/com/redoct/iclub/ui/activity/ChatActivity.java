@@ -160,8 +160,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 		mContentEt = (EditText) findViewById(R.id.mContentEt);
 
 		mContentListView = (PullToRefreshListView) findViewById(R.id.mContentListView);
+		
 		mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, this);
 		mContentListView.setAdapter(mChatMessageAdapter);
+		
+		//mContentListView.getRefreshableView().setSelection(mChatMessageAdapter.getCount()-1);
 	}
 
 	@Override
@@ -241,8 +244,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 						// TODO Auto-generated method stub
 						super.callback();
 						MessageItem item = new MessageItem();
+						item.setAccoutId(AppConfig.account.getAccountId());
 						item.setLastContent(mContentEt.getText().toString());
-						item.setIsSend(true);
+						item.setIsSend("2");
 						new MessageDatabaseHelperUtil(ChatActivity.this).addChatMessage(item);
 						mMessageItems.add(item);
 						mChatMessageAdapter.notifyDataSetChanged();

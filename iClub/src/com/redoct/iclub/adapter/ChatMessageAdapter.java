@@ -67,7 +67,7 @@ public class ChatMessageAdapter extends BaseAdapter {
 
 		ViewHolder holder;
 		final MessageItem item = mMessageItems.get(position);
-		if (item.getIsSend()) {
+		if ("2".equals(item.getIsSend())) {
 			
 				convertView = inflater.inflate(R.layout.item_chat_message,
 						parent, false);

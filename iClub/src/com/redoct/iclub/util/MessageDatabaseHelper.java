@@ -29,7 +29,7 @@ public class MessageDatabaseHelper extends SQLiteOpenHelper{
 			                                                        +"toUserSemiId String,"
 			                                                        +"isAccept integer,"
 																	+"chatId String,"
-																	+"lastContent String,"
+																+"lastContent String,"
 																	+"unReadNum integer);";
 	private static final String CREATE_MESSAGE_CONFIG_TABLE = "create table message_config_table ("
 												            +"id integer primary key autoincrement,"
@@ -38,6 +38,7 @@ public class MessageDatabaseHelper extends SQLiteOpenHelper{
 	private static final String CREATE_CHAT_MESSAGE__TABLE = "create table message_chat_table ("
 			+"id integer primary key autoincrement,"
 			+"accoutId String,"
+			+"isSend String,"
 			+"userAvatarUrl String,"
 			+"lastContent String,"
 			+"fomeName String);";
