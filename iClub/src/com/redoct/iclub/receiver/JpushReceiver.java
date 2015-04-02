@@ -72,15 +72,15 @@ public class JpushReceiver extends BroadcastReceiver {
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
 				.getAction())) {
-			Log.d(TAG, "[MyReceiver] 用户点击打开了�?�知");
+			
+			Log.e("zyf", "receive a notive from jpush......");
 
 			// 打开自定义的Activity
-			/*
-			 * Intent i = new Intent(context, TestActivity.class);
-			 * i.putExtras(bundle); //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			 * i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-			 * Intent.FLAG_ACTIVITY_CLEAR_TOP ); context.startActivity(i);
-			 */
+			Intent i = new Intent(context, MainActivity.class);
+			i.putExtra("isFromNotification", true);
+			i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+			Intent.FLAG_ACTIVITY_CLEAR_TOP );
+			context.startActivity(i);
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {
@@ -173,11 +173,18 @@ public class JpushReceiver extends BroadcastReceiver {
 			if (originalUnReadNum == -1) { // 尚无该条记录
 
 				Log.e("zyf", "收到推送消息,数据库中之前无该会话记录.......");
-				item.setUnReadNum(1);
+				
+				if(item.getMessageType()==Constant.MESSAGE_TYPE_CHAT){
+					item.setUnReadNum(1);
+				}else{
+					item.setUnReadNum(0);
+				}
 				mMessageDatabaseHelperUtil.addNewMessage(item);
 			}else{
 				Log.e("zyf", "收到推送消息,数据库中之前保存有该会话记录.......originalUnReadNum: "+originalUnReadNum);
-				item.setUnReadNum(originalUnReadNum+1);
+				if(item.getMessageType()==Constant.MESSAGE_TYPE_CHAT){
+					item.setUnReadNum(originalUnReadNum+1);
+				}
 				mMessageDatabaseHelperUtil.updateChatMessage(item);
 			}
 			iClubApplication.badgeNumber+=1;
@@ -194,8 +201,6 @@ public class JpushReceiver extends BroadcastReceiver {
 
 				Log.i("cccc",iClubApplication.isAlive+"");
 				initNotify(json.optString("content"),json.optString("channelName"), context);
-
-				
 
 			}
 
