@@ -38,6 +38,7 @@ public class MessageDatabaseHelper extends SQLiteOpenHelper{
 	private static final String CREATE_CHAT_MESSAGE__TABLE = "create table message_chat_table ("
 			+"id integer primary key autoincrement,"
 			+"accoutId String,"
+			+"chatId String,"
 			+"isSend String,"
 			+"userAvatarUrl String,"
 			+"lastContent String,"

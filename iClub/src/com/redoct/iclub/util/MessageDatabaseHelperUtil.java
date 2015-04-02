@@ -65,9 +65,11 @@ public class MessageDatabaseHelperUtil {
 		ContentValues values = new ContentValues();
 
 		values.put("accoutId", item.getAccoutId());
+		values.put("accoutId", item.getAccoutId());
 		values.put("isSend", item.getIsSend());
         values.put("userAvatarUrl", item.getUserAvatarUrl());
         values.put("lastContent", item.getLastContent());
+        values.put("chatId", item.getChatId());
         values.put("fomeName", item.getFromName());
 		db.insert(TABLE_CHAT_MESSAGE, null, values);
 
@@ -78,15 +80,15 @@ public class MessageDatabaseHelperUtil {
 		}
 	}
 
-	public ArrayList<MessageItem> getChatMessages(String accoutId) {
+	public ArrayList<MessageItem> getChatMessages(String accoutId,String chatId) {
 
 		ArrayList<MessageItem> messageItems = new ArrayList<MessageItem>();
 
 		SQLiteDatabase db = mDatabaseHelper.getWritableDatabase();
 
-		String[] args = { accoutId };
+		String[] args = { accoutId,chatId };
 
-		Cursor cursor = db.query(TABLE_CHAT_MESSAGE, null, "accoutId=?", args,
+		Cursor cursor = db.query(TABLE_CHAT_MESSAGE, null, "accoutId=? and chatId=?", args,
 				null, null, null);
 
 		if (cursor == null) {
@@ -114,6 +116,8 @@ public class MessageDatabaseHelperUtil {
 						.getColumnIndex("fomeName")));
 				messageItem.setIsSend(cursor.getString(cursor
 						.getColumnIndex("isSend")));
+				messageItem.setChatId(cursor.getString(cursor
+						.getColumnIndex("chatId")));
 
 				messageItems.add(messageItem);
 			}

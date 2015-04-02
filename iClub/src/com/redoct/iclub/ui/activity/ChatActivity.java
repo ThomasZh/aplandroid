@@ -28,6 +28,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.DatetimeUtil;
 import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.GlobalArgs;
+import com.oct.ga.comm.cmd.msg.ConfirmMessageReadReq;
 import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMessageAdapter;
@@ -36,6 +37,7 @@ import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatMessageSendTask;
+import com.redoct.iclub.task.ConfirmMessageReadTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.MessageDatabaseHelperUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
@@ -67,7 +69,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
 	private PullToRefreshListView mContentListView;
 	private ChatMessageAdapter mChatMessageAdapter;
-	
+
 	private String channelId;
 	private Short channelType;
 	private String toId;
@@ -86,37 +88,38 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 				.getSerializableExtra("ActivityDetails");
 		mMemberItems = (ArrayList<MemberItem>) getIntent()
 				.getSerializableExtra("Members");
-		
-		channelId=getIntent().getStringExtra("channelId");
-		channelType=getIntent().getShortExtra("channelType", Short.parseShort("0"));
-		toId=getIntent().getStringExtra("toId");
-		chatId=getIntent().getStringExtra("chatId");
-		
-		if(mActivityDetailsItem!=null){
+
+		channelId = getIntent().getStringExtra("channelId");
+		channelType = getIntent().getShortExtra("channelType",
+				Short.parseShort("0"));
+		toId = getIntent().getStringExtra("toId");
+		chatId = getIntent().getStringExtra("chatId");
+
+		if (mActivityDetailsItem != null) {
 
 			Log.e("zyf", "memberlist size: " + mMemberItems.size());
-	
+
 			if (mActivityDetailsItem.getMemberRank() == GlobalArgs.MEMBER_RANK_NONE) { // 单聊
-	
+
 				Log.e("zyf", "single chat......");
-				
-				channelType = GlobalArgs.CHANNEL_TYPE_CREATE_QUESTION;  //第一次进来时需要创建
-				toId=mMemberItems.get(0).getUserId();
+
+				channelType = GlobalArgs.CHANNEL_TYPE_CREATE_QUESTION; // 第一次进来时需要创建
+				toId = mMemberItems.get(0).getUserId();
 			} else {
-	
+
 				Log.e("zyf", "muiti chat......");
-				
+
 				channelType = GlobalArgs.CHANNEL_TYPE_TASK;
 				toId = mActivityDetailsItem.getClubId();
 			}
-			
-			channelId=mActivityDetailsItem.getId();
-			chatId=mActivityDetailsItem.getId();
-			
+
+			channelId = mActivityDetailsItem.getId();
+			chatId = mActivityDetailsItem.getId();
+
 		}
 
-		Log.e("zyf", "chat id:"+chatId);
-		
+		Log.e("zyf", "chat id:" + chatId);
+
 		initTitleViews();
 		initViews();
 	}
@@ -124,10 +127,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 	private void initTitleViews() {
 		mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		TextView mTitleView = (TextView) findViewById(R.id.mTitleView);
-		
-		if(channelType==GlobalArgs.CHANNEL_TYPE_TASK){
+
+		if (channelType == GlobalArgs.CHANNEL_TYPE_TASK) {
 			mTitleView.setText(getResources().getString(R.string.muti_chat));
-		}else{
+		} else {
 			mTitleView.setText(getResources().getString(R.string.consult));
 		}
 
@@ -153,7 +156,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 						.getSerializableExtra("msgItem");
 				mMessageItems.add(item);
 				mChatMessageAdapter.notifyDataSetChanged();
-			
+
+				new ConfirmMessageReadTask(chatId).safeExecute();
 
 			}
 		};
@@ -162,15 +166,17 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initViews() {
-		mMessageItems = new MessageDatabaseHelperUtil(this).getChatMessages(AppConfig.account.getAccountId());
+		mMessageItems = new MessageDatabaseHelperUtil(this).getChatMessages(
+				AppConfig.account.getAccountId(), chatId);
 		mContentEt = (EditText) findViewById(R.id.mContentEt);
 
 		mContentListView = (PullToRefreshListView) findViewById(R.id.mContentListView);
-		
+
 		mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, this);
 		mContentListView.setAdapter(mChatMessageAdapter);
-		
-		mContentListView.getRefreshableView().setSelection(mChatMessageAdapter.getCount()-1);
+
+		mContentListView.getRefreshableView().setSelection(
+				mChatMessageAdapter.getCount() - 1);
 	}
 
 	@Override
@@ -187,10 +193,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 
 		case R.id.rightBtn:
 
-			Intent intent = new Intent(ChatActivity.this,ChatMembersActivity.class);
-			if(mMemberItems!=null){
+			Intent intent = new Intent(ChatActivity.this,
+					ChatMembersActivity.class);
+			if (mMemberItems != null) {
 				intent.putExtra("Members", mMemberItems);
-			}else{
+			} else {
 				intent.putExtra("channelId", chatId);
 				intent.putExtra("channelType", channelType);
 			}
@@ -216,19 +223,18 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 				}
 				Log.i("cc", "send succuful");
 
-				/*if (mActivityDetailsItem.getMemberRank() == GlobalArgs.MEMBER_RANK_NONE) { // 单聊
-					channelType = GlobalArgs.CHANNEL_TYPE_QUESTION;
-					toId = EcryptUtil.md5ChatId(
-							mMemberItems.get(0).getUserId(), mMemberItems
-									.get(1).getUserId());
-				} else {
-					channelType = GlobalArgs.CHANNEL_TYPE_TASK;
-					toId = mActivityDetailsItem.getClubId();
-				}*/
+				/*
+				 * if (mActivityDetailsItem.getMemberRank() ==
+				 * GlobalArgs.MEMBER_RANK_NONE) { // 单聊 channelType =
+				 * GlobalArgs.CHANNEL_TYPE_QUESTION; toId =
+				 * EcryptUtil.md5ChatId( mMemberItems.get(0).getUserId(),
+				 * mMemberItems .get(1).getUserId()); } else { channelType =
+				 * GlobalArgs.CHANNEL_TYPE_TASK; toId =
+				 * mActivityDetailsItem.getClubId(); }
+				 */
 				ChatMessageSendTask mChatMessageSendTask = new ChatMessageSendTask(
-						UUID.randomUUID().toString(), toId, 
-						mContentEt.getText().toString(),
-						channelId, channelType) {
+						UUID.randomUUID().toString(), toId, mContentEt
+								.getText().toString(), channelId, channelType) {
 					@Override
 					public void timeout() {
 						// TODO Auto-generated method stub
@@ -253,15 +259,19 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 						item.setAccoutId(AppConfig.account.getAccountId());
 						item.setLastContent(mContentEt.getText().toString());
 						item.setIsSend("2");
-						
+
 						item.setChatId(chatId);
 						item.setMessageType(Constant.MESSAGE_TYPE_CHAT);
-						item.setUserAvatarUrl(new UserInformationLocalManagerUtil(ChatActivity.this).ReadUserInformation().getImageUrl());
+						item.setUserAvatarUrl(new UserInformationLocalManagerUtil(
+								ChatActivity.this).ReadUserInformation()
+								.getImageUrl());
 						item.setTimestamp(DatetimeUtil.currentTimestamp());
 						item.setUnReadNum(0);
-						new MessageDatabaseHelperUtil(ChatActivity.this).updateChatMessage(item);
-						
-						new MessageDatabaseHelperUtil(ChatActivity.this).addChatMessage(item);
+						new MessageDatabaseHelperUtil(ChatActivity.this)
+								.updateChatMessage(item);
+
+						new MessageDatabaseHelperUtil(ChatActivity.this)
+								.addChatMessage(item);
 						mMessageItems.add(item);
 						mChatMessageAdapter.notifyDataSetChanged();
 						mContentEt.setText("");
@@ -298,10 +308,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 		return super.dispatchKeyEvent(event);
 
 	}
-	
-	
-	public PendingIntent getDefalutIntent(int flags){
-		PendingIntent pendingIntent= PendingIntent.getActivity(this, 1, new Intent(), flags);
+
+	public PendingIntent getDefalutIntent(int flags) {
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 1,
+				new Intent(), flags);
 		return pendingIntent;
 	}
 

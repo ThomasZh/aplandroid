@@ -59,7 +59,7 @@ public class ActivityListTask extends TemplateTask {
     @Override
     protected boolean justTodo() {
 
-        //ActivityQuerySubscribeReq req = new ActivityQuerySubscribeReq();
+       /* //ActivityQuerySubscribeReq req = new ActivityQuerySubscribeReq();
     	
         ActivityQuerySubscribePaginationReq req=new ActivityQuerySubscribePaginationReq(pageNum, pageSize);
         
@@ -78,8 +78,8 @@ public class ActivityListTask extends TemplateTask {
                 return false;//fetch in failure!
             }
 
-            String meetups = resp.getJson();
-            
+           String meetups = resp.getJson();
+        
             Log.e("zyf", "json: "+meetups);
             
             result=meetups;
@@ -125,7 +125,7 @@ public class ActivityListTask extends TemplateTask {
         }
 
         //FileLogger.writeLogFileToSDCard("INFO: Fetching success!");
-
+*/
         return true;
     }
 
