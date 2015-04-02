@@ -139,7 +139,7 @@ public class MessageDatabaseHelperUtil {
 		values.put("userAvatarUrl", item.getUserAvatarUrl());
 		values.put("timestamp", item.getTimestamp());
 		values.put("unReadNum", item.getUnReadNum());
-		values.put("userName", item.getUserName());
+		//values.put("userName", item.getUserName());   //暂时不需要更新话题名称
 		//values.put("inviteId", item.getInviteId());
 		values.put("isAccept", item.getIsAccept());
 		values.put("isFeedback", item.getIsFeedback());

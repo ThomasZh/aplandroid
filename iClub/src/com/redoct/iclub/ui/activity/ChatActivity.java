@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.oct.ga.comm.DatetimeUtil;
 import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.BaseActivity;
@@ -34,7 +36,9 @@ import com.redoct.iclub.item.ActivityDetailsItem;
 import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatMessageSendTask;
+import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.MessageDatabaseHelperUtil;
+import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 
 public class ChatActivity extends BaseActivity implements OnClickListener {
 	public NotificationManager mNotificationManager;
@@ -107,10 +111,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 			}
 			
 			channelId=mActivityDetailsItem.getId();
+			chatId=mActivityDetailsItem.getId();
 			
 		}
 
-		// mHandler.postDelayed(getMessageRunnable, cycleTime);
+		Log.e("zyf", "chat id:"+chatId);
+		
 		initTitleViews();
 		initViews();
 	}
@@ -247,6 +253,14 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 						item.setAccoutId(AppConfig.account.getAccountId());
 						item.setLastContent(mContentEt.getText().toString());
 						item.setIsSend("2");
+						
+						item.setChatId(chatId);
+						item.setMessageType(Constant.MESSAGE_TYPE_CHAT);
+						item.setUserAvatarUrl(new UserInformationLocalManagerUtil(ChatActivity.this).ReadUserInformation().getImageUrl());
+						item.setTimestamp(DatetimeUtil.currentTimestamp());
+						item.setUnReadNum(0);
+						new MessageDatabaseHelperUtil(ChatActivity.this).updateChatMessage(item);
+						
 						new MessageDatabaseHelperUtil(ChatActivity.this).addChatMessage(item);
 						mMessageItems.add(item);
 						mChatMessageAdapter.notifyDataSetChanged();
