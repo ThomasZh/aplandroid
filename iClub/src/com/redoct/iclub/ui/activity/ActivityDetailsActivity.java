@@ -51,6 +51,7 @@ import com.redoct.iclub.task.MembersListTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.DateUtils;
 import com.redoct.iclub.util.DeviceUtil;
+import com.redoct.iclub.util.MessageDatabaseHelperUtil;
 import com.redoct.iclub.util.MyProgressDialogUtils;
 import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
@@ -705,6 +706,15 @@ public class ActivityDetailsActivity extends BaseActivity implements
 			
 			Intent chatIntent=new Intent(ActivityDetailsActivity.this,ChatActivity.class);
 			chatIntent.putExtra("ActivityDetails", mActivityDetailsItem);
+			
+			int unReadNum=new MessageDatabaseHelperUtil(ActivityDetailsActivity.this)
+			                  .getUnReadNumWithChatId(AppConfig.account.getAccountId(), mActivityDetailsItem.getId());
+			if(unReadNum>0){
+				chatIntent.putExtra("haveUnReadMessage", true);
+				Log.e("zyf", "会话信息    unReadMessageNum>0......");
+			}else {
+				Log.e("zyf", "会话信息    unReadMessageNum=0......");
+			}
 			
 			if(mActivityDetailsItem.getMemberRank()==GlobalArgs.MEMBER_RANK_NONE){   //未参加活动
 				ArrayList<MemberItem> tempMemberItems=new ArrayList<MemberItem>();

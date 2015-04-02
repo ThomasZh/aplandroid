@@ -85,6 +85,8 @@ public class MessageFragment extends Fragment{
 			mDatabaseHelperUtil.addChatLastTryTime(AppConfig.account.getAccountId(), 0);
 		}
 		
+		//lastTryTime=0;
+		
 		load();
 		
 		IntentFilter mFilter = new IntentFilter(); // 代码注册广播
@@ -193,8 +195,6 @@ public class MessageFragment extends Fragment{
 				Log.e("zyf", "toId: "+messageItems.get(position).getChatId());*/
 				
 				MessageItem item=messageItems.get(position);
-				item.setUnReadNum(0);
-				mDatabaseHelperUtil.updateChatMessage(item);
 				
 				iClubApplication.badgeNumber-=1;
 				if(iClubApplication.badgeNumber<0){
@@ -211,6 +211,15 @@ public class MessageFragment extends Fragment{
 				intent.putExtra("channelId", item.getChannelId());
 				intent.putExtra("chatId", item.getChatId());
 			    intent.putExtra("toId", item.getChatId());
+			    if(item.getUnReadNum()>0){
+			    	intent.putExtra("haveUnReadMessage", true);
+			    	Log.e("zyf", "会话信息    unReadMessageNum>0......");
+			    }else {
+			    	Log.e("zyf", "会话信息    unReadMessageNum=0......");
+				}
+			    
+			    //item.setUnReadNum(0);
+				//mDatabaseHelperUtil.updateChatMessage(item);
 				
 				getActivity().startActivity(intent);
 			}
@@ -540,6 +549,7 @@ public class MessageFragment extends Fragment{
 		Log.e("zyf", "message UI is coming,update it...messageItems size: "+messageItems.size());
 		
 		messageItems.clear();
+		iClubApplication.badgeNumber=0;
 		
 		ArrayList<MessageItem> tempMessageItems=new MessageDatabaseHelperUtil(getActivity()).getMessages(AppConfig.account.getAccountId());
 		for(int i=0;i<tempMessageItems.size();i++){
@@ -547,8 +557,12 @@ public class MessageFragment extends Fragment{
 			Log.e("zyf", "message last content: "+tempMessageItems.get(i).getLastContent());
 			
 			messageItems.add(tempMessageItems.get(i));
+			
+			iClubApplication.badgeNumber+=tempMessageItems.get(i).getUnReadNum();
 		}
 		
 		mBaseAdapter.notifyDataSetChanged();
+		
+		MainActivity.handleUnReadMessage(iClubApplication.badgeNumber);
 	}
 }
