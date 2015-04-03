@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.oct.ga.comm.domain.account.AccountDetailInfo;
 import com.redoct.iclub.config.AppConfig;
+import com.redoct.iclub.fragment.MessageFragment;
 import com.redoct.iclub.task.BadgeNumberQueryTask;
 import com.redoct.iclub.task.GetAccountTask;
 import com.redoct.iclub.task.ServerConfigTask;
@@ -266,6 +267,13 @@ public class BaseActivity extends FragmentActivity{
 				super.callback();
 				
 				MainActivity.handleUnReadMessage(iClubApplication.badgeNumber);
+				
+				if(iClubApplication.badgeNumber>0){
+					iClubApplication.isNeedLoadMessage=true;
+					
+					Intent intent=new Intent("com.kevin.refresh");
+					BaseActivity.this.sendBroadcast(intent);
+				}
 			}
 			
 		};

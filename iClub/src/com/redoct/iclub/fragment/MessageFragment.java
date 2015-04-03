@@ -59,6 +59,8 @@ public class MessageFragment extends Fragment{
 	private int lastTryTime=0;
 	
 	MessageDatabaseHelperUtil mDatabaseHelperUtil;
+	
+	private boolean isVisible;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +93,7 @@ public class MessageFragment extends Fragment{
 		
 		IntentFilter mFilter = new IntentFilter(); // 代码注册广播
 		mFilter.addAction("com.cc.msg");
+		mFilter.addAction("com.kevin.refresh");
 		getActivity().registerReceiver(mReceiver, mFilter);
 		
 		return contentView;
@@ -502,17 +505,23 @@ public class MessageFragment extends Fragment{
 
 			Log.e("zyf", "message fragment receive a msg from jpush......");
 			
-			messageItems.clear();
+			if(intent.getAction().equals("com.cc.msg")){
 			
-			ArrayList<MessageItem> tempMessageItems=new MessageDatabaseHelperUtil(getActivity()).getMessages(AppConfig.account.getAccountId());
-			for(int i=0;i<tempMessageItems.size();i++){
+				messageItems.clear();
 				
-				Log.e("zyf", "message last content: "+tempMessageItems.get(i).getLastContent());
+				ArrayList<MessageItem> tempMessageItems=new MessageDatabaseHelperUtil(getActivity()).getMessages(AppConfig.account.getAccountId());
+				for(int i=0;i<tempMessageItems.size();i++){
+					
+					Log.e("zyf", "message last content: "+tempMessageItems.get(i).getLastContent());
+					
+					messageItems.add(tempMessageItems.get(i));
+				}
 				
-				messageItems.add(tempMessageItems.get(i));
+				mBaseAdapter.notifyDataSetChanged();
+			}else if(intent.getAction().equals("com.kevin.refresh")){
+				
+				refreshData();
 			}
-			
-			mBaseAdapter.notifyDataSetChanged();
 			
 
 		}
@@ -523,11 +532,25 @@ public class MessageFragment extends Fragment{
 		// TODO Auto-generated method stub
 		super.onHiddenChanged(hidden);
 		
+		isVisible=!hidden;
+		
 		if(!hidden){
 			
 			Log.e("zyf", "message fragment is visible......");
 			
-			updateUI();
+			if(iClubApplication.isNeedLoadMessage){
+				
+				Log.e("zyf", "需要重新从server端load数据......");
+				
+				iClubApplication.isNeedLoadMessage=false;
+				
+				load();
+				
+			}else {
+				
+				Log.e("zyf", "不不不需要重新从server端load数据......");
+				updateUI();
+			}
 			
 		}else{
 			//getActivity().unregisterReceiver(mReceiver);
@@ -540,6 +563,8 @@ public class MessageFragment extends Fragment{
 		super.onResume();
 		
 		Log.e("zyf", "message fragment on resume......");
+		
+		isVisible=true;
 		
 		updateUI();
 	}
@@ -564,5 +589,16 @@ public class MessageFragment extends Fragment{
 		mBaseAdapter.notifyDataSetChanged();
 		
 		MainActivity.handleUnReadMessage(iClubApplication.badgeNumber);
+	}
+	
+	public void refreshData(){
+		
+		if(isVisible){
+			
+			Log.e("zyf", "Mesagae fragment is visible, need refresh data......");
+			load();
+		}else {
+			Log.e("zyf", "Mesagae fragment is not visible, not no tneed refresh data......");
+		}
 	}
 }

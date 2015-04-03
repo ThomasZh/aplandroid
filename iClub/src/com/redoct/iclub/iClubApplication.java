@@ -43,6 +43,7 @@ public class iClubApplication extends Application implements
 	public static boolean isAlive=true;
 	
 	public static int badgeNumber;
+	public static boolean isNeedLoadMessage;
 	
 	public static String userName;
 	public static String psw;

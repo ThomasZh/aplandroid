@@ -40,7 +40,7 @@ public class SplashActivity extends BaseActivity{
 		setContentView(R.layout.activity_splash);
 		
 		mShowInfoTv=(TextView)findViewById(R.id.mShowInfoTv);
-	//	mProgressBar=(ProgressBar)findViewById(R.id.mProgressBar);
+	    mProgressBar=(ProgressBar)findViewById(R.id.mProgressBar);
 		
 		iClubApplication.api = new StpClient(new StpHandler(iClubApplication.api) {
 
@@ -107,7 +107,7 @@ public class SplashActivity extends BaseActivity{
 	}
 
 	private void updateShowInfo(){
-	//	mProgressBar.setVisibility(View.GONE);
+		mProgressBar.setVisibility(View.GONE);
 		mShowInfoTv.setText("服务不可用，请稍后重试......");
 	}
 	
