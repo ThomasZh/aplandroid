@@ -86,6 +86,7 @@ public class QueryMessagePaginationTask extends TemplateTask {
 		    	 item.setLastContent(mslist.get(i).getContent());
 		    	 item.setUserAvatarUrl(mslist.get(i).getAttachUrl());
 		    	 mMessageDatabaseHelperUtil.addChatMessage(item);     //保存到消息表
+		    	 
 		    	 mMessageItems.add(item);
 		     }
 		     

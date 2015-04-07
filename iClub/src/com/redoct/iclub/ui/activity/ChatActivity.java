@@ -437,6 +437,21 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 
 				mContentListView.getRefreshableView().setSelection(
 						mChatMessageAdapter.getCount() - 1);
+				//int i  = mMessageItems.size();
+				//add by kevin
+				if(mMessageItems.get(mMessageItems.size()-1)!=null){
+					
+					MessageItem item = new MessageItem();
+					item.setAccoutId(AppConfig.account.getAccountId());
+					item.setLastContent(mMessageItems.get(mMessageItems.size()-1).getLastContent());
+					item.setChatId(chatId);
+					item.setMessageType(Constant.MESSAGE_TYPE_CHAT);
+					item.setUserAvatarUrl(mMessageItems.get(mMessageItems.size()-1).getUserAvatarUrl());
+					item.setTimestamp(DatetimeUtil.currentTimestamp());
+					item.setUnReadNum(0);
+					new MessageDatabaseHelperUtil(ChatActivity.this)
+					.updateChatMessage(item);
+				}
 
 			}
 
