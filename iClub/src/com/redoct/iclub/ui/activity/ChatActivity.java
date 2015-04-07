@@ -167,17 +167,19 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 			@Override
 			public void onReceive(Context context, Intent intent) {
 
-				MessageItem item = (MessageItem) intent
-						.getSerializableExtra("msgItem");
-				mMessageItems.add(item);
-				mChatMessageAdapter.notifyDataSetChanged();
-				mContentListView.getRefreshableView().setSelection(
-						mChatMessageAdapter.getCount() - 1);
-				new ConfirmMessageReadTask(chatId).safeExecute();
-
-				//add by Kevin
-				item.setUnReadNum(0);
-				new MessageDatabaseHelperUtil(ChatActivity.this).updateChatMessage(item);
+				MessageItem item = (MessageItem) intent.getSerializableExtra("msgItem");
+				if(item.getChatId().equals(chatId)){
+					
+					mMessageItems.add(item);
+					mChatMessageAdapter.notifyDataSetChanged();
+					mContentListView.getRefreshableView().setSelection(
+							mChatMessageAdapter.getCount() - 1);
+					new ConfirmMessageReadTask(chatId).safeExecute();
+					
+					//add by Kevin
+					item.setUnReadNum(0);
+					new MessageDatabaseHelperUtil(ChatActivity.this).updateChatMessage(item);
+				}
 			}
 		};
 		registerReceiver(mReceiver, mFilter);
@@ -306,9 +308,12 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 						new MessageDatabaseHelperUtil(ChatActivity.this)
 								.addChatMessage(item);
 						mMessageItems.add(item);
-						mChatMessageAdapter.notifyDataSetChanged();
+						mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, ChatActivity.this);
+						mContentListView.setAdapter(mChatMessageAdapter);
+
 						mContentListView.getRefreshableView().setSelection(
 								mChatMessageAdapter.getCount() - 1);
+						
 						mContentEt.setText("");
 
 					}
@@ -378,11 +383,11 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 				super.callback();
 				Log.i("cc", "message  refresh  succesful........");
 				mContentListView.onRefreshComplete();
-				/*
-				 * mTempMessageItems = queryMessageTask.getmMessageItems();
-				 * mTempMessageItems.addAll(mMessageItems);
-				 */
-				mMessageItems.addAll(queryMessageTask.getmMessageItems());
+				
+				 mTempMessageItems = mMessageItems;
+				 mMessageItems = queryMessageTask.getmMessageItems();
+				 
+				mMessageItems.addAll(mTempMessageItems);
 
 				mChatMessageAdapter = new ChatMessageAdapter(mMessageItems,
 						ChatActivity.this);
