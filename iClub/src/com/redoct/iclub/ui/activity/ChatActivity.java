@@ -28,6 +28,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.DatetimeUtil;
+import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.GlobalArgs;
 import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
@@ -79,6 +80,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 	private Short channelType;
 	private String toId;
 	private String chatId;
+	private String toAccountId;
 	private boolean haveUnReadMessage;
 
 	@Override
@@ -112,18 +114,23 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 				Log.e("zyf", "single chat......");
 
 				channelType = GlobalArgs.CHANNEL_TYPE_CREATE_QUESTION; // 第一次进来时需要创建
-				toId = mMemberItems.get(0).getUserId();
+				//toId = mMemberItems.get(0).getUserId();
+				
+				toAccountId=mMemberItems.get(0).getUserId();
+				chatId=EcryptUtil.md5ChatId(AppConfig.account.getAccountId(), toAccountId);
 			} else {
 
 				Log.e("zyf", "muiti chat......");
 
 				channelType = GlobalArgs.CHANNEL_TYPE_TASK;
-				toId = mActivityDetailsItem.getClubId();
+				//toId = mActivityDetailsItem.getClubId();
+				
+				chatId=mActivityDetailsItem.getId();
 			}
 
 			channelId = mActivityDetailsItem.getId();
-			chatId = mActivityDetailsItem.getId();
 
+			Log.e("zyf", "md5 chatId: "+chatId);
 		}
 
 		Log.e("zyf", "chat id:" + chatId);
@@ -182,7 +189,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 
 		mContentListView = (PullToRefreshListView) findViewById(R.id.mContentListView);
 		mContentListView.setOnRefreshListener(this);
-		if (!haveUnReadMessage) {
+		/*if (!haveUnReadMessage) {
 
 			List<MessageItem> list = new MessageDatabaseHelperUtil(this)
 					.getChatMessages(AppConfig.account.getAccountId(), chatId);
@@ -199,9 +206,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 
 			mContentListView.getRefreshableView().setSelection(
 					mChatMessageAdapter.getCount() - 1);
-		} else {
+		} else {*/
 			firstQuerry();
-		}
+		//}
 
 	}
 
@@ -259,7 +266,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 				 * mActivityDetailsItem.getClubId(); }
 				 */
 				ChatMessageSendTask mChatMessageSendTask = new ChatMessageSendTask(
-						UUID.randomUUID().toString(), toId, mContentEt
+						UUID.randomUUID().toString(), chatId, toAccountId,mContentEt
 								.getText().toString(), channelId, channelType) {
 					@Override
 					public void timeout() {
