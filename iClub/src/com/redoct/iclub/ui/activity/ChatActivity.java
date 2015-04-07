@@ -200,7 +200,6 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 			firstQuerry();
 		}
 
-		
 	}
 
 	@Override
@@ -346,7 +345,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 		num++;
 		// TODO Auto-generated method stub
 		queryMessageTask = new QueryMessagePaginationTask(chatId, num,
-				(short) 20,this) {
+				(short) 20, this) {
 			@Override
 			public void timeout() {
 				// TODO Auto-generated method stub
@@ -369,14 +368,18 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 				super.callback();
 				Log.i("cc", "message  refresh  succesful........");
 				mContentListView.onRefreshComplete();
-				mTempMessageItems = queryMessageTask.getmMessageItems();
-				mTempMessageItems.addAll(mMessageItems);
-				
-				mChatMessageAdapter = new ChatMessageAdapter(mTempMessageItems, ChatActivity.this);
+				/*
+				 * mTempMessageItems = queryMessageTask.getmMessageItems();
+				 * mTempMessageItems.addAll(mMessageItems);
+				 */
+				mMessageItems.addAll(queryMessageTask.getmMessageItems());
+
+				mChatMessageAdapter = new ChatMessageAdapter(mMessageItems,
+						ChatActivity.this);
 				mContentListView.setAdapter(mChatMessageAdapter);
 
 				mContentListView.getRefreshableView().setSelection(
-						1);
+						mChatMessageAdapter.getCount() - 1);
 
 			}
 
@@ -408,7 +411,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 
 	public void firstQuerry() {
 		queryMessageTask = new QueryMessagePaginationTask(chatId, (short) 1,
-				(short) 20,this) {
+				(short) 20, this) {
 			@Override
 			public void timeout() {
 				// TODO Auto-generated method stub
@@ -432,25 +435,28 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 				Log.i("cc", "message  refresh  succesful........");
 
 				mMessageItems = queryMessageTask.getmMessageItems();
-				mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, ChatActivity.this);
+				mChatMessageAdapter = new ChatMessageAdapter(mMessageItems,
+						ChatActivity.this);
 				mContentListView.setAdapter(mChatMessageAdapter);
 
 				mContentListView.getRefreshableView().setSelection(
 						mChatMessageAdapter.getCount() - 1);
-				//int i  = mMessageItems.size();
-				//add by kevin
-				if(mMessageItems.get(mMessageItems.size()-1)!=null){
-					
+				// int i = mMessageItems.size();
+				// add by kevin
+				if (mMessageItems.get(mMessageItems.size() - 1) != null) {
+
 					MessageItem item = new MessageItem();
 					item.setAccoutId(AppConfig.account.getAccountId());
-					item.setLastContent(mMessageItems.get(mMessageItems.size()-1).getLastContent());
+					item.setLastContent(mMessageItems.get(
+							mMessageItems.size() - 1).getLastContent());
 					item.setChatId(chatId);
 					item.setMessageType(Constant.MESSAGE_TYPE_CHAT);
-					item.setUserAvatarUrl(mMessageItems.get(mMessageItems.size()-1).getUserAvatarUrl());
+					item.setUserAvatarUrl(mMessageItems.get(
+							mMessageItems.size() - 1).getUserAvatarUrl());
 					item.setTimestamp(DatetimeUtil.currentTimestamp());
 					item.setUnReadNum(0);
 					new MessageDatabaseHelperUtil(ChatActivity.this)
-					.updateChatMessage(item);
+							.updateChatMessage(item);
 				}
 
 			}
