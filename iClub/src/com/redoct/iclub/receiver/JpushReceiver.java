@@ -178,16 +178,12 @@ public class JpushReceiver extends BroadcastReceiver {
 					item.setUnReadNum(0);
 				}
 				
-				item.setUnReadNum(1);
-				
 				mMessageDatabaseHelperUtil.addNewMessage(item);
 			}else{
 				Log.e("zyf", "收到推送消息,数据库中之前保存有该会话记录.......originalUnReadNum: "+originalUnReadNum);
 				if(item.getMessageType()==Constant.MESSAGE_TYPE_CHAT){
 					item.setUnReadNum(originalUnReadNum+1);
 				}
-				
-				item.setUnReadNum(originalUnReadNum+1);
 				
 				mMessageDatabaseHelperUtil.updateChatMessage(item);
 			}
