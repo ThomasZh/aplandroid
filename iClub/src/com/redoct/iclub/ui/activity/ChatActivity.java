@@ -1,12 +1,10 @@
 package com.redoct.iclub.ui.activity;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -16,7 +14,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -25,17 +22,13 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.DatetimeUtil;
-import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.GlobalArgs;
-import com.oct.ga.comm.cmd.msg.ConfirmMessageReadReq;
-import com.oct.ga.comm.cmd.msg.QueryMessagePaginationReq;
 import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMessageAdapter;
@@ -48,6 +41,7 @@ import com.redoct.iclub.task.ConfirmMessageReadTask;
 import com.redoct.iclub.task.QueryMessagePaginationTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.MessageDatabaseHelperUtil;
+import com.redoct.iclub.util.ToastUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 
 public class ChatActivity extends BaseActivity implements OnClickListener,
@@ -55,13 +49,13 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 	public NotificationManager mNotificationManager;
 	private ActivityDetailsItem mActivityDetailsItem;
 	private ArrayList<MemberItem> mMemberItems;
-	 QueryMessagePaginationTask queryMessageTask=null;
+	QueryMessagePaginationTask queryMessageTask = null;
 	BroadcastReceiver mReceiver = null;
 	private Handler mHandler;
 	/** Notification构造器 */
 	NotificationCompat.Builder mBuilder;
 	private final int cycleTime = 2 * 1000;
-
+	private short num = 1;
 	private Runnable getMessageRunnable = new Runnable() {
 
 		@Override
@@ -76,6 +70,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 	private EditText mContentEt;
 
 	private ArrayList<MessageItem> mMessageItems = new ArrayList<MessageItem>();
+	private ArrayList<MessageItem> mTempMessageItems = new ArrayList<MessageItem>();
 
 	private PullToRefreshListView mContentListView;
 	private ChatMessageAdapter mChatMessageAdapter;
@@ -84,6 +79,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 	private Short channelType;
 	private String toId;
 	private String chatId;
+	private boolean haveUnReadMessage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +99,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 		channelType = getIntent().getShortExtra("channelType",
 				Short.parseShort("0"));
 		toId = getIntent().getStringExtra("toId");
+		haveUnReadMessage = getIntent().getBooleanExtra("haveUnReadMessage",
+				false);
 		chatId = getIntent().getStringExtra("chatId");
 
 		if (mActivityDetailsItem != null) {
@@ -166,7 +164,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 						.getSerializableExtra("msgItem");
 				mMessageItems.add(item);
 				mChatMessageAdapter.notifyDataSetChanged();
-
+				mContentListView.getRefreshableView().setSelection(
+						mChatMessageAdapter.getCount() - 1);
 				new ConfirmMessageReadTask(chatId).safeExecute();
 
 			}
@@ -176,27 +175,32 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void initViews() {
-
-		List<MessageItem> list = new MessageDatabaseHelperUtil(this)
-				.getChatMessages(AppConfig.account.getAccountId(), chatId);
-		Collections.reverse(list);
-		for (int i = 0; i < list.size(); i++) {
-			if (i >= 20) {
-				break;
-			}
-			mMessageItems.add(list.get(i));
-		}
-		Collections.reverse(mMessageItems);
 		mContentEt = (EditText) findViewById(R.id.mContentEt);
 
 		mContentListView = (PullToRefreshListView) findViewById(R.id.mContentListView);
-
-		mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, this);
-		mContentListView.setAdapter(mChatMessageAdapter);
 		mContentListView.setOnRefreshListener(this);
+		if (!haveUnReadMessage) {
 
-		mContentListView.getRefreshableView().setSelection(
-				mChatMessageAdapter.getCount() - 1);
+			List<MessageItem> list = new MessageDatabaseHelperUtil(this)
+					.getChatMessages(AppConfig.account.getAccountId(), chatId);
+			Collections.reverse(list);
+			for (int i = 0; i < list.size(); i++) {
+				if (i >= 20) {
+					break;
+				}
+				mMessageItems.add(list.get(i));
+			}
+			Collections.reverse(mMessageItems);
+			mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, this);
+			mContentListView.setAdapter(mChatMessageAdapter);
+
+			mContentListView.getRefreshableView().setSelection(
+					mChatMessageAdapter.getCount() - 1);
+		} else {
+			firstQuerry();
+		}
+
+		
 	}
 
 	@Override
@@ -294,6 +298,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 								.addChatMessage(item);
 						mMessageItems.add(item);
 						mChatMessageAdapter.notifyDataSetChanged();
+						mContentListView.getRefreshableView().setSelection(
+								mChatMessageAdapter.getCount() - 1);
 						mContentEt.setText("");
 
 					}
@@ -337,8 +343,10 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onRefresh(PullToRefreshBase refreshView) {
+		num++;
 		// TODO Auto-generated method stub
-	 queryMessageTask =new QueryMessagePaginationTask(chatId,(short)1,(short)40) {
+		queryMessageTask = new QueryMessagePaginationTask(chatId, num,
+				(short) 20,this) {
 			@Override
 			public void timeout() {
 				// TODO Auto-generated method stub
@@ -359,10 +367,16 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 			public void callback() {
 				// TODO Auto-generated method stub
 				super.callback();
-				Log.i("cc","message  refresh  succesful........");
+				Log.i("cc", "message  refresh  succesful........");
 				mContentListView.onRefreshComplete();
-				mMessageItems =	queryMessageTask.getmMessageItems();
-				mChatMessageAdapter.notifyDataSetChanged();
+				mTempMessageItems = queryMessageTask.getmMessageItems();
+				mTempMessageItems.addAll(mMessageItems);
+				
+				mChatMessageAdapter = new ChatMessageAdapter(mTempMessageItems, ChatActivity.this);
+				mContentListView.setAdapter(mChatMessageAdapter);
+
+				mContentListView.getRefreshableView().setSelection(
+						1);
 
 			}
 
@@ -390,6 +404,66 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 		queryMessageTask.setTimeOutEnabled(true, 10 * 1000);
 		queryMessageTask.safeExecute();
 
+	}
+
+	public void firstQuerry() {
+		queryMessageTask = new QueryMessagePaginationTask(chatId, (short) 1,
+				(short) 20,this) {
+			@Override
+			public void timeout() {
+				// TODO Auto-generated method stub
+				super.timeout();
+
+				Log.e("zyf", "get data time out....");
+			}
+
+			@Override
+			public void before() {
+				// TODO Auto-generated method stub
+				super.before();
+
+				Log.e("zyf", "start get data....");
+			}
+
+			@Override
+			public void callback() {
+				// TODO Auto-generated method stub
+				super.callback();
+				Log.i("cc", "message  refresh  succesful........");
+
+				mMessageItems = queryMessageTask.getmMessageItems();
+				mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, ChatActivity.this);
+				mContentListView.setAdapter(mChatMessageAdapter);
+
+				mContentListView.getRefreshableView().setSelection(
+						mChatMessageAdapter.getCount() - 1);
+
+			}
+
+			@Override
+			public void failure() {
+				// TODO Auto-generated method stub
+				super.failure();
+
+				// loadData();
+				Log.e("zyf", "get data failure....");
+				ToastUtil.toastshort(ChatActivity.this, "消息加载失败！！");
+
+			}
+
+			@Override
+			public void complete() {
+				// TODO Auto-generated method stub
+				super.complete();
+
+				Log.e("zyf", "get data complete....");
+
+				// mPullToRefreshListView.onRefreshComplete();
+			}
+
+		};
+		queryMessageTask.setTimeOutEnabled(true, 10 * 1000);
+		queryMessageTask.safeExecute();
 	}
 
 }
