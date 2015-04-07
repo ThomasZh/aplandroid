@@ -1,6 +1,9 @@
 package com.redoct.iclub.ui.activity;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import android.app.Notification;
@@ -22,13 +25,17 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.oct.ga.comm.DatetimeUtil;
 import com.oct.ga.comm.EcryptUtil;
 import com.oct.ga.comm.GlobalArgs;
 import com.oct.ga.comm.cmd.msg.ConfirmMessageReadReq;
+import com.oct.ga.comm.cmd.msg.QueryMessagePaginationReq;
 import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.adapter.ChatMessageAdapter;
@@ -38,14 +45,17 @@ import com.redoct.iclub.item.MemberItem;
 import com.redoct.iclub.item.MessageItem;
 import com.redoct.iclub.task.ChatMessageSendTask;
 import com.redoct.iclub.task.ConfirmMessageReadTask;
+import com.redoct.iclub.task.QueryMessagePaginationTask;
 import com.redoct.iclub.util.Constant;
 import com.redoct.iclub.util.MessageDatabaseHelperUtil;
 import com.redoct.iclub.util.UserInformationLocalManagerUtil;
 
-public class ChatActivity extends BaseActivity implements OnClickListener {
+public class ChatActivity extends BaseActivity implements OnClickListener,
+		OnRefreshListener {
 	public NotificationManager mNotificationManager;
 	private ActivityDetailsItem mActivityDetailsItem;
 	private ArrayList<MemberItem> mMemberItems;
+	 QueryMessagePaginationTask queryMessageTask=null;
 	BroadcastReceiver mReceiver = null;
 	private Handler mHandler;
 	/** Notification构造器 */
@@ -166,14 +176,24 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void initViews() {
-		mMessageItems = new MessageDatabaseHelperUtil(this).getChatMessages(
-				AppConfig.account.getAccountId(), chatId);
+
+		List<MessageItem> list = new MessageDatabaseHelperUtil(this)
+				.getChatMessages(AppConfig.account.getAccountId(), chatId);
+		Collections.reverse(list);
+		for (int i = 0; i < list.size(); i++) {
+			if (i >= 20) {
+				break;
+			}
+			mMessageItems.add(list.get(i));
+		}
+		Collections.reverse(mMessageItems);
 		mContentEt = (EditText) findViewById(R.id.mContentEt);
 
 		mContentListView = (PullToRefreshListView) findViewById(R.id.mContentListView);
 
 		mChatMessageAdapter = new ChatMessageAdapter(mMessageItems, this);
 		mContentListView.setAdapter(mChatMessageAdapter);
+		mContentListView.setOnRefreshListener(this);
 
 		mContentListView.getRefreshableView().setSelection(
 				mChatMessageAdapter.getCount() - 1);
@@ -313,6 +333,63 @@ public class ChatActivity extends BaseActivity implements OnClickListener {
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 1,
 				new Intent(), flags);
 		return pendingIntent;
+	}
+
+	@Override
+	public void onRefresh(PullToRefreshBase refreshView) {
+		// TODO Auto-generated method stub
+	 queryMessageTask =new QueryMessagePaginationTask(chatId,(short)1,(short)40) {
+			@Override
+			public void timeout() {
+				// TODO Auto-generated method stub
+				super.timeout();
+
+				Log.e("zyf", "get data time out....");
+			}
+
+			@Override
+			public void before() {
+				// TODO Auto-generated method stub
+				super.before();
+
+				Log.e("zyf", "start get data....");
+			}
+
+			@Override
+			public void callback() {
+				// TODO Auto-generated method stub
+				super.callback();
+				Log.i("cc","message  refresh  succesful........");
+				mContentListView.onRefreshComplete();
+				mMessageItems =	queryMessageTask.getmMessageItems();
+				mChatMessageAdapter.notifyDataSetChanged();
+
+			}
+
+			@Override
+			public void failure() {
+				// TODO Auto-generated method stub
+				super.failure();
+
+				// loadData();
+				Log.e("zyf", "get data failure....");
+
+			}
+
+			@Override
+			public void complete() {
+				// TODO Auto-generated method stub
+				super.complete();
+
+				Log.e("zyf", "get data complete....");
+
+				// mPullToRefreshListView.onRefreshComplete();
+			}
+
+		};
+		queryMessageTask.setTimeOutEnabled(true, 10 * 1000);
+		queryMessageTask.safeExecute();
+
 	}
 
 }

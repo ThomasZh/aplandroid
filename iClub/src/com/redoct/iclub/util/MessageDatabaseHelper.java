@@ -41,6 +41,7 @@ public class MessageDatabaseHelper extends SQLiteOpenHelper{
 			+"chatId String,"
 			+"isSend String,"
 			+"userAvatarUrl String,"
+		
 			+"lastContent String,"
 			+"fomeName String);";
 			

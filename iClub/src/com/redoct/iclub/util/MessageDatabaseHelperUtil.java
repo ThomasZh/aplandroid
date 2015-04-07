@@ -65,12 +65,13 @@ public class MessageDatabaseHelperUtil {
 		ContentValues values = new ContentValues();
 
 		values.put("accoutId", item.getAccoutId());
-		values.put("accoutId", item.getAccoutId());
+	
 		values.put("isSend", item.getIsSend());
         values.put("userAvatarUrl", item.getUserAvatarUrl());
         values.put("lastContent", item.getLastContent());
         values.put("chatId", item.getChatId());
         values.put("fomeName", item.getFromName());
+       
 		db.insert(TABLE_CHAT_MESSAGE, null, values);
 
 		Log.e("CC", "insert new message success.....");
@@ -89,7 +90,7 @@ public class MessageDatabaseHelperUtil {
 		String[] args = { accoutId,chatId };
 
 		Cursor cursor = db.query(TABLE_CHAT_MESSAGE, null, "accoutId=? and chatId=?", args,
-				null, null, null);
+				null, null,null);
 
 		if (cursor == null) {
 
@@ -97,7 +98,7 @@ public class MessageDatabaseHelperUtil {
 			return messageItems;
 		}
 
-		if (cursor.getCount() > 0) {
+		if (cursor.getCount()>0) {
 			MessageItem messageItem;
 
 			while (cursor.moveToNext()) {
