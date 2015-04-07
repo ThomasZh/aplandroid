@@ -7,20 +7,21 @@ import com.oct.ga.comm.ErrorCode;
 import com.oct.ga.comm.cmd.club.ActivityUpdateReq;
 import com.oct.ga.comm.cmd.club.ActivityUpdateResp;
 import com.oct.ga.comm.domain.club.ActivityDetailInfo;
+import com.oct.ga.comm.domain.club.ActivityUpdateInfo;
 import com.redoct.iclub.iClubApplication;
 
 public class ActivityUpdateTask extends TemplateTask {
 	
-	private ActivityDetailInfo info;
+	private ActivityUpdateInfo info;
 
-    public ActivityUpdateTask(ActivityDetailInfo info){
+    public ActivityUpdateTask(ActivityUpdateInfo info){
         this.info = info;
     }
 
     @Override
     protected boolean justTodo() {
     	
-    	/*ActivityUpdateReq req=new ActivityUpdateReq(DatetimeUtil.currentTimestamp(),info);
+    	ActivityUpdateReq req=new ActivityUpdateReq(DatetimeUtil.currentTimestamp(),info);
         
         try {
             ActivityUpdateResp resp = (ActivityUpdateResp) iClubApplication.send(req);
@@ -38,7 +39,7 @@ public class ActivityUpdateTask extends TemplateTask {
         } catch (Exception e) {
             Log.e("zyf","activity update exception： "+e.toString());
             return false;
-        }*/
+        }
         
         return true;
     }

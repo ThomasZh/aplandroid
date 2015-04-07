@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.oct.ga.comm.LogErrorMessage;
 import com.oct.ga.comm.domain.club.ActivityCreateInfo;
 import com.oct.ga.comm.domain.club.ActivityDetailInfo;
+import com.oct.ga.comm.domain.club.ActivityUpdateInfo;
 import com.redoct.iclub.BaseActivity;
 import com.redoct.iclub.R;
 import com.redoct.iclub.item.ActivityDetailsItem;
@@ -415,7 +416,7 @@ public class ActivityCreateActivity extends BaseActivity implements OnClickListe
 			
 			if(mActivityDetailsItem!=null){   //活动的编辑
 				
-				ActivityDetailInfo info=new ActivityDetailInfo();
+				/*ActivityDetailInfo info=new ActivityDetailInfo();
 		    	info.setId(id);
 		    	info.setName(mThemeEt.getText().toString());
 		    	info.setStartTime((int)getFormatTime(startYear, startMonth, startDay, startHour, startMinute));
@@ -423,9 +424,19 @@ public class ActivityCreateActivity extends BaseActivity implements OnClickListe
 		    	info.setDesc(mDescEt.getText().toString());
 		    	info.setLocX(locX);
 		    	info.setLocY(locY);
-		    	info.setLocDesc(mLocationEt.getText().toString());
+		    	info.setLocDesc(mLocationEt.getText().toString());*/
 		    	
-				mUpdateActivityTask=new ActivityUpdateTask(info){
+		    	ActivityUpdateInfo activityUpdateInfo=new ActivityUpdateInfo();
+		    	activityUpdateInfo.setId(id);
+		    	activityUpdateInfo.setName(mThemeEt.getText().toString());
+		    	activityUpdateInfo.setStartTime((int)getFormatTime(startYear, startMonth, startDay, startHour, startMinute));
+		    	activityUpdateInfo.setEndTime((int)getFormatTime(endYear, endMonth, endDay, endHour, endMinute));
+		    	activityUpdateInfo.setDesc(mDescEt.getText().toString());
+		    	activityUpdateInfo.setLocX(locX);
+		    	activityUpdateInfo.setLocY(locY);
+		    	activityUpdateInfo.setLocDesc(mLocationEt.getText().toString());
+		    	
+				mUpdateActivityTask=new ActivityUpdateTask(activityUpdateInfo){
 					
 					@Override
 		            public void callback(){
@@ -438,7 +449,7 @@ public class ActivityCreateActivity extends BaseActivity implements OnClickListe
 		            	mActivityDetailsItem.setDesc(mDescEt.getText().toString());
 		            	mActivityDetailsItem.setLocX(locX);
 		            	mActivityDetailsItem.setLocY(locY);
-		            	mActivityDetailsItem.setLocDesc(mLocationEt.getText().toString());
+		            	mActivityDetailsItem.setLocDesc(mLocationEt.getText().toString());		   			            	
 		            	
 		            	Intent intent=new Intent();
 		            	intent.putExtra("ActivityDetailsItem", mActivityDetailsItem);
