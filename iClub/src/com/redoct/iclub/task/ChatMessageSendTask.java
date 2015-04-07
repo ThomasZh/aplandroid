@@ -16,22 +16,23 @@ import com.redoct.iclub.config.NetworkConfig;
 public class ChatMessageSendTask extends TemplateTask {
 	
 	private String messageId;
-	private String toId;
+	////private String toId;
+	private String chatId;
+	private String toAcountId;
 	private String content;
 	private String channelId;
 	private Short channelType;
 
-	public ChatMessageSendTask(String messageId, String toId, String content,
+	public ChatMessageSendTask(String messageId, String chatId, String toAcountId,String content,
 			String channelId, Short channelType) {
 		super();
 		this.messageId = messageId;
-		this.toId = toId;
+		this.chatId = chatId;
+		this.toAcountId = toAcountId;
 		this.content = content;
 		this.channelId = channelId;
 		this.channelType = channelType;
 	}
-
-
 
 	@Override
 	protected boolean justTodo() {
@@ -40,14 +41,23 @@ public class ChatMessageSendTask extends TemplateTask {
 		//群组 toId  activityId
 		//个人 toId  
 		EcryptUtil.md5ChatId(me, other);*/
-		UploadMessageReq req=new UploadMessageReq(DatetimeUtil.currentTimestamp(),
+		/*UploadMessageReq req=new UploadMessageReq(DatetimeUtil.currentTimestamp(),
 				                                    messageId, 
 													GlobalArgs.CONTENT_TYPE_TXT, 
 													channelType, 
 													channelId,
 													toId, 
 													content, 
-													null);
+													null);*/
+		UploadMessageReq req=new UploadMessageReq(DatetimeUtil.currentTimestamp(),
+				                                            messageId, 
+															GlobalArgs.CONTENT_TYPE_TXT, 
+															channelType, 
+															channelId,
+															chatId,
+															toAcountId,
+															content, 
+															null);
 		
 		Log.e("zyf", "chat msg send activity id: "+channelId);
 		
