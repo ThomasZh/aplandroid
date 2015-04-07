@@ -4,6 +4,8 @@ package com.redoct.iclub.task;
  * Created by chengcai on 15-02-02.
  */
 
+import android.content.Context;
+
 import com.oct.ga.comm.cmd.msg.QueryMessagePaginationReq;
 import com.oct.ga.comm.cmd.msg.QueryMessagePaginationResp;
 import com.oct.ga.comm.domain.msg.MsgExtend;
@@ -12,6 +14,7 @@ import com.redoct.iclub.config.AppConfig;
 import com.redoct.iclub.config.NetworkConfig;
 import com.redoct.iclub.config.ServiceConfig;
 import com.redoct.iclub.item.MessageItem;
+import com.redoct.iclub.util.MessageDatabaseHelperUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -22,14 +25,16 @@ public class QueryMessagePaginationTask extends TemplateTask {
 	private String chatId;
 	private short pageNum;
 	private short pageSize;
+	private MessageDatabaseHelperUtil mMessageDatabaseHelperUtil;
 
 	public QueryMessagePaginationTask(String chatId, short pageNum,
-			short pageSize) {
+			short pageSize,Context context) {
 
 		// TODO Auto-generated constructor stub
 		this.chatId = chatId;
 		this.pageNum = pageNum;
 		this.pageSize = pageSize;
+		mMessageDatabaseHelperUtil=new MessageDatabaseHelperUtil(context);
 
 	}
 
@@ -80,6 +85,7 @@ public class QueryMessagePaginationTask extends TemplateTask {
 		    	 item.setFromName(mslist.get(i).getFromAccountName());
 		    	 item.setLastContent(mslist.get(i).getContent());
 		    	 item.setUserAvatarUrl(mslist.get(i).getAttachUrl());
+		    	 mMessageDatabaseHelperUtil.addChatMessage(item);     //保存到消息表
 		    	 mMessageItems.add(item);
 		     }
 		     
