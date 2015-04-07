@@ -8,6 +8,7 @@ import com.oct.ga.comm.DatetimeUtil;
 import com.oct.ga.comm.cmd.RespCommand;
 import com.oct.ga.comm.cmd.club.ActivityQuerySubscribePaginationReq;
 import com.oct.ga.comm.cmd.club.ActivityQuerySubscribePaginationResp;
+import com.oct.ga.comm.domain.club.ActivitySubscribeInfo;
 import com.redoct.iclub.iClubApplication;
 import com.redoct.iclub.R.string;
 import com.redoct.iclub.item.ActivityItem;
@@ -21,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by liwenzhi on 14-10-8.
@@ -126,6 +128,60 @@ public class ActivityListTask extends TemplateTask {
 
         //FileLogger.writeLogFileToSDCard("INFO: Fetching success!");
 */
+    	
+    	ActivityQuerySubscribePaginationReq req=new ActivityQuerySubscribePaginationReq(pageNum, pageSize);
+        
+        req.setSequence(DatetimeUtil.currentTimestamp());
+        
+        try {
+
+        	ActivityQuerySubscribePaginationResp resp=(ActivityQuerySubscribePaginationResp)iClubApplication.send(req);
+        	
+            if(resp==null) {
+            	
+                return false;//fetch in failure!
+            }
+
+           List<ActivitySubscribeInfo> activityList = resp.getActivities();
+        
+            //Log.e("zyf", "json: "+meetups);
+            
+            //result=meetups;
+            
+            //JSONArray activityJsonArray=new JSONArray(meetups);
+            ActivitySubscribeInfo activitySubscribeInfo;
+            ActivityItem item;
+            String totalTime;
+            for(int i=0;i<activityList.size();i++){
+            	item=new ActivityItem();
+            	activitySubscribeInfo=activityList.get(i);
+            	
+            	item.setClubName(activitySubscribeInfo.getClubName());
+            	item.setId(activitySubscribeInfo.getId());
+            	item.setLeaderAvatarUrl(activitySubscribeInfo.getLeaderAvatarUrl());
+            	item.setLeaderName(activitySubscribeInfo.getLeaderName());
+            	item.setLocDesc(activitySubscribeInfo.getLocDesc());
+            	item.setMemberNum(activitySubscribeInfo.getMemberNum()+"");
+            	item.setMemberRank((short)activitySubscribeInfo.getMemberRank());
+            	item.setName(activitySubscribeInfo.getName());
+            	item.setPid(activitySubscribeInfo.getPid());
+            	item.setRecommendNum(activitySubscribeInfo.getRecommendNum()+"");
+            	item.setState(activitySubscribeInfo.getState()+"");
+            	
+            	totalTime=mDateUtils.getFormatDate(activitySubscribeInfo.getStartTime());
+            	
+            	item.setStartDate(totalTime.split(" ")[0]+"  "+totalTime.split(" ")[1]);
+            	item.setStartTime(totalTime.split(" ")[2]);
+            	
+            	activityItems.add(item);
+            }
+
+
+        } catch (Exception e) {
+            Log.e("zyf", "activity list exception: "+e.toString());
+            return false;
+        }
+        
         return true;
     }
 
