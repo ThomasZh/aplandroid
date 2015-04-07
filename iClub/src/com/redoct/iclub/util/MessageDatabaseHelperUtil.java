@@ -179,7 +179,7 @@ public class MessageDatabaseHelperUtil {
 		if (cursor == null) {
 
 			db.close();
-			return 0;
+			return -1;
 		}
 
 		if (cursor.getCount() > 0) {

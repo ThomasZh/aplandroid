@@ -168,6 +168,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 						mChatMessageAdapter.getCount() - 1);
 				new ConfirmMessageReadTask(chatId).safeExecute();
 
+				//add by Kevin
+				item.setUnReadNum(0);
+				new MessageDatabaseHelperUtil(ChatActivity.this).updateChatMessage(item);
 			}
 		};
 		registerReceiver(mReceiver, mFilter);
