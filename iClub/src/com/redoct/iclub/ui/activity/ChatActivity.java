@@ -445,6 +445,9 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 				Log.i("cc", "message  refresh  succesful........");
 
 				mMessageItems = queryMessageTask.getmMessageItems();
+				if (mMessageItems==null||mMessageItems.size()<=0){
+					return;
+				}
 				mChatMessageAdapter = new ChatMessageAdapter(mMessageItems,
 						ChatActivity.this);
 				mContentListView.setAdapter(mChatMessageAdapter);
@@ -453,7 +456,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 						mChatMessageAdapter.getCount() - 1);
 				// int i = mMessageItems.size();
 				// add by kevin
-				if (mMessageItems.get(mMessageItems.size() - 1) != null) {
+				
 
 					MessageItem item = new MessageItem();
 					item.setAccoutId(AppConfig.account.getAccountId());
@@ -467,7 +470,7 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 					item.setUnReadNum(0);
 					new MessageDatabaseHelperUtil(ChatActivity.this)
 							.updateChatMessage(item);
-				}
+				
 
 			}
 

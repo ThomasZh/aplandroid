@@ -5,6 +5,7 @@ package com.redoct.iclub.task;
  */
 
 import android.content.Context;
+import android.util.Log;
 
 import com.oct.ga.comm.cmd.msg.QueryMessagePaginationReq;
 import com.oct.ga.comm.cmd.msg.QueryMessagePaginationResp;
@@ -32,6 +33,7 @@ public class QueryMessagePaginationTask extends TemplateTask {
 
 		// TODO Auto-generated constructor stub
 		this.chatId = chatId;
+		Log.i("cc...........",chatId);
 		this.pageNum = pageNum;
 		this.pageSize = pageSize;
 		mMessageDatabaseHelperUtil=new MessageDatabaseHelperUtil(context);
@@ -84,7 +86,7 @@ public class QueryMessagePaginationTask extends TemplateTask {
 		    	 item.setChatId(mslist.get(i).getChatId());
 		    	 item.setFromName(mslist.get(i).getFromAccountName());
 		    	 item.setLastContent(mslist.get(i).getContent());
-		    	 item.setUserAvatarUrl(mslist.get(i).getAttachUrl());
+		    	 item.setUserAvatarUrl(mslist.get(i).getFromAccountAvatarUrl());
 		    	 mMessageDatabaseHelperUtil.addChatMessage(item);     //保存到消息表
 		    	 
 		    	 mMessageItems.add(item);
