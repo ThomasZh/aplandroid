@@ -27,7 +27,9 @@ public class BadgeNumberQueryTask extends TemplateTask {
 				return false;
 			}
 			
-			iClubApplication.badgeNumber=resp.getBadgeNum().getInviteNum()+resp.getBadgeNum().getMessageNum()+resp.getBadgeNum().getTaskLogNum();
+			//iClubApplication.badgeNumber=resp.getBadgeNum().getInviteNum()+resp.getBadgeNum().getMessageNum()+resp.getBadgeNum().getTaskLogNum();
+			
+			iClubApplication.badgeNumber=resp.getBadgeNum().getMessageNum();//
 			
 			Log.e("app", "badge number: "+iClubApplication.badgeNumber);
 			
