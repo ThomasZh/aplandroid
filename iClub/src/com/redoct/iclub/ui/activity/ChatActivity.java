@@ -82,6 +82,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 	private String chatId;
 	private String toAccountId;
 	private boolean haveUnReadMessage;
+	
+	private MessageDatabaseHelperUtil mMessageDatabaseHelperUtil;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,8 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 		setContentView(R.layout.activity_chat);
 
 		mHandler = new Handler();
+		
+		mMessageDatabaseHelperUtil=new MessageDatabaseHelperUtil(this);
 
 		mActivityDetailsItem = (ActivityDetailsItem) getIntent()
 				.getSerializableExtra("ActivityDetails");
@@ -302,8 +306,18 @@ public class ChatActivity extends BaseActivity implements OnClickListener,
 								.getImageUrl());
 						item.setTimestamp(DatetimeUtil.currentTimestamp());
 						item.setUnReadNum(0);
-						new MessageDatabaseHelperUtil(ChatActivity.this)
-								.updateChatMessage(item);
+						
+						if(mMessageDatabaseHelperUtil.getUnReadNumWithChatId(AppConfig.account.getAccountId(),
+										item.getChatId())==-1){
+							Log.e("zyf", "create a new chat room......");
+							item.setChannelName(mActivityDetailsItem.getName());
+							item.setChannelType(channelType);
+							item.setChannelId(channelId);
+							mMessageDatabaseHelperUtil.addNewMessage(item);
+						}else {
+							mMessageDatabaseHelperUtil.updateChatMessage(item);
+						}
+						
 
 						new MessageDatabaseHelperUtil(ChatActivity.this)
 								.addChatMessage(item);

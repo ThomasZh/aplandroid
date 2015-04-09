@@ -146,6 +146,10 @@ public class MessageDatabaseHelperUtil {
 		values.put("unReadNum", item.getUnReadNum());
 		//values.put("userName", item.getUserName());   //暂时不需要更新话题名称
 		//values.put("inviteId", item.getInviteId());
+		if(item.getChannelName()!=null&&item.getChannelName().length()>0){
+			values.put("channelName", item.getChannelName());
+		}
+		
 		values.put("isAccept", item.getIsAccept());
 		values.put("isFeedback", item.getIsFeedback());
 

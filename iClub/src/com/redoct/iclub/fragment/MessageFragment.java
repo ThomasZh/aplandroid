@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.amap.api.services.route.RouteSearch.FromAndTo;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -584,6 +585,19 @@ public class MessageFragment extends Fragment{
 			messageItems.add(tempMessageItems.get(i));
 			
 			iClubApplication.badgeNumber+=tempMessageItems.get(i).getUnReadNum();
+		}
+		
+		//排序
+		MessageItem tempItem;
+		for(int i=0;i<messageItems.size();i++){
+			for(int j=i+1;j<messageItems.size();j++){
+				if(messageItems.get(i).getTimestamp()<messageItems.get(j).getTimestamp()){
+					
+					tempItem=messageItems.get(i);
+					messageItems.set(i, messageItems.get(j));
+					messageItems.set(j, tempItem);
+				}
+			}
 		}
 		
 		mBaseAdapter.notifyDataSetChanged();
